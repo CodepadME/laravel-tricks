@@ -1,0 +1,39 @@
+web1:
+  document_root: public
+  php_version: 5.4.14
+  php_upload_max_filesize: "10M"
+  php_post_max_size: "10M"
+  php_extensions:
+    - mbstring
+    - mcrypt
+    - curl
+    - gd
+    - pdo_mysql
+    - redis
+    - zip
+    - xcache
+  php_session_save_handler: redis
+  php_session_save_path: "tcp://tunnel.pagodabox.com:6379"
+  shared_writable_dirs:
+    - app/storage/cache
+    - app/storage/logs
+    - app/storage/meta
+    - app/storage/sessions
+    - app/storage/views
+    - public/img/screenshots
+    - public/img/avatars
+    - public/img/avatar
+    - public/img/screenshots/temp
+  after_build:
+    - "if [ ! -f composer.phar ]; then curl -s http://getcomposer.org/installer | php; fi; php composer.phar install --prefer-source"
+  after_deploy:
+    - "rm -f app/storage/cache/*"
+    - "php artisan cache:clear"
+    - "rm -f app/storage/views/*"
+  before_deploy:
+    - "php artisan migrate"
+cache1:
+  type: redis
+
+db1:
+  type: mysql

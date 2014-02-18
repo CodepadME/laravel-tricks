@@ -1,0 +1,211 @@
+html,
+body {
+ height: 100%;
+ /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+ min-height: 100%;
+ height: auto !important;
+ height: 100%;
+ /* Negative indent footer by its height */
+ margin: 0 auto -60px;
+ /* Pad bottom by footer height */
+ padding: 0 0 60px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+ height: 60px;
+ background-color: #f5f5f5;
+} 
+
+.container .credit {
+  margin: 20px 0;
+}
+
+#footer > .container {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.device-mockup {
+  position: relative;
+  width: 100%;
+  padding-bottom: 61.775701%;
+}
+
+.device-mockup > .device {
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+  width: 100%; height: 100%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-image: url("macbook/macbook.png");
+}
+
+.device-mockup > .device > .screen {
+  position: absolute;
+  top:    11.0438729%;
+  bottom: 14.6747352%;
+  left:   13.364486%;
+  right:  13.364486%;
+  overflow: hidden;
+}
+
+.device-mockup > .device > .button {
+  position: absolute;
+  top: 0; left: 0;
+  display: none;
+  overflow: hidden;
+  border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  cursor: pointer;
+}
+
+
+        
+
+/* DEVICES */
+
+
+/* iMac */
+.device-mockup.imac {
+  padding-bottom: 81.230769%;
+}
+
+.device-mockup.imac > .device {
+  background-image: url("imac/imac.png");
+}
+
+.device-mockup.imac > .device > .screen {
+  top: 8.20707071%; bottom: 31.6919192%; left: 6.61538462%; right: 6.61538462%;
+}
+
+
+/* MacBook Pro */
+.device-mockup.macbook {
+  padding-bottom: 61.775701%;
+}
+
+.device-mockup.macbook > .device {
+  background-image: url("macbook/macbook.png");
+}
+
+.device-mockup.macbook > .device > .screen {
+  top: 11.0438729%; bottom: 14.6747352%; left: 13.364486%; right: 13.364486%;
+}
+
+
+.tag-item a:hover{
+  background-color: #16a085 !important;
+}
+
+.carousel-caption {
+  z-index: 10;
+}
+
+.carousel-control{
+    color: #FF0000;
+    text-shadow: none;
+}
+.carousel-control.left {
+  background-image: none;
+}
+
+.carousel-control.right {
+  background-image: none;
+}
+
+.carousel-control:hover,
+.carousel-control:focus {
+  color: #FF0000;
+  text-decoration: none;
+  opacity: 0.9;
+  filter: alpha(opacity=90);
+}
+
+.carousel-control .icon-prev,
+.carousel-control .icon-next,
+.carousel-control .glyphicon-chevron-left,
+.carousel-control .glyphicon-chevron-right {
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  z-index: 5;
+  display: inline-block;
+}
+
+.carousel-indicators li {
+    background-color: #FFF;
+    border: 1px solid #FFB0B0;
+}
+.carousel-indicators .active {
+    background-color: #EE3535;
+}
+
+@media (max-width: 767px) {
+  .carousel-control .icon-prev,
+  .carousel-control .icon-next,
+  .carousel-control .glyphicon-chevron-left,
+  .carousel-control .glyphicon-chevron-right {
+    left: 33%;
+  }
+}
+
+.navbar-brand
+{
+    padding: 0 15px;
+    line-height: 60px;
+}
+
+
+
+
+.bs-top-callout {
+  padding-top: 15px;
+  color: #777;
+  background-color: #F1F1F1;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 20px;
+}
+
+.bs-callout {
+  margin: 20px 0;
+  padding: 15px 30px 15px 15px;
+  border-left: 5px solid #eee;
+}
+.bs-callout h4 {
+  margin-top: 0;
+}
+.bs-callout p:last-child {
+  margin-bottom: 0;
+}
+.bs-callout code,
+.bs-callout .highlight {
+  background-color: #fff;
+}
+
+.bs-callout-danger {
+  background-color: #fcf2f2;
+  border-color: #dFb5b4;
+  color:#b94a48;
+}
+.bs-callout-warning {
+  background-color: #FFEFA3;
+  border-color: #f1e7bc;
+  color: #9B8017;
+}
+.bs-callout-info {
+  background-color: #f0f7fd;
+  border-color: #d0e3f0;
+  color: #4D72AA;
+}
+
+.bs-callout-success {
+  background-color: #8AE287;
+  border-color: #3BB65C;
+}

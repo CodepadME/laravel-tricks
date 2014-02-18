@@ -1,0 +1,450 @@
+::selection {
+    background-color: rgba(251,80,59,.6);
+    color: #fff;
+}
+::-moz-selection {
+    background-color: rgba(251,80,59,.6);
+    color: #fff;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background-color: #eee;
+    color: #33383A;
+    font-size: 14px;
+}
+
+h1.page-title {
+    color: #FB503B;
+    font-weight: 300;
+    font-size: 32px;
+    margin: 0 0 10px 0;
+    text-align: center;
+}
+
+h3.content-title {
+    color: #FB503B;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.login-form .form-control,
+.register-form .form-control{
+    font-size: 16px;
+}
+.form-control {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    box-shadow: none;
+}
+.form-control:focus {
+    box-shadow: none;
+}
+
+.alert-danger {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border-width: 0;
+    color: #FB503B;
+    background-color: #f5f5f5;
+    border-left-color: #FB503B;
+    border-left-width: 3px;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.2);
+    -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,.2);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.2);
+}
+
+.btn-primary.btn-login {
+    margin-top: 30px !important;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    border-color: #FB503B;
+    color: #FB503B;
+}
+
+.btn-primary.btn-login:hover,
+.btn-primary.btn-login:focus,
+.btn-primary.btn-login:active {
+    background-color: #FB503B;
+    color: white;
+}
+.btn {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+.btn-default.btn-login-github{
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.content-box h1.page-title {
+    display: block;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+h2.title-between {
+    display: block;
+    margin: 10px 0 10px 0;
+    text-align: left;
+    color: #33383A;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.trick-user {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.no-push-down {
+    margin-bottom: 0 !important;
+}
+
+.trick-user-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 100%;
+}
+
+.user-avatar {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -25px;
+    width: 50px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.user-avatar-mini { vertical-align: middle; }
+
+.trick-user h1.page-title {
+    margin-bottom: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+.trick-user {
+    display: block;
+    position: relative;
+}
+.trick-user-data {
+    position: relative;
+    margin-left: 60px;
+}
+
+.list-group.trick-stats .list-group-item {
+    border: 0;
+}
+
+.navbar-default {
+    background-color: white;
+    height: 100px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.1);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.1);
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+
+.navbar-brand {
+    padding: 25px 20px 25px 20px;
+
+}
+
+.navbar a, .navbar button, .navbar .icon-bar, .tag, .btn-login {
+    -webkit-transition: color, border-color, background-color .2s ease-in-out;
+    -moz-transition: color, border-color, background-color .2s ease-in-out;
+    -ms-transition: color, border-color, background-color .2s ease-in-out;
+    -o-transition: color, border-color, background-color .2s ease-in-out;
+    transition: color, border-color, background-color .2s ease-in-out;
+}
+
+.btn-primary {
+    border-color: #FB503B;
+    color: #FB503B;
+}
+
+.navbar-default .navbar-toggle {
+    margin-top: 32px;
+    margin-bottom: 32px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border-color: #FB503B;
+}
+
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:active,
+.navbar-default .navbar-toggle:focus {
+    background-color: #FB503B;
+    border-color: transparent;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #FB503B;
+}
+
+.navbar-default .navbar-toggle:hover .icon-bar,
+.navbar-default .navbar-toggle:active .icon-bar,
+.navbar-default .navbar-toggle:focus .icon-bar {
+    background-color: #fff;
+}
+
+.navbar-default .navbar-collapse {
+    background-color: #fff;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.1);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.1);
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+    border-top: 0;
+}
+
+.navbar-default .navbar-nav li a {
+    text-align: center;
+    text-transform: uppercase;
+    color: #33383A;
+    font-size: 14px;
+    opacity: 0.6;
+}
+
+.navbar-default .navbar-nav li.active a,
+.navbar-default .navbar-nav li.active a:hover {
+    background-color: #FB503B;
+    font-weight: bold;
+    opacity: 1;
+}
+
+.navbar-default .navbar-nav li a:hover {
+    opacity: 1;
+    color: #33383A;
+}
+
+.trick-card-title {
+    display: block;
+    font-weight: bold;
+    color: #33383A;
+    font-size: 20px;
+    padding: 20px;
+}
+
+.trick-card-title a{
+    color: #33383A;
+}
+
+.trick-card-stats, .trick-card-tags {
+    width: 100%;
+    border-top: #eee 1px solid;
+    padding: 10px 20px;
+    font-size: 13px;
+}
+
+.trick-card-stats {
+    color: #777;
+}
+
+.trick-card-timeago {
+    display: block;
+    color: #999;
+}
+
+.trick-card-stat-block {
+    height: 20px;
+    line-height: 20px;
+    float: left;
+    width: 33.333%;
+}
+
+.trick-card-stat-block img {
+    vertical-align: top;
+    margin-right: 5px;
+}
+
+
+.trick-card-by
+{
+    border: none;
+    padding-top:0;
+}
+
+.tag {
+    float: left;
+    display: block;
+    border: #FB503B 1px solid;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    color: #FB503B;
+    font-weight: bold;
+    padding: 1px 5px;
+}
+
+.tag + .tag { margin-left: 5px; }
+
+.tag:hover {
+    text-decoration: none;
+    border-color: none;
+    color: white;
+    background-color: #FB503B;
+}
+
+.trick-card-inner, .content-box {
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.trick-card-inner:hover {
+    -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.30);
+    -moz-box-shadow: 0 1px 4px rgba(0,0,0,.30);
+    box-shadow: 0 1px 4px rgba(0,0,0,.30);
+    cursor: pointer;
+}
+.trick-card-inner .fa {
+    font-size: 14px;
+    margin-right: 5px;
+}
+.trick-card-inner:hover .trick-card-title,
+.trick-card-title a:hover,
+.trick-card-inner:hover .fa {
+    color: #FB503B;
+}
+
+.push-down {
+    margin-bottom: 10px;
+}
+
+.search-box {
+    background: white;
+    float: left;
+    border-color: transparent;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.1);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.1);
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    font-size: 16px;
+    padding-left: 30px;
+    font-weight: normal;
+    background: url(../img/icon-search.png) no-repeat 0 center #fff;
+}
+
+.search-box:focus,
+.search-box:active {
+    border: #FB503B 1px solid;
+}
+
+.trick-card {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.content-box {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.nav.nav-pills > li {
+    float: none;
+}
+@media (min-width: 768px) {
+    .nav.nav-pills > li {
+        float: left;
+    }
+    h1.page-title {
+        display: inline-block;
+        margin: 0;
+    }
+    .navbar-default .navbar-collapse {
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        background-color: transparent;
+    }
+    .navbar-default .navbar-nav li a {
+        padding: 40px 10px;
+    }
+
+    .navbar-default .navbar-nav li.active a,
+    .navbar-default .navbar-nav li.active a:hover {
+        border-bottom: #FB503B 3px solid;
+        padding-bottom: 37px;
+        color: #33383A;
+        background-color: transparent;
+    }
+}
+
+.navbar-default .btn-primary {
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: bold;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    margin: 33px 0;
+    background-color: transparent;
+}
+
+.navbar-default .btn-primary.dropdown-toggle {
+    padding: 5px;
+    line-height: 26px;
+    margin-top: 28px;
+    margin-bottom: 28px;
+}
+
+
+
+.navbar-default .btn-primary + .btn-primary {
+    margin-left: 5px;
+}
+
+.navbar-default .btn-primary:hover {
+    color: white;
+    border-color: transparent;
+    background-color: #FB503B;
+}
+
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -60px;
+    padding: 0 0 60px;
+}
+
+#footer {
+    height: 60px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 -1px 2px rgba(0,0,0,.1);
+    -moz-box-shadow: 0 -1px 2px rgba(0,0,0,.1);
+    box-shadow: 0 -1px 2px rgba(0,0,0,.1);
+}
+
+.container .credit {
+    margin: 20px 0;
+}
+
+#footer > .container {
+    padding-left: 15px;
+    padding-right: 15px;
+}

@@ -1,0 +1,152 @@
+<?php
+
+namespace Controllers;
+
+use Tricks\Repositories\TagRepositoryInterface;
+use Tricks\Repositories\TrickRepositoryInterface;
+use Tricks\Repositories\CategoryRepositoryInterface;
+
+class BrowseController extends BaseController
+{
+    /**
+     * Category repository.
+     *
+     * @var \Tricks\Repositories\CategoryRepositoryInterface
+     */
+    protected $categories;
+
+    /**
+     * Tags repository.
+     *
+     * @var \Tricks\Repositories\TagRepositoryInterface
+     */
+    protected $tags;
+
+    /**
+     * Trick repository.
+     *
+     * @var \Tricks\Repositories\TrickRepositoryInterface
+     */
+    protected $tricks;
+
+    /**
+     * Create a new BrowseController instance.
+     *
+     * @param  \Tricks\Repositories\CategoryRepositoryInterface  $categories
+     * @param  \Tricks\Repositories\TagRepositoryInterface  $tags
+     * @param  \Tricks\Repositories\TrickRepositoryInterface  $tricks
+     * @return void
+     */
+    public function __construct(
+        CategoryRepositoryInterface $categories,
+        TagRepositoryInterface $tags,
+        TrickRepositoryInterface $tricks
+    ) {
+        parent::__construct();
+
+        $this->categories = $categories;
+        $this->tags       = $tags;
+        $this->tricks     = $tricks;
+    }
+
+    /**
+     * Show the categories index.
+     *
+     * @return \Response
+     */
+    public function getCategoryIndex()
+    {
+        $categories = $this->categories->findAllWithTrickCount();
+
+        $this->view('browse.categories', compact('categories'));
+    }
+
+    /**
+     * Show the browse by category page.
+     *
+     * @param  string  $category
+     * @return \Response
+     */
+    public function getBrowseCategory($category)
+    {
+        list($category, $tricks) = $this->tricks->findByCategory($category);
+
+        $type      = 'Category "'.$category->name.'"';
+        $pageTitle = 'Browsing Category "' . $category->name . '"';
+
+        $this->view('browse.index', compact('tricks', 'type', 'pageTitle'));
+    }
+
+    /**
+     * Show the tags index.
+     *
+     * @return \Response
+     */
+    public function getTagIndex()
+    {
+        $tags = $this->tags->findAllWithTrickCount();
+
+        $this->view('browse.tags', compact('tags'));
+    }
+
+    /**
+     * Show the browse by tag page.
+     *
+     * @param  string  $tag
+     * @return \Response
+     */
+    public function getBrowseTag($tag)
+    {
+        list($tag, $tricks) = $this->tricks->findByTag($tag);
+
+        $type      = 'Tag "'.$tag->name.'"';
+        $pageTitle = 'Browsing Tag "' . $tag->name . '"';
+
+        $this->view('browse.index', compact('tricks', 'type', 'pageTitle'));
+    }
+
+    /**
+     * Show the browse recent tricks page.
+     *
+     * @return \Response
+     */
+    public function getBrowseRecent()
+    {
+        $tricks = $this->tricks->findMostRecent();
+
+        $type      = 'Recent';
+        $pageTitle = 'Browsing Most Recent Laravel Tricks';
+
+        $this->view('browse.index', compact('tricks', 'type', 'pageTitle'));
+    }
+
+    /**
+     * Show the browse popular tricks page.
+     *
+     * @return \Response
+     */
+    public function getBrowsePopular()
+    {
+        $tricks = $this->tricks->findMostPopular();
+
+        $type      = 'Popular';
+        $pageTitle = 'Browsing Most Popular Laravel Tricks';
+
+        $this->view('browse.index', compact('tricks', 'type', 'pageTitle'));
+    }
+
+    /**
+     * Show the browse most commented tricks page.
+     *
+     * @return \Response
+     */
+    public function getBrowseComments()
+    {
+        $tricks = $this->tricks->findMostCommented();
+
+        $type      = 'Most commented';
+        $pageTitle = 'Browsing Most Commented Laravel Tricks';
+
+        $this->view('browse.index', compact('tricks', 'type', 'pageTitle'));
+    }
+}

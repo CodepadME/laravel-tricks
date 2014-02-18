@@ -1,0 +1,1 @@
+privacy.blade.php
