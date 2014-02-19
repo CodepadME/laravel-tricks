@@ -26,7 +26,7 @@ class CategoriesTableSeeder extends Seeder {
             [ 'category_id' => '2', 'trick_id' => '1' ],
             [ 'category_id' => '1', 'trick_id' => '2' ],
             [ 'category_id' => '2', 'trick_id' => '3' ],
-        ])
+        ]);
     }
 }
 
