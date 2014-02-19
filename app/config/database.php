@@ -114,7 +114,7 @@ return array(
 		'cluster' => true,
 
 		'default' => array(
-			'host'     => 'tunnel.pagodabox.com',
+			'host'     => '127.0.0.1',
 			'port'     => 6379,
 			'database' => 0,
 		),
