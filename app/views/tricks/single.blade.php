@@ -101,7 +101,7 @@ $(function(){$(".js-like-trick").click(function(e){e.preventDefault();if($(this)
 					<div class="col-lg-9 col-md-8">
 						<div id="disqus_thread"></div>
 						<script type="text/javascript">
-							var disqus_shortname = 'laraveltricks';
+							var disqus_shortname = 'YOUR DISQUIS SHORTNAME HERE';
 							var disqus_identifier = '{{$trick->id}}';
 
 							(function() {
