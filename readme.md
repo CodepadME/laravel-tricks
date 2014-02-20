@@ -55,7 +55,7 @@ To get started and start making something of your own using this repository as a
 
     ));
     ```
-- If you want to use Github OAuth for login and registration, make sure to [create a Github application](https://github.com/settings/applications/new) first and provide its client ID and client secret to the config in `app/config/social.php`
+- If you want to use Github OAuth for login and registration, make sure to [create a Github application](https://github.com/settings/applications/new) first and provide its client ID and client secret to the config in `app/config/social.php`. Also make sure you're using http://<your-site.com>/login/github for Authorization callback URL
 
 After this simple configuration you can populate the database by running a couple commands shown below.
 
