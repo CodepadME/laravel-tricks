@@ -5,9 +5,8 @@ namespace Tricks\Services\Feeds;
 use Illuminate\Http\Response;
 use Illuminate\View\Environment;
 use Tricks\Repositories\TrickRepositoryInterface;
-use Illuminate\Support\Contracts\RenderableInterface;
 
-class Builder implements RenderableInterface
+class Builder
 {
     /**
      * The feed type to build.
