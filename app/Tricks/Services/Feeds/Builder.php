@@ -88,8 +88,10 @@ class Builder
      *
      * @return \Illuminate\Http\Response
      */
-    public function render()
+    public function render($type)
     {
+        $this->setType($type);
+
         $data = $this->getFeedData();
         $view = $this->prepareView($data);
 

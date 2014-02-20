@@ -33,9 +33,7 @@ class FeedsController extends BaseController
      */
     public function getAtom()
     {
-        $this->builder->setType('atom');
-
-        return $this->builder->render();
+        return $this->builder->render('atom');
     }
 
     /**
@@ -45,8 +43,6 @@ class FeedsController extends BaseController
      */
     public function getRss()
     {
-        $this->builder->setType('rss');
-
-        return $this->builder->render();
+        return $this->builder->render('rss');
     }
 }
