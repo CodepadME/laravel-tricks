@@ -2,39 +2,40 @@
 
 namespace Controllers;
 
-use Illuminate\Support\Facades\Response;
-use Tricks\Repositories\TrickRepositoryInterface;
+use Tricks\Services\Feeds\Builder;
 
 class FeedsController extends BaseController
 {
     /**
-     * Trick repository.
+     * Feed builder instance.
      *
-     * @var \Tricks\Repositories\TrickRepositoryInterface
+     * @var \Tricks\Services\Feeds\Builder
      */
-    protected $tricks;
+    protected $builder;
 
     /**
      * Create a new FeedsController instance.
      *
-     * @param  \Tricks\Repositories\TrickRepositoryInterface  $tricks
+     * @param  \Tricks\Services\Feeds\Builder  $builder
      * @return void
      */
-    public function __construct(TrickRepositoryInterface $tricks)
+    public function __construct(Builder $builder)
     {
         parent::__construct();
 
-        $this->tricks = $tricks;
+        $this->builder = $builder;
     }
 
     /**
      * Show the ATOM feed.
      *
-     * @return void
+     * @return \Response
      */
     public function getAtom()
     {
-        return $this->buildFeed('atom');
+        $this->builder->setType('atom');
+
+        return $this->builder->render();
     }
 
     /**
@@ -44,33 +45,8 @@ class FeedsController extends BaseController
      */
     public function getRss()
     {
-        return $this->buildFeed('rss');
-    }
+        $this->builder->setType('rss');
 
-    /**
-     * Build the specified type of feed (ATOM or RSS).
-     *
-     * @param  string $type
-     * @return \Response
-     */
-    private function buildFeed($type)
-    {
-        $data['tricks'] = $this->tricks->findForFeed();
-        $contentType    = $this->getContentType($type);
-
-        return Response::view("feeds.{$type}", $data, 200, [
-            'Content-Type' => $contentType . '; charset=UTF-8'
-        ]);
-    }
-
-    /**
-     * Get the correct Content-Type for the specified type.
-     *
-     * @param  string $type
-     * @return string
-     */
-    private function getContentType($type)
-    {
-        return ($type == 'atom') ? 'application/atom+xml' : 'application/rss+xml';
+        return $this->builder->render();
     }
 }
