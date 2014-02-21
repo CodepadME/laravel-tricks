@@ -110,12 +110,13 @@ return array(
 		'McCool\LaravelAutoPresenter\LaravelAutoPresenterServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
 		'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider',
+        'Roumen\Sitemap\SitemapServiceProvider',
+
 		'Tricks\Providers\RepositoryServiceProvider',
 		'Tricks\Providers\SocialServiceProvider',
         'Tricks\Providers\UploadServiceProvider',
 		'Tricks\Providers\NavigationServiceProvider',
-
-		'Roumen\Sitemap\SitemapServiceProvider',
+        'Tricks\Providers\SitemapServiceProvider',
 	),
 
 	/*
