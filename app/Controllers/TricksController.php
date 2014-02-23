@@ -72,12 +72,22 @@ class TricksController extends BaseController
         }
 
         $user = Auth::user();
-        $user = $trick->votes()->attach($user->id, [
-            'created_at' => new \DateTime,
-            'updated_at' => new \DateTime
-        ]);
+        
+        $voted = $trick->votes()->whereUserId($user->id)->first();
 
-        $trick->vote_cache = $trick->vote_cache + 1;
+        if(!$voted) {
+
+            $user = $trick->votes()->attach($user->id, [
+                'created_at' => new \DateTime,
+                'updated_at' => new \DateTime
+            ]);
+            $trick->vote_cache = $trick->vote_cache + 1;
+
+        } else {
+            $trick->votes()->detach($voted->id);
+            $trick->vote_cache = $trick->vote_cache - 1;
+        }
+
         $trick->save();
 
         return Response::make($trick->vote_cache, 200);
