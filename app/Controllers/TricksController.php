@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
@@ -48,7 +49,7 @@ class TricksController extends BaseController
             return $this->redirectRoute('home');
         }
 
-        $trick = $this->incrementViews($trick);
+        Event::fire('trick.view', $trick);
 
         $this->view('tricks.single', compact('trick'));
     }
@@ -72,7 +73,7 @@ class TricksController extends BaseController
         }
 
         $user = Auth::user();
-        
+
         $voted = $trick->votes()->whereUserId($user->id)->first();
 
         if(!$voted) {
@@ -91,25 +92,5 @@ class TricksController extends BaseController
         $trick->save();
 
         return Response::make($trick->vote_cache, 200);
-    }
-
-    /**
-     * Increment the view count on the given trick.
-     *
-     * @param  \Trick $trick
-     * @return \Trick
-     */
-    private function incrementViews($trick)
-    {
-        $viewed = Session::get('viewed_tricks', []);
-
-        if (! array_key_exists($trick->id, $viewed)) {
-            $trick = $this->tricks->incrementViews($trick);
-        }
-
-        $viewed[$trick->id] = time();
-        Session::put('viewed_tricks', $viewed);
-
-        return $trick;
     }
 }

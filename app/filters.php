@@ -83,17 +83,4 @@ Route::filter('csrf', function () {
 	}
 });
 
-Route::filter('trick.view_throttle', function() {
-	if (! is_null($trickIds = Session::get('viewed_tricks', null))) {
-		$expireTime = time() + Config::get('config.view_expire_time');
-		$temp       = $trickIds;
-
-		foreach ($trickIds as $id => $timestamp) {
-			if ($timestamp < $expireTime) {
-				unset($temp[$id]);
-			}
-		}
-
-		Session::put('viewed_tricks', $temp);
-	}
-});
+Route::filter('trick.view_throttle', 'Tricks\Filters\ViewThrottleFilter');

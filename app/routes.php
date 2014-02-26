@@ -1,7 +1,7 @@
 <?php
 # Route filters
 Route::when('admin/*', 'admin');
-Route::when('*', 'tricks.view_throttle');
+Route::when('*', 'trick.view_throttle');
 
 # Route patterns
 Route::pattern('tag_slug', '[a-z0-9\-]+');

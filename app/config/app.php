@@ -117,6 +117,7 @@ return array(
         'Tricks\Providers\UploadServiceProvider',
         'Tricks\Providers\NavigationServiceProvider',
         'Tricks\Providers\SitemapServiceProvider',
+        'Tricks\Providers\EventServiceProvider',
     ),
 
     /*
