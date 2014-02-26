@@ -16,6 +16,9 @@
 				<div class="col-md-6">
 					<h2>Who?</h2>
 					<p>Laravel Tricks website was created by <a target="_blank" href="http://twitter.com/stidges">Stidges</a> and <a target="_blank" href="http://twitter.com/msurguy">Maks Surguy</a>  in November 2013</p>
+
+					<h3>Want the source?</h3>
+					The source of this website is available on <a target="_blank" href="https://github.com/CodepadME/laravel-tricks" title="Get the source of this site">Github</a>.
 				</div>
 			</div>
 			<div class="row">

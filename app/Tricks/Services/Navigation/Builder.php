@@ -54,9 +54,8 @@ class Builder
                 $isActive = $hasActive = true;
             }
 
-            if ($this->maySeeItem($item)) {
-                $html .= $this->getNavigationItem($item, $isActive);
-            }
+
+            $html .= $this->getNavigationItem($item, $isActive);
         }
 
         return $html;
@@ -127,18 +126,5 @@ class Builder
         $class = $isActive ? ' class="active"' : '';
 
         return '<li' . $class . '>' . $anchor . '</li>';
-    }
-
-    /**
-     * Returns whether the given item should be visible to the user.
-     *
-     * @param  array  $item
-     * @return bool
-     */
-    protected function maySeeItem(array $item)
-    {
-        if ( ! isset($item['logged_in'])) return true;
-
-        return $item['logged_in'] && $this->auth->check();
     }
 }

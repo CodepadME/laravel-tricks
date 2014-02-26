@@ -262,6 +262,7 @@ h2.title-between {
 .trick-card-timeago {
     display: block;
     color: #999;
+    padding-bottom: 5px;
 }
 
 .trick-card-stat-block {

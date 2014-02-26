@@ -16,7 +16,7 @@
         <meta name="description" content="@yield('description')">
         <meta name="author" content="Stidges, @stidges and Maks Surguy, @msurguy">
         <title>@yield('title') | Laravel-Tricks.com</title>
-        <link rel="stylesheet" href="{{ URL::asset('css/laratricks.min.3.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('css/laratricks.min.4.css') }}">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         @yield('styles')
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -40,7 +40,7 @@
           m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
           })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-XXXX-Y', 'auto');
+        ga('create', '{{ Config::get("config.analytics_property_id") }}', 'auto');
         ga('send', 'pageview');
 
         </script>
@@ -48,7 +48,7 @@
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
         @yield('scripts')
         <script type="text/javascript">
-            var disqus_shortname = 'YOUR DISQUS SHORTNAME HERE';
+            var disqus_shortname = '{{ Config::get("config.disqus_shortname") }}';
             (function(){var e=document.createElement("script");e.async=true;e.type="text/javascript";e.src="//"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("HEAD")[0]||document.getElementsByTagName("BODY")[0]).appendChild(e)})()
         </script>
     </body>

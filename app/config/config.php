@@ -7,6 +7,9 @@ return array(
 	'version' => '1.0.0',
 	'version_date' => 'February 19, 2014',
 
+	'analytics_property_id' => 'UA-XXXX-Y',
+	'disqus_shortname'      => 'Your Disqus shortname here',
+
 	// Admin email (the notifications are sent to this email, also see the mail.php config for the "From" address)
 	'admin_email' => '',
 
