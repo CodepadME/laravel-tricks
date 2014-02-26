@@ -101,7 +101,7 @@
 					<div class="col-lg-9 col-md-8">
 						<div id="disqus_thread"></div>
 						<script type="text/javascript">
-							var disqus_shortname = 'YOUR DISQUS SHORTNAME HERE';
+							var disqus_shortname = '{{ Config::get("config.disqus_shortname") }}';
 							var disqus_identifier = '{{$trick->id}}';
 
 							(function() {

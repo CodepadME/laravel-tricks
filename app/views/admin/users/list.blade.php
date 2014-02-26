@@ -5,7 +5,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="page-header">
-				<h1>Showing all users ({{ $users->count() }})</h1>
+				<h1>Showing all users ({{ $users->getTotal() }})</h1>
 			</div>
 		</div>
 	</div>
