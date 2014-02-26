@@ -3,14 +3,14 @@
 @section('content')
 <div class="container">
 	<div class="row">
-		<div class="col-lg-12"> 
+		<div class="col-lg-12">
 			<div class="page-header">
-			  <h1>Showing all users ({{User::count()}})</h1>
+				<h1>Showing all users ({{ $users->count() }})</h1>
 			</div>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-12"> 
+		<div class="col-lg-12">
 			<table class="table">
 			   	<thead>
 			    	<tr>
