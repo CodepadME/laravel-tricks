@@ -51,7 +51,10 @@ class TricksController extends BaseController
 
         Event::fire('trick.view', $trick);
 
-        $this->view('tricks.single', compact('trick'));
+        $next = $this->tricks->findNextTrick($trick);
+        $prev = $this->tricks->findPreviousTrick($trick);
+
+        $this->view('tricks.single', compact('trick', 'next', 'prev'));
     }
 
     /**

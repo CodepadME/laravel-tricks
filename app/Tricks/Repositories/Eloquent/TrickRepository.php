@@ -312,6 +312,38 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
     }
 
     /**
+     * Find the next trick that was added after the given trick.
+     *
+     * @param  \Tricks\Trick  $trick
+     * @return \Tricks\Trick|null
+     */
+    public function findNextTrick(Trick $trick)
+    {
+        $next = $this->model->where('created_at', '>=', $trick->created_at)
+                            ->where('id', '<>', $trick->id)
+                            ->orderBy('created_at', 'asc')
+                            ->first([ 'slug', 'title' ]);
+
+        return $next;
+    }
+
+    /**
+     * Find the previous trick added before the given trick.
+     *
+     * @param  \Tricks\Trick  $trick
+     * @return \Tricks\Trick|null
+     */
+    public function findPreviousTrick(Trick $trick)
+    {
+        $prev = $this->model->where('created_at', '<=', $trick->created_at)
+                            ->where('id', '<>', $trick->id)
+                            ->orderBy('created_at', 'desc')
+                            ->first([ 'slug', 'title' ]);
+
+        return $prev;
+    }
+
+    /**
      * Get the trick creation form service.
      *
      * @return \Tricks\Services\Forms\TrickForm

@@ -146,4 +146,20 @@ interface TrickRepositoryInterface
      * @return array
      */
     public function findByTag($slug, $perPage = 9);
+
+    /**
+     * Find the next trick that was added after the given trick.
+     *
+     * @param  \Tricks\Trick  $trick
+     * @return \Tricks\Trick|null
+     */
+    public function findNextTrick(Trick $trick);
+
+    /**
+     * Find the previous trick added before the given trick.
+     *
+     * @param  \Tricks\Trick  $trick
+     * @return \Tricks\Trick|null
+     */
+    public function findPreviousTrick(Trick $trick);
 }
