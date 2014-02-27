@@ -11,14 +11,14 @@
 
                 if (!liked) {
 
-                    $('.js-like-trick .fa').removeClass('text-red');
+                    $('.js-like-trick .fa').removeClass('text-primary');
 
                     $('.js-like-trick').data('liked', '0');
 
                     $('.js-like-status').html('Like this?');
                 } else {
 
-                    $('.js-like-trick .fa').addClass('text-red');
+                    $('.js-like-trick .fa').addClass('text-primary');
 
                     $('.js-like-trick').data('liked', '1');
 
