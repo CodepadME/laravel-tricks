@@ -3,9 +3,9 @@
 namespace Tricks\Repositories\Eloquent;
 
 use Tricks\Tag;
-use Tricks\Services\Forms\TagForm;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Str;
+use Tricks\Services\Forms\TagForm;
 use Tricks\Exceptions\TagNotFoundException;
 use Tricks\Repositories\TagRepositoryInterface;
 
