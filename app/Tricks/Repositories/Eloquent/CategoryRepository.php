@@ -3,8 +3,8 @@
 namespace Tricks\Repositories\Eloquent;
 
 use Tricks\Category;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Str;
 use Tricks\Services\Forms\CategoryForm;
 use Tricks\Exceptions\CategoryNotFoundException;
 use Tricks\Repositories\CategoryRepositoryInterface;
