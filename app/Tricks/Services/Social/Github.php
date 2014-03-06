@@ -2,6 +2,7 @@
 
 namespace Tricks\Services\Social;
 
+use Illuminate\Config\Repository;
 use Tricks\Repositories\UserRepositoryInterface;
 use Tricks\Repositories\ProfileRepositoryInterface;
 use Tricks\Exceptions\GithubEmailNotVerifiedException;
@@ -31,6 +32,13 @@ class Github
     protected $users;
 
     /**
+     * Config repository.
+     *
+     * @var \Illuminate\Config\Repository
+     */
+    protected $config;
+
+    /**
      * Create a new Github registration instance.
      *
      * @param  \League\OAuth2\Client\Provider\Github  $provider
@@ -40,12 +48,27 @@ class Github
      */
     public function __construct(
         GithubProvider $provider,
+        Repository $config,
         UserRepositoryInterface $users,
         ProfileRepositoryInterface $profiles
     ) {
         $this->provider = $provider;
+        $this->config   = $config;
         $this->users    = $users;
         $this->profiles = $profiles;
+    }
+
+    /**
+     * Get a config item.
+     *
+     * @param  mixed $key
+     * @return mixed
+     */
+    protected function getConfig($key = null)
+    {
+        $key = is_null($key) ? '' : '.' . $key;
+
+        return $this->config->get('social.github' . $key);
     }
 
     /**
@@ -113,13 +136,14 @@ class Github
     protected function getVerifiedEmails($token)
     {
         $ch = curl_init('https://api.github.com/user/emails?access_token='.$token);
+        $userAgent  = $this->getConfig('user_agent');
 
         $options = [
             CURLOPT_RETURNTRANSFER  => true,
             CURLOPT_HTTPHEADER      => [
                 'Content-type: application/json',
                 'Accept: application/vnd.github.v3',
-                'User-Agent: msurguy'
+                'User-Agent: '.$userAgent
             ]
         ];
 
