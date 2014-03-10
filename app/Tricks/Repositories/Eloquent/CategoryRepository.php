@@ -23,7 +23,7 @@ class CategoryRepository extends AbstractRepository implements CategoryRepositor
     }
 
     /**
-     * Get an array of key-value pairs of all tags.
+     * Get an array of key-value pairs of all categories.
      *
      * @return array
      */
