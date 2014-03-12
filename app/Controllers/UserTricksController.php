@@ -111,7 +111,7 @@ class UserTricksController extends BaseController
     }
 
     /**
-     * Handle the editting of a trick.
+     * Handle the editing of a trick.
      *
      * @param  string $slug
      * @return \Illuminate\Http\RedirectResponse

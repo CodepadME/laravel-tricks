@@ -90,7 +90,7 @@ class CategoriesController extends BaseController
     }
 
     /**
-     * Handle the editting of a category.
+     * Handle the editing of a category.
      *
      * @param  mixed $id
      * @return \Illuminate\Http\RedirectResponse

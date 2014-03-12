@@ -86,7 +86,7 @@ class TagsController extends BaseController
     }
 
     /**
-     * Handle the editting of a tag.
+     * Handle the editing of a tag.
      *
      * @param  mixed $id
      * @return \Illuminate\Http\RedirectResponse
