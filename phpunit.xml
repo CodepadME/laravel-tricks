@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit backupGlobals="false"
-         backupStaticAttributes="false"
-         bootstrap="bootstrap/autoload.php"
-         colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="true"
-         syntaxCheck="false"
+  backupStaticAttributes="false"
+  bootstrap="bootstrap/testing.php"
+  colors="true"
+  convertErrorsToExceptions="true"
+  convertNoticesToExceptions="true"
+  convertWarningsToExceptions="true"
+  processIsolation="false"
+  stopOnFailure="true"
+  syntaxCheck="false"
 >
-    <testsuites>
-        <testsuite name="Application Test Suite">
-            <directory>./app/tests/</directory>
-        </testsuite>
-    </testsuites>
+  <testsuites>
+    <testsuite name="Application Test Suite">
+      <directory>app/tests</directory>
+    </testsuite>
+  </testsuites>
+  <filter>
+    <whitelist addUncoveredFilesFromWhitelist="true">
+      <directory suffix=".php">app/Controllers</directory>
+      <directory suffix=".php">app/Tricks</directory>
+      <file>app/filters.php</file>
+      <file>app/routes.php</file>
+      <exclude>
+        <directory suffix=".php">app/Tricks/Facades</directory>
+        <!-- you ever tried testing protected static methods? -->
+      </exclude>
+    </whitelist>
+  </filter>
 </phpunit>

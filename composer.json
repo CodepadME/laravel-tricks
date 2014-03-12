@@ -11,6 +11,11 @@
 		"thomaswelton/laravel-gravatar": "0.0.*",
 		"roumen/sitemap": "2.4.*"
 	},
+	"require-dev" : {
+		"mockery/mockery"         : "dev-master",
+		"phpunit/phpunit"         : "3.7.*",
+		"codeception/aspect-mock" : "*"
+	},
 	"autoload": {
 		"classmap": [
 			"app/commands",

@@ -31,6 +31,15 @@ class User extends Model implements UserInterface, RemindableInterface
 	protected $hidden = [ 'password' ];
 
 	/**
+	* Users should not be admin by default
+	*
+	* @var array
+	*/
+	protected $attributes = [
+		'is_admin' => false
+	];
+
+	/**
 	 * Query the user's social profile.
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\HasOne
