@@ -182,7 +182,7 @@ class TrickPresenter extends BasePresenter
      * @param  string  $string
      * @return string
      */
-    private function removeLastWord($string)
+    protected function removeLastWord($string)
     {
         $split = explode(' ', $string);
 

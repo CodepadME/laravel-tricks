@@ -13,6 +13,9 @@ extends TestCase
       Mockery::close();
   }
 
+  /**
+   * @group tricks/providers
+   */
   public function testRegister()
   {
     $mock = Mockery::mock('Tricks\Providers\SocialServiceProvider[registerGithub,registerDisqus]', [
@@ -30,6 +33,9 @@ extends TestCase
     $mock->register();
   }
 
+  /**
+   * @group tricks/providers
+   */
   public function testRegisterGithub()
   {
     $applicationMock = Mockery::mock('Illuminate\Foundation\Application');
@@ -108,6 +114,9 @@ extends TestCase
     $socialServiceProviderMock->registerGithub();
   }
 
+  /**
+   * @group tricks/providers
+   */
   public function testRegisterDisqus()
   {
     $applicationMock = Mockery::mock('Illuminate\Foundation\Application');

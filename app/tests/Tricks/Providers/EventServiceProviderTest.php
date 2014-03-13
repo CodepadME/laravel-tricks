@@ -14,6 +14,9 @@ extends TestCase
       Mockery::close();
   }
 
+  /**
+   * @group tricks/providers
+   */
   public function testRegister()
   {
     $dispatcherMock = Mockery::mock('Illuminate\Events\Dispatcher');

@@ -13,6 +13,9 @@ extends TestCase
       Mockery::close();
   }
 
+  /**
+   * @group tricks
+   */
   public function testVotes()
   {
     $mock = Mockery::mock('Tricks\Trick[belongsToMany]');
@@ -26,6 +29,9 @@ extends TestCase
     $this->assertEquals('mocked', $mock->votes());
   }
 
+  /**
+   * @group tricks
+   */
   public function testUser()
   {
     $mock = Mockery::mock('Tricks\Trick[belongsTo]');
@@ -39,6 +45,9 @@ extends TestCase
     $this->assertEquals('mocked', $mock->user());
   }
 
+  /**
+   * @group tricks
+   */
   public function testTags()
   {
     $mock = Mockery::mock('Tricks\Trick[belongsToMany]');
@@ -52,6 +61,9 @@ extends TestCase
     $this->assertEquals('mocked', $mock->tags());
   }
 
+  /**
+   * @group tricks
+   */
   public function testCategories()
   {
     $mock = Mockery::mock('Tricks\Trick[belongsToMany]');

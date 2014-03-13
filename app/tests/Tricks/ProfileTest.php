@@ -13,6 +13,9 @@ extends TestCase
       Mockery::close();
   }
 
+  /**
+   * @group tricks
+   */
   public function testUser()
   {
     $mock = Mockery::mock('Tricks\Profile[belongsTo]');
