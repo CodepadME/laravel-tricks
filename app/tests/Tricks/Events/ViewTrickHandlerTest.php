@@ -137,7 +137,7 @@ extends TestCase
     $storeMock
       ->shouldReceive('put')
       ->atLeast()->once()
-      ->with('viewed_tricks.' . $id, time())
+      ->with('viewed_tricks.' . $id, Mockery::type('int'))
       ->andReturn('mocked');
 
     $viewTrickHandlerMock = Mockery::mock('Tricks\Events\ViewTrickHandler[storeViewedTrick]', [

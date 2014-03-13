@@ -2,7 +2,7 @@
 
 namespace Tricks;
 
-use AspectMock\Test;
+use Gravatar;
 use Mockery;
 use TestCase;
 
@@ -12,7 +12,6 @@ extends TestCase
   public function tearDown()
   {
       Mockery::close();
-      Test::clean();
   }
 
   public function testProfile()
@@ -89,14 +88,21 @@ extends TestCase
   public function testGetGravatarPhotoCssAttribute()
   {
     $email  = 'foo';
-    $double = Test::double('Thomaswelton\LaravelGravatar\Gravatar');
+
+    $mock = Mockery::mock('stdClass');
+
+    $mock
+      ->shouldReceive('src')
+      ->atLeast()->once()
+      ->with($email, 100)
+      ->andReturn('mocked');
+
+    Gravatar::swap($mock);
 
     $user = new User();
     $user->email = $email;
 
-    $user->getPhotocssAttribute();
-
-    $double->verifyInvoked('src');
+    $this->assertEquals('mocked', $user->getPhotocssAttribute());
   }
 
   public function testGetReminderEmail()
@@ -120,7 +126,7 @@ extends TestCase
     $this->assertFalse($user->isAdmin());
 
     $user->is_admin = true;
-    
+
     $this->assertTrue($user->isAdmin());
   }
 }

@@ -34,10 +34,11 @@ class SocialServiceProvider extends ServiceProvider
 
         $this->app['github'] = $this->app->share(function ($app) {
             $provider = $app['github.provider'];
-            $users    = $app->make('Tricks\Repositories\UserRepositoryInterface');
-            $profiles = $app->make('Tricks\Repositories\ProfileRepositoryInterface');
+            $config   = $app['config'];
+            $users    = $app['Tricks\Repositories\UserRepositoryInterface'];
+            $profiles = $app['Tricks\Repositories\ProfileRepositoryInterface'];
 
-            return new Github($provider, $users, $profiles);
+            return new Github($provider, $config, $users, $profiles);
         });
     }
 
