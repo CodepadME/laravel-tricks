@@ -21,13 +21,8 @@ extends TestCase
 
   protected function getTrickMockWithSlug()
   {
-    $mock = Mockery::mock('Tricks\Trick');
-
-    $mock
-      ->shouldReceive('getAttribute')
-      ->atLeast()->once()
-      ->with('slug')
-      ->andReturn('mocked');
+    $mock = Mockery::mock('Tricks\Trick')->makePartial();
+    $mock->slug = 'mocked';
 
     return $mock;
   }
@@ -98,28 +93,22 @@ extends TestCase
    */
   public function testTimeAgoLink()
   {
-    $carbonMock = Mockery::mock('stdClass');
-
-    $carbonMock
-      ->shouldReceive('diffForHumans')
-      ->atLeast()->once()
-      ->andReturn('mocked');
-
-    $trickMock = Mockery::mock('Tricks\Trick');
+    $trickMock = Mockery::mock('Tricks\Trick[getDateFormat]')
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
 
     $trickMock
-      ->shouldReceive('getAttribute')
+      ->shouldReceive('getDateFormat')
       ->atLeast()->once()
-      ->with('created_at')
-      ->andReturn(
-        $carbonMock
-      );
+      ->andReturn('Y-m-d H:i:s');
+
+    $trickMock->created_at = Carbon::now();
 
     $trickPresenter = new TrickPresenter(
       $trickMock
     );
 
-    $this->assertEquals('mocked', $trickPresenter->timeago());
+    $this->assertEquals($trickMock->created_at->diffForHumans(), $trickPresenter->timeago());
   }
 
   /**
@@ -127,13 +116,8 @@ extends TestCase
    */
   public function testLikedByUser()
   {
-    $userMock = Mockery::mock('Tricks\User');
-
-    $userMock
-     ->shouldReceive('getAttribute')
-     ->atLeast()->once()
-     ->with('id')
-     ->andReturn('mocked');
+    $userMock = Mockery::mock('Tricks\User')->makePartial();
+    $userMock->id = 'mocked';
 
     $trickMock = Mockery::mock('Tricks\Trick');
 
@@ -175,13 +159,8 @@ extends TestCase
    */
   public function testAllCategories()
   {
-    $trickMock = Mockery::mock('Tricks\Trick');
-
-    $trickMock
-      ->shouldReceive('getAttribute')
-      ->atLeast()->once()
-      ->with('categories')
-      ->andReturn('mocked');
+    $trickMock = Mockery::mock('Tricks\Trick')->makePartial();
+    $trickMock->categories = 'mocked';
 
     $trickPresenter = new TrickPresenter(
       $trickMock
@@ -200,17 +179,12 @@ extends TestCase
   {
     $categoryMock = Mockery::mock('Tricks\Category');
 
-    $trickMock = Mockery::mock('Tricks\Trick');
-
-    $trickMock
-      ->shouldReceive('getAttribute')
-      ->atLeast()->once()
-      ->with('categories')
-      ->andReturn([
-        $categoryMock,
-        $categoryMock,
-        $categoryMock
-      ]);
+    $trickMock = Mockery::mock('Tricks\Trick')->makePartial();
+    $trickMock->categories = [
+      $categoryMock,
+      $categoryMock,
+      $categoryMock
+    ];
 
     $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter[hasCategories,getCategoryLink]', [
       $trickMock
@@ -387,28 +361,24 @@ extends TestCase
 
     URL::swap($urlMock);
 
-    $carbonMock = Mockery::mock('stdClass');
-
-    $carbonMock
-      ->shouldReceive('format')
-      ->atLeast()->once()
-      ->with('Y-m-d')
-      ->andReturn('mocked');
-
-    $trickMock = $this->getTrickMockWithSlug();
+    $trickMock = Mockery::mock('Tricks\Trick[getDateFormat]')
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
 
     $trickMock
-      ->shouldReceive('getAttribute')
+      ->shouldReceive('getDateFormat')
       ->atLeast()->once()
-      ->with('created_at')
-      ->andReturn($carbonMock);
+      ->andReturn('Y-m-d H:i:s');
+
+    $trickMock->slug       = 'mocked';
+    $trickMock->created_at = Carbon::now();
 
     $trickPresenter = new TrickPresenter(
       $trickMock
     );
 
     $this->assertEquals(
-      'tag:foo.com,mocked:/bar',
+      'tag:foo.com,' . $trickMock->created_at->format('Y-m-d') . ':/bar',
       $trickPresenter->tagUri()
     );
   }
