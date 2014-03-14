@@ -173,13 +173,19 @@ extends TestCase
     $responseMock
       ->shouldReceive('header')
       ->atLeast()->once()
-      ->with('Content-Type', 'bar; charset=UTF-8');
+      ->with('Content-Type', 'bar; charset=foo');
 
     $builderMock = Mockery::mock('Tricks\Services\Feeds\Builder[getContentType,prepareHeaders]', [
       Mockery::mock('Tricks\Repositories\TrickRepositoryInterface'),
       $responseMock,
       Mockery::mock('Illuminate\View\Environment')
     ])->shouldAllowMockingProtectedMethods();
+
+    $class = new ReflectionClass($builderMock);
+    $property = $class->getProperty('charset');
+    $property->setAccessible(true);
+
+    $property->setValue($builderMock, 'foo');
 
     $builderMock
       ->shouldReceive('getContentType')
