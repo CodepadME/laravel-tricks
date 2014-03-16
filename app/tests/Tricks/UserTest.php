@@ -14,6 +14,9 @@ extends TestCase
       Mockery::close();
   }
 
+  /**
+   * @group tricks
+   */
   public function testProfile()
   {
     $mock = Mockery::mock('Tricks\User[hasOne]');
@@ -27,6 +30,9 @@ extends TestCase
     $this->assertEquals('mocked', $mock->profile());
   }
 
+  /**
+   * @group tricks
+   */
   public function testTricks()
   {
     $mock = Mockery::mock('Tricks\User[hasMany]');
@@ -40,6 +46,9 @@ extends TestCase
     $this->assertEquals('mocked', $mock->tricks());
   }
 
+  /**
+   * @group tricks
+   */
   public function testVotes()
   {
     $mock = Mockery::mock('Tricks\User[belongsToMany]');
@@ -53,6 +62,9 @@ extends TestCase
     $this->assertEquals('mocked', $mock->votes());
   }
 
+  /**
+   * @group tricks
+   */
   public function testGetAuthIdentifier()
   {
     $mock = Mockery::mock('Tricks\User[getKey]');
@@ -65,6 +77,9 @@ extends TestCase
     $this->assertEquals('mocked', $mock->getAuthIdentifier());
   }
 
+  /**
+   * @group tricks
+   */
   public function testGetAuthPassword()
   {
     $password = 'foo';
@@ -75,6 +90,9 @@ extends TestCase
     $this->assertEquals($password, $user->getAuthPassword());
   }
 
+  /**
+   * @group tricks
+   */
   public function testGetPhotoCssAttribute()
   {
     $photo = 'foo';
@@ -85,6 +103,9 @@ extends TestCase
     $this->assertEquals(url('img/avatar/' . $user->photo), $user->getPhotocssAttribute());
   }
 
+  /**
+   * @group tricks
+   */
   public function testGetGravatarPhotoCssAttribute()
   {
     $email  = 'foo';
@@ -105,6 +126,9 @@ extends TestCase
     $this->assertEquals('mocked', $user->getPhotocssAttribute());
   }
 
+  /**
+   * @group tricks
+   */
   public function testGetReminderEmail()
   {
     $email = 'foo';
@@ -115,6 +139,9 @@ extends TestCase
     $this->assertEquals($email, $user->getReminderEmail());
   }
 
+  /**
+   * @group tricks
+   */
   public function testIsAdmin()
   {
     $user = new User();

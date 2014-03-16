@@ -14,6 +14,9 @@ extends TestCase
       Mockery::close();
   }
 
+  /**
+   * @group tricks/events
+   */
   public function testConstructor()
   {
     $trickRepositoryMock = Mockery::mock('Tricks\Repositories\TrickRepositoryInterface');
@@ -25,17 +28,20 @@ extends TestCase
       $storeMock
     );
 
-    $this->assertEquals(
+    $this->assertSame(
       $trickRepositoryMock,
       Assert::readAttribute($viewTrickHandler, 'tricks')
     );
 
-    $this->assertEquals(
+    $this->assertSame(
       $storeMock,
       Assert::readAttribute($viewTrickHandler, 'session')
     );
   }
 
+  /**
+   * @group tricks/events
+   */
   public function testHandle()
   {
     $trickMock = Mockery::mock('Tricks\Trick');
@@ -68,6 +74,9 @@ extends TestCase
     $viewTrickHandlerMock->handle($trickMock);
   }
 
+  /**
+   * @group tricks/events
+   */
   public function testHasViewedTrick()
   {
     $viewTrickHandlerMock = Mockery::mock('Tricks\Events\ViewTrickHandler[getViewedTricks]', [
@@ -97,6 +106,9 @@ extends TestCase
     $this->assertTrue($viewTrickHandlerMock->hasViewedTrick($trickMock));
   }
 
+  /**
+   * @group tricks/events
+   */
   public function testGetViewedTricks()
   {
     $trickRepositoryMock = Mockery::mock('Tricks\Repositories\TrickRepositoryInterface');
@@ -122,6 +134,9 @@ extends TestCase
     $this->assertEquals('mocked', $viewTrickHandlerMock->getViewedTricks());
   }
 
+  /**
+   * @group tricks/events
+   */
   public function testStoreViewedTrick()
   {
     $id = 2;

@@ -14,6 +14,9 @@ extends TestCase
       Mockery::close();
   }
 
+  /**
+   * @group tricks/filters
+   */
   public function testConstructor()
   {
     $repositoryMock = Mockery::mock('Illuminate\Config\Repository');
@@ -25,17 +28,20 @@ extends TestCase
       $storeMock
     );
 
-    $this->assertEquals(
+    $this->assertSame(
       $repositoryMock,
       Assert::readAttribute($viewThrottleFilter, 'config')
     );
 
-    $this->assertEquals(
+    $this->assertSame(
       $storeMock,
       Assert::readAttribute($viewThrottleFilter, 'session')
     );
   }
 
+  /**
+   * @group tricks/filters
+   */
   public function testFilter()
   {
     $viewThrottleFilterMock = Mockery::mock('Tricks\Filters\ViewThrottleFilter[getViewedTricks,purgeExpiredTricks,storeViewedTricks]', [
@@ -70,6 +76,9 @@ extends TestCase
     $viewThrottleFilterMock->filter();
   }
 
+  /**
+   * @group tricks/filters
+   */
   public function testGetViewedTricks()
   {
     $repositoryMock = Mockery::mock('Illuminate\Config\Repository');
@@ -95,6 +104,9 @@ extends TestCase
     $this->assertEquals('mocked', $viewThrottleFilterMock->getViewedTricks());
   }
 
+  /**
+   * @group tricks/filters
+   */
   public function testGetThrottleTime()
   {
     $repositoryMock = Mockery::mock('Illuminate\Config\Repository');
@@ -120,6 +132,9 @@ extends TestCase
     $this->assertEquals('mocked', $viewThrottleFilterMock->getThrottleTime());
   }
 
+  /**
+   * @group tricks/filters
+   */
   public function testPurgeExpiredTricks()
   {
     $time = time();
@@ -154,6 +169,9 @@ extends TestCase
     $this->assertEquals($purgedTricks, $viewThrottleFilterMock->purgeExpiredTricks($tricks));
   }
 
+  /**
+   * @group tricks/filters
+   */
   public function testStoreViewedTricks()
   {
     $repositoryMock = Mockery::mock('Illuminate\Config\Repository');

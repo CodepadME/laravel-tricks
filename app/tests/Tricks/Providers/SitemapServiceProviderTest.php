@@ -14,6 +14,9 @@ extends TestCase
       Mockery::close();
   }
 
+  /**
+   * @group tricks/providers
+   */
   public function testRegister()
   {
     $mock = Mockery::mock('Illuminate\Foundation\Application');

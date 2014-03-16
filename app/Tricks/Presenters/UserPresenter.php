@@ -21,7 +21,7 @@ class UserPresenter extends BasePresenter
     /**
      * Get the timestamp of the last posted trick of this user.
      *
-     * @param  \Illuminate\Database\Eloquent\Collection|\Tricks\Trick[]  $tricks
+     * @param  \Illuminate\Pagination\Paginator  $tricks
      * @return string
      */
     public function lastActivity($tricks)

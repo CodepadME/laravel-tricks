@@ -13,6 +13,9 @@ extends TestCase
       Mockery::close();
   }
 
+  /**
+   * @group tricks
+   */
   public function testTricks()
   {
     $mock = Mockery::mock('Tricks\Tag[belongsToMany]');
