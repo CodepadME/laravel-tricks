@@ -105,7 +105,7 @@ class UserController extends BaseController
     /**
      * Handle the avatar upload.
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public function postAvatar()
     {
