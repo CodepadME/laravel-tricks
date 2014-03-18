@@ -4,8 +4,6 @@ namespace Tricks\Services\Forms;
 
 use App;
 use Mockery;
-use PHPUnit_Framework_Assert as Assert;
-use ReflectionClass;
 use TestCase;
 use Validator;
 
@@ -47,7 +45,7 @@ extends TestCase
 
     $this->assertEquals(
       'mocked',
-      Assert::readAttribute($concreteForm, 'inputData')
+      $this->getProtectedProperty($concreteForm, 'inputData')
     );
   }
 
@@ -58,11 +56,7 @@ extends TestCase
   {
     $concreteForm = new ConcreteForm();
 
-    $class = new ReflectionClass($concreteForm);
-    $property = $class->getProperty('inputData');
-    $property->setAccessible(true);
-
-    $property->setValue($concreteForm, 'mocked');
+    $this->setProtectedProperty($concreteForm, 'inputData', 'mocked');
 
     $this->assertEquals(
       'mocked',
@@ -75,7 +69,7 @@ extends TestCase
    */
   public function testIsValid()
   {
-    $concreteFormMock = Mockery::mock('Tricks\Services\Forms\ConcreteForm[getInputData,getPreparedRules,getMessages]')
+    $concreteFormMock = Mockery::mock('Tricks\Services\Forms\ConcreteForm')
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
@@ -120,7 +114,7 @@ extends TestCase
 
     $this->assertSame(
       $mock,
-      Assert::readAttribute($concreteFormMock, 'validator')
+      $this->getProtectedProperty($concreteFormMock, 'validator')
     );
   }
 
@@ -138,11 +132,7 @@ extends TestCase
 
     $concreteForm = new ConcreteForm();
 
-    $class = new ReflectionClass($concreteForm);
-    $property = $class->getProperty('validator');
-    $property->setAccessible(true);
-
-    $property->setValue($concreteForm, $mock);
+    $this->setProtectedProperty($concreteForm, 'validator', $mock);
 
     $this->assertEquals(
       'mocked',
@@ -155,20 +145,11 @@ extends TestCase
    */
   public function testGetPreparedRules()
   {
-    $concreteFormMock = Mockery::mock('Tricks\Services\Forms\ConcreteForm[getPreparedRules]')
+    $concreteFormMock = Mockery::mock('Tricks\Services\Forms\ConcreteForm')
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $class = new ReflectionClass($concreteFormMock);
-    $property = $class->getProperty('rules');
-    $property->setAccessible(true);
-
-    $property->setValue($concreteFormMock, 'mocked');
-
-    $concreteFormMock
-      ->shouldReceive('getPreparedRules')
-      ->atLeast()->once()
-      ->passthru();
+    $this->setProtectedProperty($concreteFormMock, 'rules', 'mocked');
 
     $this->assertEquals(
       'mocked',
@@ -181,20 +162,11 @@ extends TestCase
    */
   public function testGetMessages()
   {
-    $concreteFormMock = Mockery::mock('Tricks\Services\Forms\ConcreteForm[getMessages]')
+    $concreteFormMock = Mockery::mock('Tricks\Services\Forms\ConcreteForm')
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $class = new ReflectionClass($concreteFormMock);
-    $property = $class->getProperty('messages');
-    $property->setAccessible(true);
-
-    $property->setValue($concreteFormMock, 'mocked');
-
-    $concreteFormMock
-      ->shouldReceive('getMessages')
-      ->atLeast()->once()
-      ->passthru();
+    $this->setProtectedProperty($concreteFormMock, 'messages', 'mocked');
 
     $this->assertEquals(
       'mocked',
