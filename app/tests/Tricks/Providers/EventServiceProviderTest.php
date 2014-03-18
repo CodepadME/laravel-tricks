@@ -19,14 +19,16 @@ extends TestCase
    */
   public function testRegister()
   {
-    $dispatcherMock = Mockery::mock('Illuminate\Events\Dispatcher');
+    $dispatcherMock = Mockery::mock('Illuminate\Events\Dispatcher')
+      ->makePartial();
 
     $dispatcherMock
       ->shouldReceive('listen')
       ->atLeast()->once()
       ->with('trick.view', 'Tricks\Events\ViewTrickHandler');
 
-    $applicationMock = Mockery::mock('Illuminate\Foundation\Application');
+    $applicationMock = Mockery::mock('Illuminate\Foundation\Application')
+      ->makePartial();
 
     $applicationMock
       ->shouldReceive('offsetGet')

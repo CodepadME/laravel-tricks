@@ -45,7 +45,8 @@ extends TestCase
   {
     $trickMock = Mockery::mock('Tricks\Trick');
 
-    $trickRepositoryMock = Mockery::mock('Tricks\Repositories\TrickRepositoryInterface');
+    $trickRepositoryMock = Mockery::mock('Tricks\Repositories\TrickRepositoryInterface')
+      ->makePartial();
 
     $trickRepositoryMock
       ->shouldReceive('incrementViews')
@@ -100,7 +101,9 @@ extends TestCase
       ->atLeast()->once()
       ->andReturn($tricks);
 
-    $trickMock = Mockery::mock('Tricks\Trick')->makePartial();
+    $trickMock = Mockery::mock('Tricks\Trick')
+      ->makePartial();
+
     $trickMock->id = 2;
 
     $this->assertTrue($viewTrickHandlerMock->hasViewedTrick($trickMock));
@@ -113,7 +116,8 @@ extends TestCase
   {
     $trickRepositoryMock = Mockery::mock('Tricks\Repositories\TrickRepositoryInterface');
 
-    $storeMock = Mockery::mock('Illuminate\Session\Store');
+    $storeMock = Mockery::mock('Illuminate\Session\Store')
+      ->makePartial();
 
     $storeMock
       ->shouldReceive('get')
@@ -138,13 +142,15 @@ extends TestCase
   {
     $id = 2;
 
-    $trickMock = Mockery::mock('Tricks\Trick')->makePartial();
+    $trickMock = Mockery::mock('Tricks\Trick')
+      ->makePartial();
 
     $trickMock->id = $id;
 
     $trickRepositoryMock = Mockery::mock('Tricks\Repositories\TrickRepositoryInterface');
 
-    $storeMock = Mockery::mock('Illuminate\Session\Store');
+    $storeMock = Mockery::mock('Illuminate\Session\Store')
+      ->makePartial();
 
     $storeMock
       ->shouldReceive('put')

@@ -107,7 +107,8 @@ extends TestCase
    */
   public function testGetFile()
   {
-    $filesystemMock = Mockery::mock('Illuminate\Filesystem\Filesystem');
+    $filesystemMock = Mockery::mock('Illuminate\Filesystem\Filesystem')
+      ->makePartial();
 
     $filesystemMock
       ->shouldReceive('get')
@@ -132,7 +133,8 @@ extends TestCase
    */
   public function testGetFileSize()
   {
-    $filesystemMock = Mockery::mock('Illuminate\Filesystem\Filesystem');
+    $filesystemMock = Mockery::mock('Illuminate\Filesystem\Filesystem')
+      ->makePartial();
 
     $filesystemMock
       ->shouldReceive('size')
@@ -173,6 +175,44 @@ extends TestCase
     $this->assertEquals(
       'data:foo;base64,' . base64_encode('bar'),
       $imageUploadServiceMock->getDataUrl('foo', 'bar')
+    );
+  }
+
+  /**
+   * @group tricks/services
+   */
+  public function testsGetJsonBody()
+  {
+    $filesystemMock = Mockery::mock('Illuminate\Filesystem\Filesystem');
+
+    $imageUploadServiceMock = Mockery::mock('Tricks\Services\Upload\ImageUploadService', [
+      $filesystemMock
+    ])
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
+
+    $imageUploadServiceMock
+      ->shouldReceive('getFileSize')
+      ->atLeast()->once()
+      ->with('foo')
+      ->andReturn('mocked');
+
+    $imageUploadServiceMock
+      ->shouldReceive('getDataUrl')
+      ->atLeast()->once()
+      ->with('bar', 'foo')
+      ->andReturn('mocked');
+
+    $this->assertEquals(
+      [
+        'images' => [
+          'filename' => 'baz',
+          'mime'     => 'bar',
+          'size'     => 'mocked',
+          'dataURL'  => 'mocked'
+        ]
+      ],
+      $imageUploadServiceMock->getJsonBody('baz', 'bar', 'foo')
     );
   }
 }

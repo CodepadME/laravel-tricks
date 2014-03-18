@@ -84,7 +84,8 @@ extends TestCase
   {
     $repositoryMock = Mockery::mock('Illuminate\Config\Repository');
 
-    $storeMock = Mockery::mock('Illuminate\Session\Store');
+    $storeMock = Mockery::mock('Illuminate\Session\Store')
+      ->makePartial();
 
     $storeMock
       ->shouldReceive('get')
@@ -107,7 +108,8 @@ extends TestCase
    */
   public function testGetThrottleTime()
   {
-    $repositoryMock = Mockery::mock('Illuminate\Config\Repository');
+    $repositoryMock = Mockery::mock('Illuminate\Config\Repository')
+      ->makePartial();
 
     $repositoryMock
       ->shouldReceive('get')
@@ -175,7 +177,8 @@ extends TestCase
       "3" => $time
     ];
 
-    $storeMock = Mockery::mock('Illuminate\Session\Store');
+    $storeMock = Mockery::mock('Illuminate\Session\Store')
+      ->makePartial();
 
     $storeMock
       ->shouldReceive('put')

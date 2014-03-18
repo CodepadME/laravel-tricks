@@ -40,14 +40,16 @@ extends TestCase
    */
   public function testRegisterGithub()
   {
-    $applicationMock = Mockery::mock('Illuminate\Foundation\Application');
+    $applicationMock = Mockery::mock('Illuminate\Foundation\Application')
+      ->makePartial();
 
     $applicationMock
       ->shouldReceive('offsetSet')
       ->atLeast()->once()
       ->with('github.provider', 'mocked');
 
-    $repositoryMock = Mockery::mock('Illuminate\Config\Repository');
+    $repositoryMock = Mockery::mock('Illuminate\Config\Repository')
+      ->makePartial();
 
     $repositoryMock
       ->shouldReceive('get')
@@ -118,14 +120,16 @@ extends TestCase
    */
   public function testRegisterDisqus()
   {
-    $applicationMock = Mockery::mock('Illuminate\Foundation\Application');
+    $applicationMock = Mockery::mock('Illuminate\Foundation\Application')
+      ->makePartial();
 
     $applicationMock
       ->shouldReceive('offsetSet')
       ->atLeast()->once()
       ->with('disqus', 'mocked');
 
-    $repositoryMock = Mockery::mock('Illuminate\Config\Repository');
+    $repositoryMock = Mockery::mock('Illuminate\Config\Repository')
+      ->makePartial();
 
     $repositoryMock
       ->shouldReceive('get')

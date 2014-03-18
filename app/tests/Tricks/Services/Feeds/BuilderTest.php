@@ -91,7 +91,8 @@ extends TestCase
   {
     $environmentMock = Mockery::mock('Illuminate\View\Environment');
 
-    $responseMock = Mockery::mock('Illuminate\Http\Response');
+    $responseMock = Mockery::mock('Illuminate\Http\Response')
+      ->makePartial();
 
     $responseMock
       ->shouldReceive('setContent')
@@ -138,7 +139,8 @@ extends TestCase
    */
   public function testGetFeedData()
   {
-    $trickRepositoryInterfaceMock = Mockery::mock('Tricks\Repositories\TrickRepositoryInterface');
+    $trickRepositoryInterfaceMock = Mockery::mock('Tricks\Repositories\TrickRepositoryInterface')
+      ->makePartial();
 
     $trickRepositoryInterfaceMock
       ->shouldReceive('findForFeed')
@@ -164,7 +166,8 @@ extends TestCase
    */
   public function testPrepareHeaders()
   {
-    $responseMock = Mockery::mock('Illuminate\Http\Response');
+    $responseMock = Mockery::mock('Illuminate\Http\Response')
+      ->makePartial();
 
     $responseMock
       ->shouldReceive('header')
@@ -224,7 +227,8 @@ extends TestCase
   {
     $data = ['foo' => 'bar'];
 
-    $environmentMock = Mockery::mock('Illuminate\View\Environment');
+    $environmentMock = Mockery::mock('Illuminate\View\Environment')
+      ->makePartial();
 
     $environmentMock
       ->shouldReceive('make')

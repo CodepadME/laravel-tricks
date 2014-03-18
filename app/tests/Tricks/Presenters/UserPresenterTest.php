@@ -20,7 +20,9 @@ extends TestCase
 
   protected function getTrickMockWithSlug()
   {
-    $mock = Mockery::mock('Tricks\Trick')->makePartial();
+    $mock = Mockery::mock('Tricks\Trick')
+      ->makePartial();
+
     $mock->slug = 'mocked';
 
     return $mock;
@@ -112,7 +114,9 @@ extends TestCase
    */
   public function testfullNameWithoutProfile()
   {
-    $userMock = Mockery::mock('Tricks\User')->makePartial();
+    $userMock = Mockery::mock('Tricks\User')
+      ->makePartial();
+
     $userMock->username = 'foo';
     $userMock->profile  = null;
 
@@ -131,10 +135,14 @@ extends TestCase
    */
   public function testfullNameWithProfile()
   {
-    $profileMock = Mockery::mock('Tricks\Profile')->makePartial();
+    $profileMock = Mockery::mock('Tricks\Profile')
+      ->makePartial();
+
     $profileMock->name = 'foo';
 
-    $userMock = Mockery::mock('Tricks\User')->makePartial();
+    $userMock = Mockery::mock('Tricks\User')
+      ->makePartial();
+      
     $userMock->profile = $profileMock;
 
     $userPresenter = new UserPresenter(

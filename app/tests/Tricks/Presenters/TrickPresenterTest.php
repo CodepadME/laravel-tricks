@@ -20,7 +20,9 @@ extends TestCase
 
   protected function getTrickMockWithSlug()
   {
-    $mock = Mockery::mock('Tricks\Trick')->makePartial();
+    $mock = Mockery::mock('Tricks\Trick')
+      ->makePartial();
+
     $mock->slug = 'mocked';
 
     return $mock;
@@ -115,7 +117,9 @@ extends TestCase
    */
   public function testLikedByUser()
   {
-    $userMock = Mockery::mock('Tricks\User')->makePartial();
+    $userMock = Mockery::mock('Tricks\User')
+      ->makePartial();
+
     $userMock->id = 'mocked';
 
     $trickMock = Mockery::mock('Tricks\Trick');
@@ -158,7 +162,9 @@ extends TestCase
    */
   public function testAllCategories()
   {
-    $trickMock = Mockery::mock('Tricks\Trick')->makePartial();
+    $trickMock = Mockery::mock('Tricks\Trick')
+      ->makePartial();
+
     $trickMock->categories = 'mocked';
 
     $trickPresenter = new TrickPresenter(
@@ -178,7 +184,9 @@ extends TestCase
   {
     $categoryMock = Mockery::mock('Tricks\Category');
 
-    $trickMock = Mockery::mock('Tricks\Trick')->makePartial();
+    $trickMock = Mockery::mock('Tricks\Trick')
+      ->makePartial();
+
     $trickMock->categories = [
       $categoryMock,
       $categoryMock,
