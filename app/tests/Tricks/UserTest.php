@@ -19,7 +19,7 @@ extends TestCase
    */
   public function testProfile()
   {
-    $mock = Mockery::mock('Tricks\User[hasOne]');
+    $mock = Mockery::mock('Tricks\User')->makePartial();
 
     $mock
       ->shouldReceive('hasOne')
@@ -35,7 +35,7 @@ extends TestCase
    */
   public function testTricks()
   {
-    $mock = Mockery::mock('Tricks\User[hasMany]');
+    $mock = Mockery::mock('Tricks\User')->makePartial();
 
     $mock
       ->shouldReceive('hasMany')
@@ -51,7 +51,7 @@ extends TestCase
    */
   public function testVotes()
   {
-    $mock = Mockery::mock('Tricks\User[belongsToMany]');
+    $mock = Mockery::mock('Tricks\User')->makePartial();
 
     $mock
       ->shouldReceive('belongsToMany')
@@ -67,7 +67,7 @@ extends TestCase
    */
   public function testGetAuthIdentifier()
   {
-    $mock = Mockery::mock('Tricks\User[getKey]');
+    $mock = Mockery::mock('Tricks\User')->makePartial();
 
     $mock
       ->shouldReceive('getKey')

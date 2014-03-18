@@ -5,7 +5,6 @@ namespace Tricks\Presenters;
 use Carbon\Carbon;
 use HTML;
 use Mockery;
-use PHPUnit_Framework_Assert as Assert;
 use TestCase;
 use Tricks\Category;
 use Tricks\Trick;
@@ -40,7 +39,7 @@ extends TestCase
 
     $this->assertSame(
       $mock,
-      Assert::readAttribute($userPresenter, 'resource')
+      $this->getProtectedProperty($userPresenter, 'resource')
     );
   }
 

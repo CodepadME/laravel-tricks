@@ -18,9 +18,11 @@ extends TestCase
    */
   public function testRegister()
   {
-    $mock = Mockery::mock('Tricks\Providers\SocialServiceProvider[registerGithub,registerDisqus]', [
+    $mock = Mockery::mock('Tricks\Providers\SocialServiceProvider', [
       Mockery::mock('Illuminate\Foundation\Application')
-    ])->shouldAllowMockingProtectedMethods();
+    ])
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
 
     $mock
       ->shouldReceive('registerGithub')
@@ -102,14 +104,11 @@ extends TestCase
         Mockery::mock('Tricks\Repositories\ProfileRepositoryInterface')
       );
 
-    $socialServiceProviderMock = Mockery::mock('Tricks\Providers\SocialServiceProvider[registerGithub]', [
+    $socialServiceProviderMock = Mockery::mock('Tricks\Providers\SocialServiceProvider', [
       $applicationMock
-    ])->shouldAllowMockingProtectedMethods();
-
-    $socialServiceProviderMock
-      ->shouldReceive('registerGithub')
-      ->atLeast()->once()
-      ->passthru();
+    ])
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
 
     $socialServiceProviderMock->registerGithub();
   }
@@ -154,14 +153,11 @@ extends TestCase
       )
       ->andReturn('mocked');
 
-    $socialServiceProviderMock = Mockery::mock('Tricks\Providers\SocialServiceProvider[registerDisqus]', [
+    $socialServiceProviderMock = Mockery::mock('Tricks\Providers\SocialServiceProvider', [
       $applicationMock
-    ])->shouldAllowMockingProtectedMethods();
-
-    $socialServiceProviderMock
-      ->shouldReceive('registerDisqus')
-      ->atLeast()->once()
-      ->passthru();
+    ])
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
 
     $socialServiceProviderMock->registerDisqus();
   }

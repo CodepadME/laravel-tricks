@@ -3,7 +3,6 @@
 namespace Tricks\Filters;
 
 use Mockery;
-use PHPUnit_Framework_Assert as Assert;
 use TestCase;
 
 class ViewThrottleFilterTest
@@ -30,12 +29,12 @@ extends TestCase
 
     $this->assertSame(
       $repositoryMock,
-      Assert::readAttribute($viewThrottleFilter, 'config')
+      $this->getProtectedProperty($viewThrottleFilter, 'config')
     );
 
     $this->assertSame(
       $storeMock,
-      Assert::readAttribute($viewThrottleFilter, 'session')
+      $this->getProtectedProperty($viewThrottleFilter, 'session')
     );
   }
 
@@ -44,10 +43,12 @@ extends TestCase
    */
   public function testFilter()
   {
-    $viewThrottleFilterMock = Mockery::mock('Tricks\Filters\ViewThrottleFilter[getViewedTricks,purgeExpiredTricks,storeViewedTricks]', [
+    $viewThrottleFilterMock = Mockery::mock('Tricks\Filters\ViewThrottleFilter', [
       Mockery::mock('Illuminate\Config\Repository'),
       Mockery::mock('Illuminate\Session\Store')
-    ])->shouldAllowMockingProtectedMethods();
+    ])
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
 
     $time = time();
 
@@ -91,15 +92,12 @@ extends TestCase
       ->with('viewed_tricks', null)
       ->andReturn('mocked');
 
-    $viewThrottleFilterMock = Mockery::mock('Tricks\Filters\ViewThrottleFilter[getViewedTricks]', [
+    $viewThrottleFilterMock = Mockery::mock('Tricks\Filters\ViewThrottleFilter', [
       $repositoryMock,
       $storeMock
-    ])->shouldAllowMockingProtectedMethods();
-
-    $viewThrottleFilterMock
-      ->shouldReceive('getViewedTricks')
-      ->atLeast()->once()
-      ->passthru();
+    ])
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
 
     $this->assertEquals('mocked', $viewThrottleFilterMock->getViewedTricks());
   }
@@ -119,15 +117,12 @@ extends TestCase
 
     $storeMock = Mockery::mock('Illuminate\Session\Store');
 
-    $viewThrottleFilterMock = Mockery::mock('Tricks\Filters\ViewThrottleFilter[getThrottleTime]', [
+    $viewThrottleFilterMock = Mockery::mock('Tricks\Filters\ViewThrottleFilter', [
       $repositoryMock,
       $storeMock
-    ])->shouldAllowMockingProtectedMethods();
-
-    $viewThrottleFilterMock
-      ->shouldReceive('getThrottleTime')
-      ->atLeast()->once()
-      ->passthru();
+    ])
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
 
     $this->assertEquals('mocked', $viewThrottleFilterMock->getThrottleTime());
   }
@@ -150,21 +145,17 @@ extends TestCase
       "3" => $time
     ];
 
-    $viewThrottleFilterMock = Mockery::mock('Tricks\Filters\ViewThrottleFilter[getThrottleTime,purgeExpiredTricks]', [
+    $viewThrottleFilterMock = Mockery::mock('Tricks\Filters\ViewThrottleFilter', [
       Mockery::mock('Illuminate\Config\Repository'),
       Mockery::mock('Illuminate\Session\Store')
-    ])->shouldAllowMockingProtectedMethods();
+    ])
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
 
     $viewThrottleFilterMock
       ->shouldReceive('getThrottleTime')
       ->atLeast()->once()
       ->andReturn(100);
-
-    $viewThrottleFilterMock
-      ->shouldReceive('purgeExpiredTricks')
-      ->atLeast()->once()
-      ->with($tricks)
-      ->passthru();
 
     $this->assertEquals($purgedTricks, $viewThrottleFilterMock->purgeExpiredTricks($tricks));
   }
@@ -191,16 +182,12 @@ extends TestCase
       ->atLeast()->once()
       ->with('viewed_tricks', $tricks);
 
-    $viewThrottleFilterMock = Mockery::mock('Tricks\Filters\ViewThrottleFilter[storeViewedTricks]', [
+    $viewThrottleFilterMock = Mockery::mock('Tricks\Filters\ViewThrottleFilter', [
       $repositoryMock,
       $storeMock
-    ])->shouldAllowMockingProtectedMethods();
-
-    $viewThrottleFilterMock
-      ->shouldReceive('storeViewedTricks')
-      ->atLeast()->once()
-      ->with($tricks)
-      ->passthru();
+    ])
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
 
     $viewThrottleFilterMock->storeViewedTricks($tricks);
   }

@@ -3,7 +3,6 @@
 namespace Tricks\Events;
 
 use Mockery;
-use PHPUnit_Framework_Assert as Assert;
 use TestCase;
 
 class ViewTrickHandlerTest
@@ -30,12 +29,12 @@ extends TestCase
 
     $this->assertSame(
       $trickRepositoryMock,
-      Assert::readAttribute($viewTrickHandler, 'tricks')
+      $this->getProtectedProperty($viewTrickHandler, 'tricks')
     );
 
     $this->assertSame(
       $storeMock,
-      Assert::readAttribute($viewTrickHandler, 'session')
+      $this->getProtectedProperty($viewTrickHandler, 'session')
     );
   }
 
@@ -56,10 +55,12 @@ extends TestCase
 
     $storeMock = Mockery::mock('Illuminate\Session\Store');
 
-    $viewTrickHandlerMock = Mockery::mock('Tricks\Events\ViewTrickHandler[hasViewedTrick,storeViewedTrick]', [
+    $viewTrickHandlerMock = Mockery::mock('Tricks\Events\ViewTrickHandler', [
       $trickRepositoryMock,
       $storeMock
-    ])->shouldAllowMockingProtectedMethods();
+    ])
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
 
     $viewTrickHandlerMock
       ->shouldReceive('hasViewedTrick')
@@ -79,12 +80,12 @@ extends TestCase
    */
   public function testHasViewedTrick()
   {
-    $viewTrickHandlerMock = Mockery::mock('Tricks\Events\ViewTrickHandler[getViewedTricks]', [
+    $viewTrickHandlerMock = Mockery::mock('Tricks\Events\ViewTrickHandler', [
       Mockery::mock('Tricks\Repositories\TrickRepositoryInterface'),
       Mockery::mock('Illuminate\Session\Store')
     ])
-      ->makePartial()
-      ->shouldAllowMockingProtectedMethods();
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
 
     $time = time();
 
@@ -100,7 +101,6 @@ extends TestCase
       ->andReturn($tricks);
 
     $trickMock = Mockery::mock('Tricks\Trick')->makePartial();
-
     $trickMock->id = 2;
 
     $this->assertTrue($viewTrickHandlerMock->hasViewedTrick($trickMock));
@@ -121,15 +121,12 @@ extends TestCase
       ->with('viewed_tricks', [])
       ->andReturn('mocked');
 
-    $viewTrickHandlerMock = Mockery::mock('Tricks\Events\ViewTrickHandler[getViewedTricks]', [
+    $viewTrickHandlerMock = Mockery::mock('Tricks\Events\ViewTrickHandler', [
       $trickRepositoryMock,
       $storeMock
-    ])->shouldAllowMockingProtectedMethods();
-
-    $viewTrickHandlerMock
-      ->shouldReceive('getViewedTricks')
-      ->atLeast()->once()
-      ->passthru();
+    ])
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
 
     $this->assertEquals('mocked', $viewTrickHandlerMock->getViewedTricks());
   }
@@ -155,16 +152,12 @@ extends TestCase
       ->with('viewed_tricks.' . $id, Mockery::type('int'))
       ->andReturn('mocked');
 
-    $viewTrickHandlerMock = Mockery::mock('Tricks\Events\ViewTrickHandler[storeViewedTrick]', [
+    $viewTrickHandlerMock = Mockery::mock('Tricks\Events\ViewTrickHandler', [
       $trickRepositoryMock,
       $storeMock
-    ])->shouldAllowMockingProtectedMethods();
-
-    $viewTrickHandlerMock
-      ->shouldReceive('storeViewedTrick')
-      ->atLeast()->once()
-      ->with($trickMock)
-      ->passthru();
+    ])
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
 
     $viewTrickHandlerMock->storeViewedTrick($trickMock);
   }
