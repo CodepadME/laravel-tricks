@@ -84,3 +84,4 @@ Route::filter('csrf', function () {
 });
 
 Route::filter('trick.view_throttle', 'Tricks\Filters\ViewThrottleFilter');
+Route::filter('trick.owner', 'Tricks\Filters\TrickOwnerFilter');

@@ -344,6 +344,18 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
     }
 
     /**
+     * Check if the user owns the trick corresponding to the given slug.
+     *
+     * @param  string  $slug
+     * @param  mixed   $userId
+     * @return bool
+     */
+    public function isTrickOwnedByUser($slug, $userId)
+    {
+        return $this->model->whereSlug($slug)->whereUserId($userId)->exists();
+    }
+
+    /**
      * Get the trick creation form service.
      *
      * @return \Tricks\Services\Forms\TrickForm

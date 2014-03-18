@@ -162,4 +162,13 @@ interface TrickRepositoryInterface
      * @return \Tricks\Trick|null
      */
     public function findPreviousTrick(Trick $trick);
+
+    /**
+     * Check if the user owns the trick corresponding to the given slug.
+     *
+     * @param  string  $slug
+     * @param  mixed   $userId
+     * @return bool
+     */
+    public function isTrickOwnedByUser($slug, $userId);
 }

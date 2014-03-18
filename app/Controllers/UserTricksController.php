@@ -46,6 +46,9 @@ class UserTricksController extends BaseController
         parent::__construct();
 
         $this->beforeFilter('auth');
+        $this->beforeFilter('trick.owner', [
+            'only' => [ 'getEdit', 'postEdit', 'getDelete' ]
+        ]);
 
         $this->trick      = $trick;
         $this->tags       = $tags;
