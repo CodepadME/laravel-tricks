@@ -20,8 +20,6 @@
     <whitelist addUncoveredFilesFromWhitelist="true">
       <directory suffix=".php">app/Controllers</directory>
       <directory suffix=".php">app/Tricks</directory>
-      <file>app/filters.php</file>
-      <file>app/routes.php</file>
       <exclude>
         <directory suffix=".php">app/Tricks/Facades</directory>
         <!-- you ever tried testing protected static methods? -->
