@@ -2,8 +2,32 @@
 
 namespace Tricks\Services\Upload;
 
+use Intervention\Image\Image as Base;
+use Image;
 use Mockery;
+use ReflectionMethod;
 use TestCase;
+
+$headers = [];
+
+function header($value) {
+  global $headers;
+  $headers[] = $value;
+}
+
+function get_headers() {
+  global $headers;
+  return $headers;
+}
+
+class MockableImage
+extends Base
+{
+  public function __construct($path)
+  {
+    // nothing to see here
+  }
+}
 
 class ImageUploadServiceTest
 extends TestCase
@@ -33,18 +57,12 @@ extends TestCase
    */
   public function testEnableCORS()
   {
-    if (!function_exists('xdebug_get_headers')) {
-        $this->markTestSkipped(
-          'The XDebug extension is missing.'
-        );
-    }
-
     $filesystemMock = Mockery::mock('Illuminate\Filesystem\Filesystem');
 
     $imageUploadService = new ImageUploadService($filesystemMock);
 
     $imageUploadService->enableCORS('foo');
-    $headers = xdebug_get_headers();
+    $headers = get_headers();
 
     $this->assertContains(
       'Access-Control-Allow-Origin: foo',
@@ -214,5 +232,81 @@ extends TestCase
       ],
       $imageUploadServiceMock->getJsonBody('baz', 'bar', 'foo')
     );
+  }
+
+  /**
+   * @group tricks/services
+   */
+  public function testHandle()
+  {
+    // $fileMock = Mockery::mock('Symfony\Component\HttpFoundation\File\UploadedFile')
+    //   ->makePartial();
+    //
+    // $fileMock
+    //   ->shouldReceive('getMimeType')
+    //   ->atLeast()->once()
+    //   ->andReturn('[getMimeType]');
+    //
+    // $fileMock
+    //   ->shouldReceive('getRealPath')
+    //   ->atLeast()->once()
+    //   ->andReturn('[getRealPath]');
+    //
+    // $imageMock = Mockery::mock('Tricks\Services\Upload\MockableImage')
+    //   ->makePartial();
+    //
+    // $imageMock
+    //   ->shouldReceive('make')
+    //   ->atLeast()->once()
+    //   ->with('[getRealPath]')
+    //   ->andReturn($imageMock);
+    //
+    // $imageMock
+    //   ->shouldReceive('resize')
+    //   ->atLeast()->once()
+    //   ->with('[size]', '[size]', true, false)
+    //   ->andReturn($imageMock);
+    //
+    // $imageMock
+    //   ->shouldReceive('save')
+    //   ->atLeast()->once()
+    //   ->with('[getFullPath]', '[quality]')
+    //   ->andReturn(true);
+    //
+    // Image::swap($imageMock);
+    //
+    // $filesystemMock = Mockery::mock('Illuminate\Filesystem\Filesystem');
+    //
+    // $imageUploadServiceMock = Mockery::mock('Tricks\Services\Upload\ImageUploadService', [
+    //   $filesystemMock
+    // ])
+    //   ->shouldAllowMockingProtectedMethods()
+    //   ->makePartial();
+    //
+    // $this->setProtectedProperty($imageUploadServiceMock, 'directory', '[directory]');
+    // $this->setProtectedProperty($imageUploadServiceMock, 'size', '[size]');
+    // $this->setProtectedProperty($imageUploadServiceMock, 'quality', '[quality]');
+    //
+    // $imageUploadServiceMock
+    //   ->shouldReceive('makeFilename')
+    //   ->atLeast()->once()
+    //   ->andReturn('[makeFilename]');
+    //
+    // $imageUploadServiceMock
+    //   ->shouldReceive('getFullPath')
+    //   ->atLeast()->once()
+    //   ->with('[directory]/[makeFilename]')
+    //   ->andReturn('[getFullPath]');
+    //
+    // $imageUploadServiceMock
+    //   ->shouldReceive('getJsonBody')
+    //   ->atLeast()->once()
+    //   ->with('[makeFilename]', '[getMimeType]', '[getFullPath]')
+    //   ->andReturn('[getJsonBody]');
+    //
+    // $this->assertEquals(
+    //   '[getJsonBody]',
+    //   $imageUploadServiceMock->handle($fileMock)
+    // );
   }
 }

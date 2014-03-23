@@ -9,6 +9,7 @@
   processIsolation="false"
   stopOnFailure="true"
   syntaxCheck="false"
+  stderr="true"
 >
   <testsuites>
     <testsuite name="Application Test Suite">
@@ -27,4 +28,7 @@
       </exclude>
     </whitelist>
   </filter>
+  <logging>
+    <log type="coverage-html" target="report/" charset="UTF-8" yui="true" />
+  </logging>
 </phpunit>

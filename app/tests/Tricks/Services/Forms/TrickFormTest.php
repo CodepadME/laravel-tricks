@@ -35,13 +35,13 @@ extends TestCase
       'code'        => 'baz'
     ];
 
-    $tricksForm = new TrickForm();
+    $trickForm = new TrickForm();
 
-    $this->setProtectedProperty($tricksForm, 'inputData', $before);
+    $this->setProtectedProperty($trickForm, 'inputData', $before);
 
     $this->assertEquals(
       array_keys($after),
-      array_keys($tricksForm->getInputData())
+      array_keys($trickForm->getInputData())
     );
   }
 }
