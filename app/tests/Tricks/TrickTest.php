@@ -18,7 +18,8 @@ extends TestCase
    */
   public function testVotes()
   {
-    $mock = Mockery::mock('Tricks\Trick[belongsToMany]');
+    $mock = Mockery::mock('Tricks\Trick')
+      ->makePartial();
 
     $mock
       ->shouldReceive('belongsToMany')
@@ -34,7 +35,8 @@ extends TestCase
    */
   public function testUser()
   {
-    $mock = Mockery::mock('Tricks\Trick[belongsTo]');
+    $mock = Mockery::mock('Tricks\Trick')
+      ->makePartial();
 
     $mock
       ->shouldReceive('belongsTo')
@@ -50,7 +52,8 @@ extends TestCase
    */
   public function testTags()
   {
-    $mock = Mockery::mock('Tricks\Trick[belongsToMany]');
+    $mock = Mockery::mock('Tricks\Trick')
+      ->makePartial();
 
     $mock
       ->shouldReceive('belongsToMany')
@@ -66,7 +69,8 @@ extends TestCase
    */
   public function testCategories()
   {
-    $mock = Mockery::mock('Tricks\Trick[belongsToMany]');
+    $mock = Mockery::mock('Tricks\Trick')
+      ->makePartial();
 
     $mock
       ->shouldReceive('belongsToMany')

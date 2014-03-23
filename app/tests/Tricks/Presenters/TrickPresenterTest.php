@@ -5,7 +5,6 @@ namespace Tricks\Presenters;
 use Carbon\Carbon;
 use HTML;
 use Mockery;
-use PHPUnit_Framework_Assert as Assert;
 use TestCase;
 use Tricks\Category;
 use Tricks\Trick;
@@ -21,7 +20,9 @@ extends TestCase
 
   protected function getTrickMockWithSlug()
   {
-    $mock = Mockery::mock('Tricks\Trick')->makePartial();
+    $mock = Mockery::mock('Tricks\Trick')
+      ->makePartial();
+
     $mock->slug = 'mocked';
 
     return $mock;
@@ -40,7 +41,7 @@ extends TestCase
 
     $this->assertSame(
       $mock,
-      Assert::readAttribute($trickPresenter, 'resource')
+      $this->getProtectedProperty($trickPresenter, 'resource')
     );
   }
 
@@ -93,7 +94,7 @@ extends TestCase
    */
   public function testTimeAgoLink()
   {
-    $trickMock = Mockery::mock('Tricks\Trick[getDateFormat]')
+    $trickMock = Mockery::mock('Tricks\Trick')
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
@@ -116,7 +117,9 @@ extends TestCase
    */
   public function testLikedByUser()
   {
-    $userMock = Mockery::mock('Tricks\User')->makePartial();
+    $userMock = Mockery::mock('Tricks\User')
+      ->makePartial();
+
     $userMock->id = 'mocked';
 
     $trickMock = Mockery::mock('Tricks\Trick');
@@ -150,7 +153,7 @@ extends TestCase
     );
 
     $this->assertTrue(
-      Assert::readAttribute($trickPresenter, 'likedByUser')
+      $this->getProtectedProperty($trickPresenter, 'likedByUser')
     );
   }
 
@@ -159,7 +162,9 @@ extends TestCase
    */
   public function testAllCategories()
   {
-    $trickMock = Mockery::mock('Tricks\Trick')->makePartial();
+    $trickMock = Mockery::mock('Tricks\Trick')
+      ->makePartial();
+
     $trickMock->categories = 'mocked';
 
     $trickPresenter = new TrickPresenter(
@@ -179,16 +184,20 @@ extends TestCase
   {
     $categoryMock = Mockery::mock('Tricks\Category');
 
-    $trickMock = Mockery::mock('Tricks\Trick')->makePartial();
+    $trickMock = Mockery::mock('Tricks\Trick')
+      ->makePartial();
+
     $trickMock->categories = [
       $categoryMock,
       $categoryMock,
       $categoryMock
     ];
 
-    $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter[hasCategories,getCategoryLink]', [
+    $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter', [
       $trickMock
-    ])->shouldAllowMockingProtectedMethods();
+    ])
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
 
     $trickPresenterMock
       ->shouldReceive('hasCategories')
@@ -220,14 +229,11 @@ extends TestCase
       'baz'
     ];
 
-    $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter[hasCategories]', [
+    $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter', [
       $trick
-    ])->shouldAllowMockingProtectedMethods();
-
-    $trickPresenterMock
-      ->shouldReceive('hasCategories')
-      ->atLeast()->once()
-      ->passthru();
+    ])
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
 
     $this->assertTrue($trickPresenterMock->hasCategories());
   }
@@ -253,14 +259,11 @@ extends TestCase
 
     $trickMock = Mockery::mock('Tricks\Trick');
 
-    $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter[getCategoryLink]', [
+    $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter', [
       $trickMock
-    ])->shouldAllowMockingProtectedMethods();
-
-    $trickPresenterMock
-      ->shouldReceive('getCategoryLink')
-      ->atLeast()->once()
-      ->passthru();
+    ])
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
 
     $this->assertEquals(
       'mocked',
@@ -281,9 +284,11 @@ extends TestCase
     et velit. Nam egestas, magna vel hendrerit egestas, leo sem gravida dui, in
     facilisis massa erat eget nisl.';
 
-    $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter[removeLastWord]', [
+    $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter', [
       $trick
-    ])->shouldAllowMockingProtectedMethods();
+    ])
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
 
     $trickPresenterMock
       ->shouldReceive('removeLastWord')
@@ -309,9 +314,11 @@ extends TestCase
     et velit. Nam egestas, magna vel hendrerit egestas, leo sem gravida dui, in
     facilisis massa erat eget nisl.';
 
-    $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter[removeLastWord]', [
+    $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter', [
       $trick
-    ])->shouldAllowMockingProtectedMethods();
+    ])
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
 
     $trickPresenterMock
       ->shouldReceive('removeLastWord')
@@ -331,14 +338,11 @@ extends TestCase
   {
     $before = 'foo bar baz';
 
-    $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter[removeLastWord]', [
+    $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter', [
       Mockery::mock('Tricks\Trick')
-    ])->shouldAllowMockingProtectedMethods();
-
-    $trickPresenterMock
-      ->shouldReceive('removeLastWord')
-      ->atLeast()->once()
-      ->passthru();
+    ])
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
 
     $this->assertEquals(
       'foo bar',
@@ -361,7 +365,7 @@ extends TestCase
 
     URL::swap($urlMock);
 
-    $trickMock = Mockery::mock('Tricks\Trick[getDateFormat]')
+    $trickMock = Mockery::mock('Tricks\Trick')
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 

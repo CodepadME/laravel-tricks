@@ -19,13 +19,15 @@ extends TestCase
    */
   public function testRegister()
   {
-    $mock = Mockery::mock('Illuminate\Foundation\Application');
+    $mock = Mockery::mock('Illuminate\Foundation\Application')
+      ->makePartial();
 
     $mock
       ->shouldReceive('share')
       ->atLeast()->once()
       ->with(Mockery::on(function($callback) {
-        $mock = Mockery::mock('Illuminate\Foundation\Application');
+        $mock = Mockery::mock('Illuminate\Foundation\Application')
+          ->makePartial();
 
         $mock
           ->shouldReceive('offsetGet')

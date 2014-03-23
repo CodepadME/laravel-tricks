@@ -18,7 +18,8 @@ extends TestCase
    */
   public function testTricks()
   {
-    $mock = Mockery::mock('Tricks\Category[belongsToMany]');
+    $mock = Mockery::mock('Tricks\Category')
+      ->makePartial();
 
     $mock
       ->shouldReceive('belongsToMany')

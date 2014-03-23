@@ -3,8 +3,6 @@
 namespace Tricks\Services\Forms;
 
 use Mockery;
-use PHPUnit_Framework_Assert as Assert;
-use ReflectionClass;
 use TestCase;
 
 class TrickFormTest
@@ -37,17 +35,13 @@ extends TestCase
       'code'        => 'baz'
     ];
 
-    $tricksForms = new TrickForm();
+    $trickForm = new TrickForm();
 
-    $class = new ReflectionClass($tricksForms);
-    $property = $class->getProperty('inputData');
-    $property->setAccessible(true);
-
-    $property->setValue($tricksForms, $before);
+    $this->setProtectedProperty($trickForm, 'inputData', $before);
 
     $this->assertEquals(
       array_keys($after),
-      array_keys($tricksForms->getInputData())
+      array_keys($trickForm->getInputData())
     );
   }
 }

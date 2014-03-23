@@ -9,6 +9,7 @@
   processIsolation="false"
   stopOnFailure="true"
   syntaxCheck="false"
+  stderr="true"
 >
   <testsuites>
     <testsuite name="Application Test Suite">
@@ -19,12 +20,13 @@
     <whitelist addUncoveredFilesFromWhitelist="true">
       <directory suffix=".php">app/Controllers</directory>
       <directory suffix=".php">app/Tricks</directory>
-      <file>app/filters.php</file>
-      <file>app/routes.php</file>
       <exclude>
         <directory suffix=".php">app/Tricks/Facades</directory>
         <!-- you ever tried testing protected static methods? -->
       </exclude>
     </whitelist>
   </filter>
+  <logging>
+    <log type="coverage-html" target="report/" charset="UTF-8" yui="true" />
+  </logging>
 </phpunit>

@@ -1,19 +1,30 @@
 <?php
 
-class TestCase extends Illuminate\Foundation\Testing\TestCase {
+use Illuminate\Foundation\Testing\TestCase as Base;
+use PHPUnit_Framework_Assert as Assert;
 
-	/**
-	 * Creates the application.
-	 *
-	 * @return Symfony\Component\HttpKernel\HttpKernelInterface
-	 */
+class TestCase
+extends Base
+{
 	public function createApplication()
 	{
-		$unitTesting = true;
-
+		$unitTesting     = true;
 		$testEnvironment = 'testing';
 
-		return require __DIR__.'/../../bootstrap/start.php';
+		return require(__DIR__ . '/../../bootstrap/start.php');
 	}
 
+	public function setProtectedProperty($class, $property, $value)
+	{
+		$reflectionClass = new ReflectionClass($class);
+
+		$reflectionProperty = $reflectionClass->getProperty($property);
+		$reflectionProperty->setAccessible(true);
+		$reflectionProperty->setValue($class, $value);
+	}
+
+	public function getProtectedProperty($class, $property)
+	{
+		return Assert::readAttribute($class, $property);
+	}
 }

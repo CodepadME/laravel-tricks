@@ -5,7 +5,6 @@ namespace Tricks\Presenters;
 use Carbon\Carbon;
 use HTML;
 use Mockery;
-use PHPUnit_Framework_Assert as Assert;
 use TestCase;
 use Tricks\Category;
 use Tricks\Trick;
@@ -21,7 +20,9 @@ extends TestCase
 
   protected function getTrickMockWithSlug()
   {
-    $mock = Mockery::mock('Tricks\Trick')->makePartial();
+    $mock = Mockery::mock('Tricks\Trick')
+      ->makePartial();
+
     $mock->slug = 'mocked';
 
     return $mock;
@@ -40,7 +41,7 @@ extends TestCase
 
     $this->assertSame(
       $mock,
-      Assert::readAttribute($userPresenter, 'resource')
+      $this->getProtectedProperty($userPresenter, 'resource')
     );
   }
 
@@ -113,7 +114,9 @@ extends TestCase
    */
   public function testfullNameWithoutProfile()
   {
-    $userMock = Mockery::mock('Tricks\User')->makePartial();
+    $userMock = Mockery::mock('Tricks\User')
+      ->makePartial();
+
     $userMock->username = 'foo';
     $userMock->profile  = null;
 
@@ -132,10 +135,14 @@ extends TestCase
    */
   public function testfullNameWithProfile()
   {
-    $profileMock = Mockery::mock('Tricks\Profile')->makePartial();
+    $profileMock = Mockery::mock('Tricks\Profile')
+      ->makePartial();
+
     $profileMock->name = 'foo';
 
-    $userMock = Mockery::mock('Tricks\User')->makePartial();
+    $userMock = Mockery::mock('Tricks\User')
+      ->makePartial();
+      
     $userMock->profile = $profileMock;
 
     $userPresenter = new UserPresenter(

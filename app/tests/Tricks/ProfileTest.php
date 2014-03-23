@@ -18,7 +18,8 @@ extends TestCase
    */
   public function testUser()
   {
-    $mock = Mockery::mock('Tricks\Profile[belongsTo]');
+    $mock = Mockery::mock('Tricks\Profile')
+      ->makePartial();
 
     $mock
       ->shouldReceive('belongsTo')

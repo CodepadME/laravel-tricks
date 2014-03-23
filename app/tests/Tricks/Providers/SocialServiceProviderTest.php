@@ -18,9 +18,11 @@ extends TestCase
    */
   public function testRegister()
   {
-    $mock = Mockery::mock('Tricks\Providers\SocialServiceProvider[registerGithub,registerDisqus]', [
+    $mock = Mockery::mock('Tricks\Providers\SocialServiceProvider', [
       Mockery::mock('Illuminate\Foundation\Application')
-    ])->shouldAllowMockingProtectedMethods();
+    ])
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
 
     $mock
       ->shouldReceive('registerGithub')
@@ -38,14 +40,16 @@ extends TestCase
    */
   public function testRegisterGithub()
   {
-    $applicationMock = Mockery::mock('Illuminate\Foundation\Application');
+    $applicationMock = Mockery::mock('Illuminate\Foundation\Application')
+      ->makePartial();
 
     $applicationMock
       ->shouldReceive('offsetSet')
       ->atLeast()->once()
       ->with('github.provider', 'mocked');
 
-    $repositoryMock = Mockery::mock('Illuminate\Config\Repository');
+    $repositoryMock = Mockery::mock('Illuminate\Config\Repository')
+      ->makePartial();
 
     $repositoryMock
       ->shouldReceive('get')
@@ -102,14 +106,11 @@ extends TestCase
         Mockery::mock('Tricks\Repositories\ProfileRepositoryInterface')
       );
 
-    $socialServiceProviderMock = Mockery::mock('Tricks\Providers\SocialServiceProvider[registerGithub]', [
+    $socialServiceProviderMock = Mockery::mock('Tricks\Providers\SocialServiceProvider', [
       $applicationMock
-    ])->shouldAllowMockingProtectedMethods();
-
-    $socialServiceProviderMock
-      ->shouldReceive('registerGithub')
-      ->atLeast()->once()
-      ->passthru();
+    ])
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
 
     $socialServiceProviderMock->registerGithub();
   }
@@ -119,14 +120,16 @@ extends TestCase
    */
   public function testRegisterDisqus()
   {
-    $applicationMock = Mockery::mock('Illuminate\Foundation\Application');
+    $applicationMock = Mockery::mock('Illuminate\Foundation\Application')
+      ->makePartial();
 
     $applicationMock
       ->shouldReceive('offsetSet')
       ->atLeast()->once()
       ->with('disqus', 'mocked');
 
-    $repositoryMock = Mockery::mock('Illuminate\Config\Repository');
+    $repositoryMock = Mockery::mock('Illuminate\Config\Repository')
+      ->makePartial();
 
     $repositoryMock
       ->shouldReceive('get')
@@ -154,14 +157,11 @@ extends TestCase
       )
       ->andReturn('mocked');
 
-    $socialServiceProviderMock = Mockery::mock('Tricks\Providers\SocialServiceProvider[registerDisqus]', [
+    $socialServiceProviderMock = Mockery::mock('Tricks\Providers\SocialServiceProvider', [
       $applicationMock
-    ])->shouldAllowMockingProtectedMethods();
-
-    $socialServiceProviderMock
-      ->shouldReceive('registerDisqus')
-      ->atLeast()->once()
-      ->passthru();
+    ])
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
 
     $socialServiceProviderMock->registerDisqus();
   }
