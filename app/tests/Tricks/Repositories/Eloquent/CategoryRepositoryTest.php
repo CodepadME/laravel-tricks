@@ -311,4 +311,66 @@ extends TestCase
 
     $categoryRepository->delete(1);
   }
+
+  /**
+   * @group tricks/repositories
+   */
+  public function testArrange()
+  {
+    $data = [
+      11 => 1
+    ];
+
+
+    $collectionMock = Mockery::mock('stdClass');
+
+    $categoryMock = Mockery::mock('Tricks\Category')
+      ->makePartial();
+
+    $categoryMock
+      ->shouldReceive('whereIn')
+      ->atLeast()->once()
+      ->with('id', array_values($data))
+      ->andReturn($categoryMock);
+
+    $categoryMock
+      ->shouldReceive('get')
+      ->atLeast()->once()
+      ->with(['id'])
+      ->andReturn($collectionMock);
+
+    $categoryMock
+      ->shouldReceive('save')
+      ->atLeast()->once();
+
+    $collectionMock
+      ->shouldReceive('find')
+      ->atLeast()->once()
+      ->with(1)
+      ->andReturn($categoryMock);
+
+    $categoryRepository = new CategoryRepository($categoryMock);
+
+    $categoryRepository->arrange($data);
+
+    $this->assertSame(
+      11,
+      $categoryMock->order
+    );
+  }
+
+  /**
+   * @group tricks/repositories
+   */
+  public function testGetForm()
+  {
+    $categoryRepository = new CategoryRepository(
+      Mockery::mock('Tricks\Category')
+    );
+
+    $this->assertInstanceOf(
+      'Tricks\Services\Forms\CategoryForm',
+      $categoryRepository->getForm()
+    );
+  }
 }
