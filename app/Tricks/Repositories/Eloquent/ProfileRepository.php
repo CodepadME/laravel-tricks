@@ -43,19 +43,19 @@ class ProfileRepository extends AbstractRepository implements ProfileRepositoryI
     {
         $profile = $this->getNew();
 
-        $profile->uid         = $details->uid;
-        $profile->username    = $details->nickname;
-        $profile->name        = $details->name;
-        $profile->email       = $details->email;
-        $profile->first_name  = $details->first_name;
-        $profile->last_name   = $details->last_name;
-        $profile->location    = $details->location;
-        $profile->description = $details->description;
-        $profile->image_url   = $details->imageUrl;
-        //$profile->urls      = serialize($details->urls);
+        $profile->uid          = $details->uid;
+        $profile->username     = $details->nickname;
+        $profile->name         = $details->name;
+        $profile->email        = $details->email;
+        $profile->first_name   = $details->first_name;
+        $profile->last_name    = $details->last_name;
+        $profile->location     = $details->location;
+        $profile->description  = $details->description;
+        $profile->image_url    = $details->imageUrl;
         $profile->access_token = $token;
+        $profile->user         = $user;
 
-        $profile = $user->profile()->save($profile);
+        $profile->save();
 
         return $profile;
     }

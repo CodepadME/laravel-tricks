@@ -27,4 +27,9 @@ extends Base
 	{
 		return Assert::readAttribute($class, $property);
 	}
+
+	protected function incomplete($message = 'This test has not been implemented yet.')
+	{
+		$this->markTestIncomplete($message);
+	}
 }
