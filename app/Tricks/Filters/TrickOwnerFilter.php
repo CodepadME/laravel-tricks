@@ -68,7 +68,7 @@ class TrickOwnerFilter
      *
      * @return int
      */
-    private function getUserId()
+    protected function getUserId()
     {
         return $this->auth->user()->id;
     }
@@ -78,7 +78,7 @@ class TrickOwnerFilter
      * @param  \Illuminate\Routing\Route  $route
      * @return string
      */
-    private function getSlug($route)
+    protected function getSlug($route)
     {
         return $route->getParameter('trick_slug');
     }
@@ -90,7 +90,7 @@ class TrickOwnerFilter
      * @param  int     $userId
      * @return bool
      */
-    private function isTrickOwnedByUser($slug, $userId)
+    protected function isTrickOwnedByUser($slug, $userId)
     {
         return $this->tricks->isTrickOwnedByUser($slug, $userId);
     }
