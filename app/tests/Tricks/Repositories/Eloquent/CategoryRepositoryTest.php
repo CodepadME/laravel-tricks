@@ -211,4 +211,43 @@ extends TestCase
 
     $this->incomplete('Need to mock e() and Str::slug()');
   }
+
+  /**
+   * @group tricks/repositories
+   */
+  public function testUpdate()
+  {
+    $data = [
+      'name'        => 'a new foo',
+      'description' => 'bar'
+    ];
+
+    $categoryMock = Mockery::mock('Tricks\Category')
+      ->makePartial();
+
+    $categoryMock
+      ->shouldReceive('save')
+      ->atLeast()->once();
+
+    $categoryRepository = Mockery::mock('Tricks\Repositories\Eloquent\CategoryRepository', [
+      $categoryMock
+    ])
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
+
+    $categoryRepository
+      ->shouldReceive('find')
+      ->atLeast()->once()
+      ->with(1);
+
+    $this->assertSame(
+      $categoryMock,
+      $categoryRepository->update(1, $data)
+    );
+
+    $this->assertEquals(
+      'bar',
+      $categoryMock->description
+    );
+  }
 }
