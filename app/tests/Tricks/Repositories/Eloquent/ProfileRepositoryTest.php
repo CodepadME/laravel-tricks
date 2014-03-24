@@ -64,6 +64,8 @@ extends TestCase
     $userMock = Mockery::mock('Tricks\User')
       ->makePartial();
 
+    $userMock->id = 1;
+
     $profileMock = Mockery::mock('Tricks\Profile')
       ->makePartial();
 
@@ -106,8 +108,8 @@ extends TestCase
     );
 
     $this->assertSame(
-      $userMock,
-      $profileMock->user
+      $userMock->id,
+      $profileMock->user_id
     );
   }
 

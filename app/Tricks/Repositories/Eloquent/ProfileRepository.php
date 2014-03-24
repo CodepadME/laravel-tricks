@@ -53,7 +53,7 @@ class ProfileRepository extends AbstractRepository implements ProfileRepositoryI
         $profile->description  = $details->description;
         $profile->image_url    = $details->imageUrl;
         $profile->access_token = $token;
-        $profile->user         = $user;
+        $profile->user_id      = $user->id;
 
         $profile->save();
 
