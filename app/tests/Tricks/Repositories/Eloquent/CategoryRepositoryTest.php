@@ -236,9 +236,10 @@ extends TestCase
       ->makePartial();
 
     $categoryRepository
-      ->shouldReceive('find')
+      ->shouldReceive('findById')
       ->atLeast()->once()
-      ->with(1);
+      ->with(1)
+      ->andReturn($categoryMock);
 
     $this->assertSame(
       $categoryMock,
@@ -249,5 +250,65 @@ extends TestCase
       'bar',
       $categoryMock->description
     );
+
+    $this->incomplete('Need to mock e() and Str::slug()');
+  }
+
+  /**
+   * @group tricks/repositories
+   */
+  public function testGetMaxOrder()
+  {
+    $categoryMock = Mockery::mock('Tricks\Category')
+      ->makePartial();
+
+    $categoryMock
+      ->shouldReceive('max')
+      ->atLeast()->once()
+      ->with('order')
+      ->andReturn('mocked max');
+
+    $categoryRepository = new CategoryRepository($categoryMock);
+
+    $this->assertEquals(
+      'mocked max',
+      $categoryRepository->getMaxOrder()
+    );
+  }
+
+  /**
+   * @group tricks/repositories
+   */
+  public function testDelete()
+  {
+    $categoryMock = Mockery::mock('Tricks\Category')
+      ->makePartial();
+
+    $categoryMock
+      ->shouldReceive('tricks')
+      ->atLeast()->once()
+      ->andReturn($categoryMock);
+
+    $categoryMock
+      ->shouldReceive('detach')
+      ->atLeast()->once();
+
+    $categoryMock
+      ->shouldReceive('delete')
+      ->atLeast()->once();
+
+    $categoryRepository = Mockery::mock('Tricks\Repositories\Eloquent\CategoryRepository', [
+      $categoryMock
+    ])
+      ->shouldAllowMockingProtectedMethods()
+      ->makePartial();
+
+    $categoryRepository
+      ->shouldReceive('findById')
+      ->atLeast()->once()
+      ->with(1)
+      ->andReturn($categoryMock);
+
+    $categoryRepository->delete(1);
   }
 }
