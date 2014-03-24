@@ -178,25 +178,25 @@ extends TestCase
       ->shouldReceive('save')
       ->atLeast()->once();
 
-    $categoryRepository = Mockery::mock('Tricks\Repositories\Eloquent\CategoryRepository', [
+    $categoryRepositoryMock = Mockery::mock('Tricks\Repositories\Eloquent\CategoryRepository', [
       $categoryMock
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $categoryRepository
+    $categoryRepositoryMock
       ->shouldReceive('getNew')
       ->atLeast()->once()
       ->andReturn($categoryMock);
 
-    $categoryRepository
+    $categoryRepositoryMock
       ->shouldReceive('getMaxOrder')
       ->atLeast()->once()
       ->andReturn(1);
 
     $this->assertSame(
       $categoryMock,
-      $categoryRepository->create($data)
+      $categoryRepositoryMock->create($data)
     );
 
     $this->assertEquals(
@@ -229,13 +229,13 @@ extends TestCase
       ->shouldReceive('save')
       ->atLeast()->once();
 
-    $categoryRepository = Mockery::mock('Tricks\Repositories\Eloquent\CategoryRepository', [
+    $categoryRepositoryMock = Mockery::mock('Tricks\Repositories\Eloquent\CategoryRepository', [
       $categoryMock
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $categoryRepository
+    $categoryRepositoryMock
       ->shouldReceive('findById')
       ->atLeast()->once()
       ->with(1)
@@ -243,7 +243,7 @@ extends TestCase
 
     $this->assertSame(
       $categoryMock,
-      $categoryRepository->update(1, $data)
+      $categoryRepositoryMock->update(1, $data)
     );
 
     $this->assertEquals(
@@ -297,19 +297,19 @@ extends TestCase
       ->shouldReceive('delete')
       ->atLeast()->once();
 
-    $categoryRepository = Mockery::mock('Tricks\Repositories\Eloquent\CategoryRepository', [
+    $categoryRepositoryMock = Mockery::mock('Tricks\Repositories\Eloquent\CategoryRepository', [
       $categoryMock
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $categoryRepository
+    $categoryRepositoryMock
       ->shouldReceive('findById')
       ->atLeast()->once()
       ->with(1)
       ->andReturn($categoryMock);
 
-    $categoryRepository->delete(1);
+    $categoryRepositoryMock->delete(1);
   }
 
   /**
