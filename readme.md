@@ -61,6 +61,8 @@ After this simple configuration you can populate the database by running a coupl
 
 ### Installation
 
+there is a need to run `composer install`
+
 CD into the directory of this project and run the following two commands:
 
 1. `php artisan migrate`
