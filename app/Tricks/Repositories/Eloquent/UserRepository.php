@@ -149,7 +149,7 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
     public function updateSettings(User $user, array $data)
     {
         $user->username = $data['username'];
-        $user->password = ($data['password'] != '') ? $data['password'] : $user->password;
+        $user->password = ($data['password'] != '') ? Hash::make($data['password']) : $user->password;
 
         if ($data['avatar'] != '') {
             File::move(public_path().'/img/avatar/temp/'.$data['avatar'], 'img/avatar/'.$data['avatar']);
