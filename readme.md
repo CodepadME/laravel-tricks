@@ -61,13 +61,13 @@ After this simple configuration you can populate the database by running a coupl
 
 ### Installation
 
-CD into the directory of this project and run the following two commands:
+CD into the directory of this project and run the following three commands:
 
 1. `composer install`
 2. `php artisan migrate`
 3. `php artisan db:seed`
 
-This will create the database structure and populate the database with some sample data so that you could see this project in action.
+This will install all Composer dependencies, create the database structure and populate the database with some sample data so that you could see this project in action.
 
 ## Documentation
 
