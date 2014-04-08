@@ -1,4 +1,6 @@
 <?php
+Route::get('/', ['as' => 'home'], 'BrowseController@getBrowseRecent');
+
 # Route filters
 Route::when('admin/*', 'admin');
 Route::when('*', 'trick.view_throttle');
