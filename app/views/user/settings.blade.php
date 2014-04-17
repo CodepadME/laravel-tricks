@@ -1,4 +1,4 @@
-@section('title','Settings')
+@section('title', trans('user.settings'))
 
 @section('styles')
 <link rel="stylesheet" href="{{ URL::asset('css/jquery.Jcrop.min.1.css') }}">

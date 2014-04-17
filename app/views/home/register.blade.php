@@ -1,4 +1,4 @@
-@section('title', 'Registration')
+@section('title', trans('home.registration'))
 
 @section('content')
     <div class="container">

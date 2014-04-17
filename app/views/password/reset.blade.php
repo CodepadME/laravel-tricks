@@ -1,4 +1,4 @@
-@section('title', 'Resetting password')
+@section('title', trans('password.resetting_password'))
 
 @section('content')
     <div class="container">

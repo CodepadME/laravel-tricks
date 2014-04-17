@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title','Error')
+@section('title', trans('home.error'))
 
 @section('content')
     <div class="container">

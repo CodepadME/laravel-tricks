@@ -1,4 +1,4 @@
-@section('title','My Favorites')
+@section('title', trans('user.my_favorites'))
 
 @section('content')
     <div class="container">

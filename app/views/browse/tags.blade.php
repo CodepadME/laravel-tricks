@@ -1,4 +1,4 @@
-@section('title', 'Tags')
+@section('title', trans('browse.tags'))
 
 @section('content')
     <div class="container">
