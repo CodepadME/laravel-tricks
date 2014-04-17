@@ -132,7 +132,7 @@ class UserTricksController extends BaseController
         $trick = $this->trick->edit($trick, $data);
 
         return $this->redirectRoute('tricks.edit', [ $trick->slug ], [
-            'success' => 'Trick has been updated'
+            'success' => \Lang::get('user_tricks.trick_updated')
         ]);
     }
 
@@ -147,7 +147,7 @@ class UserTricksController extends BaseController
         $trick = $this->trick->findBySlug($slug);
 
         if ($trick->user_id != Auth::user()->id) {
-            return "This trick doesn't belong to you";
+            return \Lang::get('user_tricks.trick_does_not_belong_to_you');
         }
 
         $trick->tags()->detach();
@@ -155,7 +155,7 @@ class UserTricksController extends BaseController
         $trick->delete();
 
         return $this->redirectRoute('user.index', null, [
-            'success' => 'Trick has been deleted'
+            'success' => \Lang::get('user_tricks.trick_deleted')
         ]);
     }
 }

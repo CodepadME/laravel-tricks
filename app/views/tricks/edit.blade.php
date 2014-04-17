@@ -1,4 +1,4 @@
-@section('title', 'Trick')
+@section('title', trans('tricks.trick'))
 
 @section('styles')
 	<link rel="stylesheet" href="{{ URL::asset('js/selectize/css/selectize.bootstrap3.css') }}">

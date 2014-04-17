@@ -71,8 +71,8 @@ class BrowseController extends BaseController
     {
         list($category, $tricks) = $this->tricks->findByCategory($category);
 
-        $type      = 'Category "'.$category->name.'"';
-        $pageTitle = 'Browsing Category "' . $category->name . '"';
+        $type      = \Lang::get('browse.category', array('category' => $category->name));
+        $pageTitle = \Lang::get('browse.browsing_category', array('category' => $category->name));
 
         $this->view('browse.index', compact('tricks', 'type', 'pageTitle'));
     }
@@ -99,8 +99,8 @@ class BrowseController extends BaseController
     {
         list($tag, $tricks) = $this->tricks->findByTag($tag);
 
-        $type      = 'Tag "'.$tag->name.'"';
-        $pageTitle = 'Browsing Tag "' . $tag->name . '"';
+        $type      = \Lang::get('browse.tag', array('tag' => $tag->name));
+        $pageTitle = \Lang::get('browse.browsing_tag', array('tag' => $tag->name));
 
         $this->view('browse.index', compact('tricks', 'type', 'pageTitle'));
     }
@@ -114,8 +114,8 @@ class BrowseController extends BaseController
     {
         $tricks = $this->tricks->findMostRecent();
 
-        $type      = 'Recent';
-        $pageTitle = 'Browsing Most Recent Laravel Tricks';
+        $type      = \Lang::get('browse.recent');
+        $pageTitle = \Lang::get('browse.browsing_most_recent_tricks');
 
         $this->view('browse.index', compact('tricks', 'type', 'pageTitle'));
     }
@@ -129,8 +129,8 @@ class BrowseController extends BaseController
     {
         $tricks = $this->tricks->findMostPopular();
 
-        $type      = 'Popular';
-        $pageTitle = 'Browsing Most Popular Laravel Tricks';
+        $type      = \Lang::get('browse.popular');
+        $pageTitle = \Lang::get('browse.browsing_most_popular_tricks');
 
         $this->view('browse.index', compact('tricks', 'type', 'pageTitle'));
     }
@@ -144,8 +144,8 @@ class BrowseController extends BaseController
     {
         $tricks = $this->tricks->findMostCommented();
 
-        $type      = 'Most commented';
-        $pageTitle = 'Browsing Most Commented Laravel Tricks';
+        $type      = \Lang::get('browse.most_commented');
+        $pageTitle = \Lang::get('browse.browsing_most_commented_tricks');
 
         $this->view('browse.index', compact('tricks', 'type', 'pageTitle'));
     }
