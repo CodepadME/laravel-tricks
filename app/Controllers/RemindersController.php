@@ -29,7 +29,7 @@ class RemindersController extends BaseController
     public function postRemind()
     {
         $result = Password::remind(Input::only('email'), function ($message, $user) {
-            $message->subject('Your Password Reminder for Laravel Tricks');
+            $message->subject(\Lang::get('reminders.your_password_reminder'));
         });
 
         switch ($result) {

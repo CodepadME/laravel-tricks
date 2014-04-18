@@ -1,4 +1,4 @@
-@section('title','About Laravel-Tricks website')
+@section('title', trans('home.about_tricks_website'))
 
 @section('content')
 <div class="container">

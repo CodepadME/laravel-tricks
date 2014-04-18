@@ -70,6 +70,36 @@ class User extends Model implements UserInterface, RemindableInterface
 	}
 
 	/**
+	 * Get the remember me token from DB
+	 *
+	 * @return mixed
+	 */
+	public function getRememberToken()
+	{
+	    return $this->remember_token;
+	}
+	
+	/**
+	 * Set the remember me token to DB
+	 *
+	 * @return mixed
+	 */
+	public function setRememberToken($value)
+	{
+	    $this->remember_token = $value;
+	}
+
+	/**
+	 * Get the column of remember me token in DB
+	 *
+	 * @return mixed
+	 */
+	public function getRememberTokenName()
+	{
+	    return 'remember_token';
+	}
+
+	/**
 	 * Get the unique identifier for the user.
 	 *
 	 * @return mixed

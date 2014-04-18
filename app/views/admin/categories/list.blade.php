@@ -1,20 +1,20 @@
-@section('title','Viewing categories')
+@section('title', trans('admin.viewing_category'))
 
 @section('content')
 <div class="container">
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="page-header">
-			  <h1>Categories for Laravel tricks <span class="pull-right"> <a data-toggle="modal" href="#add_category" class="btn btn-primary btn-lg">Add new Category</a></span></h1>
+			  <h1>{{ trans('admin.category_for_tricks') }} <span class="pull-right"> <a data-toggle="modal" href="#add_category" class="btn btn-primary btn-lg">{{ trans('admin.add_new_category') }}</a></span></h1>
 			</div>
 
 			<table class="table">
 			   <thead>
 			     <tr>
-			       <th>Title</th>
-			       <th>Description</th>
-			       <th># of Tricks</th>
-			       <th class="col-lg-3 text-right">Actions</th>
+			       <th>{{ trans('admin.title') }}</th>
+			       <th>{{ trans('admin.description') }}</th>
+			       <th>{{ trans('admin.num_of_tricks') }}</th>
+			       <th class="col-lg-3 text-right">{{ trans('admin.actions') }}</th>
 			     </tr>
 			   </thead>
 			   <tbody id="sortable">
@@ -26,8 +26,8 @@
 			        <td>{{ $category->tricks->count()}}</td>
 			        <td>
 			        	<div class="btn-group pull-right">
-				        <a class="btn btn-primary btn-sm" href="{{url('admin/categories/view/'.$category->id)}}">Edit</a>
-				        <a class="delete_toggler btn btn-danger btn-sm" rel="{{$category->id}}">Delete</a>
+				        <a class="btn btn-primary btn-sm" href="{{url('admin/categories/view/'.$category->id)}}">{{ trans('admin.edit') }}</a>
+				        <a class="delete_toggler btn btn-danger btn-sm" rel="{{$category->id}}">{{ trans('admin.delete') }}</a>
 			        	</div>
 			        </td>
 			     </tr>
@@ -44,24 +44,24 @@
      <div class="modal-content">
        <div class="modal-header">
          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-         <h4 class="modal-title">Adding new category</h4>
+         <h4 class="modal-title">{{ trans('admin.adding_new_category') }}</h4>
        </div>
        <div class="modal-body">
        		@if($errors->all())
        		    <div class="bs-callout bs-callout-danger">
-       		        <h4>Please fix the errors below:</h4>
+       		        <h4>{{ trans('admin.please_fix_errors') }}</h4>
        		        {{ HTML::ul($errors->all())}}
        		    </div>
        		@endif
 			{{ Form::open(array('class'=>'form-horizontal'))}}
         	<div class="form-group">
-        	    <label for="title" class="col-lg-2 control-label">Name</label>
+        	    <label for="title" class="col-lg-2 control-label">{{ trans('admin.name') }}</label>
         	    <div class="col-lg-10">
         	    	{{ Form::text('name',null,array('class'=>'form-control'))}}
         	    </div>
         	</div>
             <div class="form-group">
-                <label for="url" class="col-lg-2 control-label">Description</label>
+                <label for="url" class="col-lg-2 control-label">{{ trans('admin.description') }}</label>
                 <div class="col-lg-10">
                     {{ Form::textarea('description',null,array('class'=>'form-control','rows'=>'4'))}}
                 </div>
@@ -84,14 +84,14 @@
      <div class="modal-content">
        <div class="modal-header">
          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-         <h4 class="modal-title">Are you sure?</h4>
+         <h4 class="modal-title">{{ trans('admin.are_you_sure') }}</h4>
        </div>
        <div class="modal-body">
-        	<p class="lead text-center">This Category will be deleted!</p>
+        	<p class="lead text-center">{{ trans('admin.category_will_be_deleted') }}</p>
        </div>
        <div class="modal-footer">
-        	<a data-dismiss="modal" href="#delete_category" class="btn btn-default">Keep</a>
-        	<a href="" id="delete_link" class="btn btn-danger">Delete</a>
+        	<a data-dismiss="modal" href="#delete_category" class="btn btn-default">{{ trans('admin.keep') }}</a>
+        	<a href="" id="delete_link" class="btn btn-danger">{{ trans('admin.delete') }}</a>
        </div>
      </div><!-- /.modal-content -->
    </div><!-- /.modal-dialog -->

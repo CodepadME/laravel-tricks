@@ -1,11 +1,11 @@
-@section('title','Viewing users')
+@section('title', trans('admin.viewing_users'))
 
 @section('content')
 <div class="container">
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="page-header">
-				<h1>Showing all users ({{ $users->getTotal() }})</h1>
+				<h1>{{ trans('admin.showing_all_users') }} ({{ $users->getTotal() }})</h1>
 			</div>
 		</div>
 	</div>
@@ -14,12 +14,12 @@
 			<table class="table">
 			   	<thead>
 			    	<tr>
-				     	<th>Avatar</th>
-						<th>Username</th>
-						<th>Email</th>
-						<th>Tricks</th>
-						<th>Date Registered</th>
-						<th>Github Profile?</th>
+				     	<th>{{ trans('admin.avatar') }}</th>
+						<th>{{ trans('admin.username') }}</th>
+						<th>{{ trans('admin.email') }}</th>
+						<th>{{ trans('admin.tricks') }}</th>
+						<th>{{ trans('admin.date_registered') }}</th>
+						<th>{{ trans('admin.github_profile') }}</th>
 			    	</tr>
 			   	</thead>
 			   	<tbody>

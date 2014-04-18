@@ -1,4 +1,4 @@
-@section('title','Search results for "'.$term.'"')
+@section('title', trans('search.search_results_for', array('term' => $term)))
 
 @section('scripts')
 <script type="text/javascript">

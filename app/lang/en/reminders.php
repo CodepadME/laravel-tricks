@@ -20,5 +20,7 @@ return array(
     "token" => "This password reset token is invalid.",
 
     "sent" => "Password reminder sent!",
+    
+    "your_password_reminder" => "Your Password Reminder for Laravel Tricks",
 
 );
