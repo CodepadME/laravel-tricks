@@ -2,10 +2,10 @@
 
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Laravel-Tricks</title>
-        <link>http://www.laravel-tricks.com</link>
+        <title>{{ trans('feeds.title') }}</title>
+        <link>{{ trans('feeds.link') }}</link>
         <atom:link href="{{ Request::url() }}" rel="self"></atom:link>
-        <description>Laravel tricks is a website that aggregates useful tips and tricks for Laravel PHP framework</description>
+        <description>{{ trans('feeds.sub_title') }}</description>
         <language>en-us</language>
         <lastBuildDate>{{ Carbon\Carbon::now()->toRSSString() }}</lastBuildDate>
 
