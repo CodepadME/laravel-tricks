@@ -125,7 +125,12 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
             return $trick->comment_count;
         })->reverse();
 
-        return \Paginator::make($tricks->all(), count($tricks), $perPage);
+        $page = \Input::get('page', 1);
+        $skip = ($page - 1) * $perPage;
+        $items = $tricks->all();
+        array_splice($items, 0, $skip);
+
+        return \Paginator::make($items, count($tricks), $perPage);
     }
 
     /**
