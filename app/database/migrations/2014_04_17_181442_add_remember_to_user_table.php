@@ -27,7 +27,7 @@ class AddRememberToUserTable extends Migration {
 	{
 		Schema::table('users', function($table)
 		{
-		    $table->dropColumn('order');
+		    $table->dropColumn('remember_token');
 		});
 	}
 
