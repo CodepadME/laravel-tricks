@@ -5,8 +5,3 @@ composer.phar
 composer.lock
 .DS_Store
 Thumbs.db
-.idea
-/bootstrap/start.php
-/app/config
-/app/storage
-/public
