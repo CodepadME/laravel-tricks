@@ -17,17 +17,17 @@
 				<div class="content-box">
 					@if(Auth::check() && (Auth::user()->id == $trick->user_id))
 						<div class="pull-right">
-							<a data-toggle="modal" href="#deleteModal">Delete</a>
+							<a data-toggle="modal" href="#deleteModal">{{trans('tricks.edit.delete_button')}}</a>
 							@include('tricks.delete',['link'=>$trick->deleteLink])
 						</div>
 					@endif
 					<h1 class="page-title">
-						Editing trick
+						{{trans('tricks.edit.edit_trick')}}
 					</h1>
 					@if(Session::get('errors'))
 					    <div class="alert alert-danger alert-dismissable">
 					        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					         <h5>There were errors while editing this trick:</h5>
+					         <h5>{{trans('tricks.edit.update_error')}}</h5>
 					         @foreach($errors->all('<li>:message</li>') as $message)
 					            {{$message}}
 					         @endforeach
@@ -41,28 +41,28 @@
 					@endif
 					{{ Form::open(array('class'=>'form-vertical','id'=>'save-trick-form','role'=>'form'))}}
 					    <div class="form-group">
-					    	<label for="title">Title</label>
-					    	{{Form::text('title', $trick->title, array('class'=>'form-control','placeholder'=>'Name this trick'));}}
+					    	<label for="title">{{trans('tricks.edit.title')}}</label>
+					    	{{Form::text('title', $trick->title, array('class'=>'form-control','placeholder'=>trans('tricks.edit.title_placeholder')));}}
 					    </div>
 					    <div class="form-group">
-					    	<label for="description">Description</label>
-					    	{{Form::textarea('description',$trick->description, array('class'=>'form-control','placeholder'=>'Give detailed description of the trick','rows'=>'3'));}}
+					    	<label for="description">{{trans('tricks.edit.description')}}</label>
+					    	{{Form::textarea('description',$trick->description, array('class'=>'form-control','placeholder'=>trans('tricks.edit.description_placeholder'),'rows'=>'3'));}}
 					    </div>
 					    <div class="form-group">
-					      <label>Trick code: </label>
+					      <label>{{trans('tricks.edit.code')}}</label>
 					      <div id="editor-content" class="content-editor"></div>
 					      {{Form::textarea('code', $trick->code, ['id'=>'code-editor','style'=>'display:none;']);}}
 					    </div>
 					    <div class="form-group">
-					    	{{ Form::select('tags[]', $tagList, $selectedTags, array('multiple','id'=>'tags','placeholder'=>'Tag this trick','class' => 'form-control')); }}
+					    	{{ Form::select('tags[]', $tagList, $selectedTags, array('multiple','id'=>'tags','placeholder'=>trans('tricks.edit.tag_placeholder'),'class' => 'form-control')); }}
 					    </div>
 					    <div class="form-group">
-					    	{{ Form::select('categories[]', $categoryList, $selectedCategories, array('multiple','id'=>'categories','placeholder'=>'Choose Categories for this trick','class' => 'form-control')); }}
+					    	{{ Form::select('categories[]', $categoryList, $selectedCategories, array('multiple','id'=>'categories','placeholder'=>trans('tricks.edit.category_placeholder'),'class' => 'form-control')); }}
 					    </div>
 					    <div class="form-group">
 					        <div class="text-right">
 					          <button type="submit"  id="save-section" class="btn btn-primary ladda-button" data-style="expand-right">
-					            Update Trick
+                                  {{trans('tricks.edit.update')}}
 					          </button>
 					        </div>
 					    </div>

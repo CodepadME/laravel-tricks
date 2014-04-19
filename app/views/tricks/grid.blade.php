@@ -6,7 +6,7 @@
 	@else
 		<div class="col-lg-12">
 			<div class="alert alert-danger">
-				Sorry, but I couldn't find any tricks for you!
+				{{trans('tricks.sorry_message')}}
 			</div>
 		</div>
 	@endif

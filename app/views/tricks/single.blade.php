@@ -24,8 +24,8 @@
                 <div class="content-box">
                     @if(Auth::check() && (Auth::user()->id == $trick->user_id))
                         <div class="text-right">
-                            <a data-toggle="modal" href="#deleteModal">Delete</a> |
-                            <a href="{{$trick->editLink}}">Edit</a>
+                            <a data-toggle="modal" href="#deleteModal">{{trans('tricks.single.delete_button')}}</a> |
+                            <a href="{{$trick->editLink}}">{{trans('tricks.single.edit_button')}}</a>
                             @include('tricks.delete',['link'=>$trick->deleteLink])
                         </div>
                     @endif
@@ -48,7 +48,7 @@
             </div>
                 <div class="col-lg-3 col-md-4">
                     <div class="content-box">
-                        <b>Stats</b>
+                        <b>{{trans('tricks.single.stats')}}</b>
                         <ul class="list-group trick-stats">
                             <a href="#" class="list-group-item js-like-trick" data-liked="{{ $trick->likedByUser(Auth::user()) ? '1' : '0'}}">
 
@@ -71,7 +71,7 @@
                             </li>
                         </ul>
                         @if(count($trick->allCategories))
-                            <b>Categories</b>
+                            <b>{{trans('tricks.single.categories')}}</b>
                             <ul class="nav nav-list push-down">
                                 @foreach($trick->allCategories as $category)
                                     <li>
@@ -83,7 +83,7 @@
                             </ul>
                         @endif
                         @if(count($trick->tags))
-                            <b>Tags</b>
+                            <b>{{trans('tricks.single.tags')}}</b>
                             <ul class="nav nav-list push-down">
                                 @foreach($trick->tags as $tag)
                                     <li>
@@ -99,7 +99,7 @@
                                 <a  href="{{ route('tricks.show', $prev->slug) }}"
                                     title="{{ $prev->title }}" data-toggle="tooltip"
                                     class="btn btn-sm btn-primary">
-                                        &laquo; Previous Trick
+                                        &laquo; {{trans('tricks.single.prev')}}
                                 </a>
                             @endif
 
@@ -107,7 +107,7 @@
                                 <a  href="{{ route('tricks.show', $next->slug) }}"
                                     title="{{ $next->title }}" data-toggle="tooltip"
                                     class="btn btn-sm btn-primary pull-right">
-                                        Next Trick &raquo;
+                                    {{trans('tricks.single.next')}} &raquo;
                                 </a>
                             @endif
                         </div>

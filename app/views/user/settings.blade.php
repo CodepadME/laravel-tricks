@@ -80,7 +80,7 @@ jQuery(function ($){
       <h1 class="page-title">User settings</h1>
     </div>
     <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 text-right">
-      <a href="{{ url('user')}}" class="btn btn-primary">Back to profile</a>
+      <a href="{{ url('user')}}" class="btn btn-primary">{{trans('user.setting.back')}}</a>
     </div>
   </div>
 
@@ -88,20 +88,20 @@ jQuery(function ($){
     <div class="col-lg-6 col-lg-push-3 col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12">
       <div class="content-box">
 
-          <h3 class="content-title">Account Settings </h3>
+          <h3 class="content-title">{{trans('user.setting.title')}}</h3>
 
 
           @if(Session::has('update_password'))
             <div class="alert alert-info">
               <button type="button" class="close" data-dismiss="alert">&times;</button>
               <strong>Notice :</strong>
-              <p>Please create a password if you'd like to login with email as well</p>
+              <p>{{trans('user.setting.notice_message')}}</p>
             </div>
           @endif
           @if(Session::has('settings_updated'))
             <div class="alert alert-success">
               <button type="button" class="close" data-dismiss="alert">&times;</button>
-              Your settings have been updated!
+                {{trans('user.setting.update_massage')}}
             </div>
           @endif
           @if(Session::get('errors'))
@@ -115,24 +115,24 @@ jQuery(function ($){
           {{ Form::open(array('role'=>'form','id'=>'loginform','class'=>'form-horizontal'))}}
           <fieldset>
             <div class="form-group {{Session::get('username_required')? 'has-error': ''}}">
-              <label for="username" class="col-lg-4 control-label">Username</label>
+              <label for="username" class="col-lg-4 control-label">{{trans('user.setting.username')}}</label>
               <div class="col-lg-8">
-                {{ Form::text('username', Auth::user()->username, array('class'=>'form-control','placeholder'=>'Username'))}}
+                {{ Form::text('username', Auth::user()->username, array('class'=>'form-control','placeholder'=>trans('user.setting.username_placeholder')))}}
                 @if(Session::get('username_required'))
-                  <span class="help-block">Your Github username has already been taken on this site, please choose a different username</span>
+                  <span class="help-block">{{trans('user.setting.github_massage')}}</span>
                 @endif
               </div>
 
             </div>
             <div class="form-group">
-              <label for="email" class="col-lg-4 control-label">Email</label>
+              <label for="email" class="col-lg-4 control-label">{{trans('user.setting.email')}}</label>
               <div class="col-lg-8">
                 <input type="email" disabled class="form-control" id="email" placeholder="{{Auth::user()->email}}">
               </div>
             </div>
 
             <div class="form-group">
-              <label for="avatar" class="col-lg-4 control-label">Profile Picture</label>
+              <label for="avatar" class="col-lg-4 control-label">{{trans('user.setting.profile_picture')}}</label>
               <div class="col-lg-8">
                 <input type="hidden" id="avatar-hidden" name="avatar" value="">
                 <div id="upload-avatar" class="upload-avatar">
@@ -141,7 +141,7 @@ jQuery(function ($){
                   </div>
                   <div class="btn btn-sm btn-primary js-fileapi-wrapper">
                      <div class="js-browse">
-                        <span class="btn-txt">Choose</span>
+                        <span class="btn-txt">{{trans('user.setting.picture_choose')}}</span>
                         <input type="file" name="filedata">
                      </div>
                      <div class="js-upload" style="display: none;">
@@ -154,21 +154,21 @@ jQuery(function ($){
             </div>
 
             <div class="form-group">
-              <label for="password" class="col-lg-4 control-label">Password</label>
+              <label for="password" class="col-lg-4 control-label">{{trans('user.setting.password')}}</label>
               <div class="col-lg-8">
-                {{ Form::password('password', array('class'=>'form-control','placeholder'=>'New Password'))}}
+                {{ Form::password('password', array('class'=>'form-control','placeholder'=>trans('user.setting.password_placeholder')))}}
               </div>
             </div>
             <div class="form-group">
-              <label for="password_confirmation" class="col-lg-4 control-label">Confirm Password</label>
+              <label for="password_confirmation" class="col-lg-4 control-label">{{trans('user.setting.password_confirmation')}}</label>
               <div class="col-lg-8">
-                {{ Form::password('password_confirmation', array('class'=>'form-control','placeholder'=>'Confirm Password'))}}
+                {{ Form::password('password_confirmation', array('class'=>'form-control','placeholder'=>trans('user.setting.password_confirmation_placeholder')))}}
               </div>
             </div>
             <div class="form-group">
               <div class="col-lg-offset-7 col-lg-12">
-                <input class="btn btn-sm" type="reset" value="Reset form">
-                <input class="btn btn-primary" type="submit" value="Update">
+                <input class="btn btn-sm" type="reset" value="{{trans('user.setting.reset')}}">
+                <input class="btn btn-primary" type="submit" value="{{trans('user.setting.update')}}">
               </div>
              </div>
           </fieldset>
@@ -180,7 +180,7 @@ jQuery(function ($){
      <div id="cropper-preview" style="display:none;">
        <div class="panel panel-info">
          <div class="panel-heading">
-           <h3 class="panel-title"> Crop the picture </h3>
+           <h3 class="panel-title">{{trans('user.setting.crop')}}</h3>
          </div>
          <div class="panel-body">
            <div class="js-img"></div>

@@ -97,6 +97,15 @@ return array(
 	|
 	*/
 
-	'attributes' => array(),
+	'attributes' => array(
+        'username' => 'ユーザー名',
+        'email' => 'メールアドレス',
+        'password' => 'パスワード',
+        'title' => 'タイトル',
+        'description' => 'トリックの説明',
+        'tags' => 'タグ',
+        'categories' => 'カテゴリー',
+        'code' => 'Trick ソースコード',
+    ),
 
 );
