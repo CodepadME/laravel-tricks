@@ -1,4 +1,4 @@
-@section('title', trans('login.page-title'))
+@section('title', trans('home.login.page-title'))
 
 @section('content')
     <div class="container">
