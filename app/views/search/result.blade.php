@@ -30,7 +30,7 @@ $(function(){var s=$('.search-box');var t=s.val();s.focus().val('').val(t);});
 		@else
 			<div class="row push-down">
 				<div class="col-lg-8 col-md-6 col-sm-6 col-xs-12">
-					<h1 class="page-title">Please provide a search term</h1>
+					<h1 class="page-title">{{ trans('search.please_provide_search_term') }}</h1>
 				</div>
 				<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
 					@include('partials.search')

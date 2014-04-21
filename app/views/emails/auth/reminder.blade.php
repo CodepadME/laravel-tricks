@@ -4,10 +4,10 @@
 		<meta charset="utf-8">
 	</head>
 	<body>
-		<h2>Password Reset</h2>
+		<h2>{{ trans('emails.password_reset') }}</h2>
 
 		<div>
-			To reset your password, complete this form: {{ URL::to('password/reset', array($token)) }}.
+			{{ trans('emails.reset_password_here', array('form_link' => URL::to('password/reset', array($token)))) }}
 		</div>
 	</body>
 </html>

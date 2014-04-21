@@ -1,18 +1,11 @@
 {{ '<?xml version="1.0" encoding="utf-8"?>' }}
 
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <title>Laravel-Tricks</title>
-    <subtitle>Laravel tricks is a website that aggregates useful tips and tricks for Laravel PHP framework</subtitle>
+    <title>{{ trans('feeds.title') }}</title>
+    <subtitle>{{ trans('feeds.sub_title') }}</subtitle>
     <link href="{{ Request::url() }}" rel="self" />
     <updated>{{ Carbon\Carbon::now()->toATOMString() }}</updated>
-    <author>
-        <name>Maks Surguy</name>
-        <uri>http://twitter.com/msurguy</uri>
-    </author>
-    <author>
-        <name>Stidges</name>
-        <uri>http://twitter.com/stidges</uri>
-    </author>
+    {{ trans('feeds.author') }}
     <id>tag:{{ Request::getHost() }},{{ date('Y') }}:/feed.atom</id>
 
 @foreach($tricks as $trick)

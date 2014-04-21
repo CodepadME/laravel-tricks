@@ -31,12 +31,12 @@
 			<div class="col-lg-8 col-lg-push-2 col-md-8 col-md-push-2 col-sm-12 col-xs-12">
 				<div class="content-box">
 					<h1 class="page-title">
-						Creating a new trick
+						{{ trans('tricks.create_new_trick') }}
 					</h1>
 					@if(Session::get('errors'))
 					    <div class="alert alert-danger alert-dismissable">
 					        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					         <h5>There were errors while creating this trick:</h5>
+					         <h5>{{ trans('tricks.errors_while_creating') }}</h5>
 					         @foreach($errors->all('<li>:message</li>') as $message)
 					            {{$message}}
 					         @endforeach
@@ -44,28 +44,28 @@
 					@endif
 					{{ Form::open(array('class'=>'form-vertical','id'=>'save-trick-form','role'=>'form'))}}
 					    <div class="form-group">
-					    	<label for="title">Title</label>
-					    	{{Form::text('title', null, array('class'=>'form-control','placeholder'=>'Name this trick'));}}
+					    	<label for="title">{{ trans('tricks.title') }}</label>
+					    	{{Form::text('title', null, array('class'=>'form-control','placeholder'=>{{ trans('tricks.title_placeholder') }}));}}
 					    </div>
 					    <div class="form-group">
-					    	<label for="description">Description</label>
-					    	{{Form::textarea('description',null, array('class'=>'form-control','placeholder'=>'Give detailed description of the trick','rows'=>'3'));}}
+					    	<label for="description">{{ trans('tricks.description') }}</label>
+					    	{{Form::textarea('description',null, array('class'=>'form-control','placeholder'=>trans('tricks.trick_description_placeholder'),'rows'=>'3'));}}
 					    </div>
 					    <div class="form-group">
-					      <label>Trick code: </label>
+					      <label>{{ trans('tricks.trick_code') }}</label>
 					      <div id="editor-content" class="content-editor"></div>
 					      {{Form::textarea('code', null, ['id'=>'code-editor','style'=>'display:none;']);}}
 					    </div>
 					    <div class="form-group">
-					    	<p>{{ Form::select('tags[]', $tagList, null, array('multiple','id'=>'tags','placeholder'=>'Tag  this trick','class' => 'form-control')); }}</p>
+					    	<p>{{ Form::select('tags[]', $tagList, null, array('multiple','id'=>'tags','placeholder'=>trans('tricks.tag_trick_placeholder'),'class' => 'form-control')); }}</p>
 					    </div>
 					    <div class="form-group">
-					    	<p>{{ Form::select('categories[]', $categoryList, null, array('multiple','id'=>'categories','placeholder'=>'Choose Categories for this trick','class' => 'form-control')); }}</p>
+					    	<p>{{ Form::select('categories[]', $categoryList, null, array('multiple','id'=>'categories','placeholder'=>trans('tricks.categorize_trick_placeholder'),'class' => 'form-control')); }}</p>
 					    </div>
 					    <div class="form-group">
 					        <div class="text-right">
 					          <button type="submit"  id="save-section" class="btn btn-primary ladda-button" data-style="expand-right">
-					            Save Trick
+					            trans('tricks.save_trick')
 					          </button>
 					        </div>
 					    </div>
