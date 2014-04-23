@@ -4,7 +4,7 @@ return array(
 	'trick' => 'Trick',
     'sorry_message' => 'トリックが見つかりません!!',
     'new' => [
-        'create_trick' => '新しいトリックを投稿',
+        'create_trick' => '新しいトリックを投稿する',
         'create_error' => '入力項目にエラーがあります',
         'title' => 'トリックのタイトル',
         'title_placeholder' => 'トリックのタイトル',

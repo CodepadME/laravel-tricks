@@ -3,17 +3,17 @@
 return [
 
 	'site_title' => ':title | Laravel-Tricks.com',
-	'browsing_most_recent_tricks' => 'Browsing Most Recent Laravel Tricks',
-	'browsing_most_popular_tricks' => 'Browsing Most Popular Laravel Tricks',
-	'browsing_tag' => 'Browsing Tag ":tag"',
+	'browsing_most_recent_tricks' => '最新のtricks',
+	'browsing_most_popular_tricks' => '人気のtricks',
+	'browsing_tag' => '":tag"関連のtricks',
 	'tag' => 'Tag ":tag"',
-	'tags' => 'Tags',
+	'tags' => 'タグからtricksを探す',
 	'category' => 'Category ":category"',
-	'categories' => 'Categories',
-	'recent' => 'Recent',
-	'popular' => 'Popular',
-	'most_commented' => 'Most commented',
-	'browsing_most_commented_tricks' => 'Browsing Most Commented Laravel Tricks',
-	'browsing_category' => 'Browsing Category ":category"',
+	'categories' => 'カテゴリー',
+	'recent' => '最新',
+	'popular' => '人気',
+	'most_commented' => 'Hot!',
+	'browsing_most_commented_tricks' => 'Hotなtricks',
+	'browsing_category' => 'Category ":category"',
 
 ];
