@@ -45,7 +45,7 @@
 					{{ Form::open(array('class'=>'form-vertical','id'=>'save-trick-form','role'=>'form'))}}
 					    <div class="form-group">
 					    	<label for="title">{{ trans('tricks.title') }}</label>
-					    	{{Form::text('title', null, array('class'=>'form-control','placeholder'=>{{ trans('tricks.title_placeholder') }}));}}
+					    	{{Form::text('title', null, array('class'=>'form-control','placeholder'=>trans('tricks.title_placeholder') ));}}
 					    </div>
 					    <div class="form-group">
 					    	<label for="description">{{ trans('tricks.description') }}</label>
