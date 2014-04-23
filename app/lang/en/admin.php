@@ -7,6 +7,7 @@ return array(
 	'add_new_category' => 'Add new Category',
 	'title' => 'Title',
 	'name' => 'Name',
+	'username' => 'Username',
 	'description' => 'Description',
 	'num_of_tricks' => '# of Tricks',
 	'actions' => 'Actions',
