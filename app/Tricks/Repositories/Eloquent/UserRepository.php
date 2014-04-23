@@ -74,7 +74,8 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
             return $user;
         }
 
-        throw new UserNotFoundException('The user "' . $username . '" does not exist!');
+        $message = sprintf(\Lang::get('home.error.message.user'), $username);
+        throw new UserNotFoundException($message);
     }
 
     /**
