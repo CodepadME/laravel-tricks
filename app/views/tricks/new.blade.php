@@ -31,7 +31,7 @@
 			<div class="col-lg-8 col-lg-push-2 col-md-8 col-md-push-2 col-sm-12 col-xs-12">
 				<div class="content-box">
 					<h1 class="page-title">
-						{{ trans('tricks.create_new_trick') }}
+						{{ trans('tricks.creating_new_trick') }}
 					</h1>
 					@if(Session::get('errors'))
 					    <div class="alert alert-danger alert-dismissable">
