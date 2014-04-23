@@ -149,6 +149,12 @@ class Github
 
         curl_setopt_array($ch, $options);
 
-        return json_decode(curl_exec($ch));
+        $result = curl_exec($ch);
+        if ($result === false) {
+            $error = curl_error($ch);
+            throw new GithubEmailAccessException($error);
+        }
+        
+        return json_decode($result);
     }
 }
