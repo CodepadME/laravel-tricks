@@ -65,7 +65,7 @@
 					    <div class="form-group">
 					        <div class="text-right">
 					          <button type="submit"  id="save-section" class="btn btn-primary ladda-button" data-style="expand-right">
-					            trans('tricks.save_trick')
+					            {{ trans('tricks.save_trick') }}
 					          </button>
 					        </div>
 					    </div>
