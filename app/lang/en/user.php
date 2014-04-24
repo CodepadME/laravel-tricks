@@ -19,7 +19,7 @@ return array(
 	'update' => 'Update',
 	'confirm_password' => 'Confirm Password',
 	'password' => 'Password',
-	'new_password' => 'New Password,
+	'new_password' => 'New Password',
 	'uploading' => 'Uploading',
 	'username' => 'Username',
 	'user_settings' => 'User settings',
