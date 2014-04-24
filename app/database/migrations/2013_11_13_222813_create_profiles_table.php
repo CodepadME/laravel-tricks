@@ -22,7 +22,7 @@ class CreateProfilesTable extends Migration {
             $table->string('description')->nullable()->default(NULL);
             $table->string('image_url')->nullable()->default(NULL);
             $table->string('access_token')->nullable()->default(NULL);
-            $table->string('access_token_secret');
+            $table->string('access_token_secret')->nullable()->default(NULL);
             $table->timestamps();
 
             $table->foreign('user_id')
