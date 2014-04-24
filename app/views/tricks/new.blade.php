@@ -31,7 +31,7 @@
 			<div class="col-lg-8 col-lg-push-2 col-md-8 col-md-push-2 col-sm-12 col-xs-12">
 				<div class="content-box">
 					<h1 class="page-title">
-						{{ trans('tricks.create_new_trick') }}
+						{{ trans('tricks.creating_new_trick') }}
 					</h1>
 					@if(Session::get('errors'))
 					    <div class="alert alert-danger alert-dismissable">
@@ -45,7 +45,7 @@
 					{{ Form::open(array('class'=>'form-vertical','id'=>'save-trick-form','role'=>'form'))}}
 					    <div class="form-group">
 					    	<label for="title">{{ trans('tricks.title') }}</label>
-					    	{{Form::text('title', null, array('class'=>'form-control','placeholder'=>{{ trans('tricks.title_placeholder') }}));}}
+					    	{{Form::text('title', null, array('class'=>'form-control','placeholder'=>trans('tricks.title_placeholder') ));}}
 					    </div>
 					    <div class="form-group">
 					    	<label for="description">{{ trans('tricks.description') }}</label>
@@ -65,7 +65,7 @@
 					    <div class="form-group">
 					        <div class="text-right">
 					          <button type="submit"  id="save-section" class="btn btn-primary ladda-button" data-style="expand-right">
-					            trans('tricks.save_trick')
+					            {{ trans('tricks.save_trick') }}
 					          </button>
 					        </div>
 					    </div>
