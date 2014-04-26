@@ -34,23 +34,23 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
     /**
      * Create a new DbTrickRepository instance.
      *
-     * @param  \Tricks\Trick  $trick
-     * @param  \Tricks\Category  $category
-     * @param  \Tricks\Tag  $tag
+     * @param \Tricks\Trick $trick
+     * @param \Tricks\Category $category
+     * @param \Tricks\Tag $tag
      * @return void
      */
     public function __construct(Trick $trick, Category $category, Tag $tag)
     {
-        $this->model    = $trick;
+        $this->model = $trick;
         $this->category = $category;
-        $this->tag      = $tag;
+        $this->tag = $tag;
     }
 
     /**
      * Find all the tricks for the given user paginated.
      *
-     * @param  \Tricks\User $user
-     * @param  integer $perPage
+     * @param \Tricks\User $user
+     * @param integer $perPage
      * @return \Illuminate\Pagination\Paginator|\Tricks\Trick[]
      */
     public function findAllForUser(User $user, $perPage = 9)
@@ -63,8 +63,8 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
     /**
      * Find all tricks that are favorited by the given user paginated.
      *
-     * @param  \Tricks\User $user
-     * @param  integer $perPage
+     * @param \Tricks\User $user
+     * @param integer $perPage
      * @return \Illuminate\Pagination\Paginator|\Tricks\Trick[]
      */
     public function findAllFavorites(User $user, $perPage = 9)
@@ -77,7 +77,7 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
     /**
      * Find a trick by the given slug.
      *
-     * @param  string $slug
+     * @param string $slug
      * @return \Tricks\Trick
      */
     public function findBySlug($slug)
@@ -88,7 +88,7 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
     /**
      * Find all the tricks paginated.
      *
-     * @param  integer $perPage
+     * @param integer $perPage
      * @return \Illuminate\Pagination\Paginator|\Tricks\Trick[]
      */
     public function findAllPaginated($perPage = 9)
@@ -101,7 +101,7 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
     /**
      * Find all tricks order by the creation date paginated.
      *
-     * @param  integer $per_page
+     * @param integer $per_page
      * @return \Illuminate\Pagination\Paginator|\Tricks\Trick[]
      */
     public function findMostRecent($per_page = 9)
@@ -112,7 +112,7 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
     /**
      * Find the tricks ordered by the number of comments paginated.
      *
-     * @param  integer $per_page
+     * @param integer $per_page
      * @return \Illuminate\Pagination\Paginator|\Tricks\Trick[]
      */
     public function findMostCommented($perPage = 9)
@@ -122,8 +122,8 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
         $tricks = Disqus::appendCommentCounts($tricks);
 
         $tricks = $tricks->sortBy(function ($trick) {
-            return $trick->comment_count;
-        })->reverse();
+                return $trick->comment_count;
+            })->reverse();
 
         return \Paginator::make($tricks->all(), count($tricks), $perPage);
     }
@@ -131,14 +131,14 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
     /**
      * Find the tricks ordered by popularity (most liked / viewed) paginated.
      *
-     * @param  integer  $per_page
+     * @param integer $per_page
      * @return \Illuminate\Pagination\Paginator|\Tricks\Trick[]
      */
     public function findMostPopular($per_page = 9)
     {
         return $this->model
-                    ->orderByRaw('(tricks.vote_cache * 5 + tricks.view_cache) DESC')
-                    ->paginate($per_page);
+            ->orderByRaw('(tricks.vote_cache * 5 + tricks.view_cache) DESC')
+            ->paginate($per_page);
     }
 
     /**
@@ -164,8 +164,8 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
     /**
      * Find all tricks for the category that matches the given slug.
      *
-     * @param  string $slug
-     * @param  integer $perPage
+     * @param string $slug
+     * @param integer $perPage
      * @return array
      */
     public function findByCategory($slug, $perPage = 9)
@@ -173,7 +173,8 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
         $category = $this->category->whereSlug($slug)->first();
 
         if (is_null($category)) {
-            throw new CategoryNotFoundException('The category "'.$slug.'" does not exist!');
+            $message = sprintf(\Lang::get('home.error.message.category'), $slug);
+            throw new CategoryNotFoundException($message);
         }
 
         $tricks = $category->tricks()->orderBy('created_at', 'DESC')->paginate($perPage);
@@ -184,26 +185,26 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
     /**
      * Find all tricks that match the given search term.
      *
-     * @param  string $term
-     * @param  integer $perPage
+     * @param string $term
+     * @param integer $perPage
      * @return \Illuminate\Pagination\Paginator|\Tricks\Trick[]
      */
     public function searchByTermPaginated($term, $perPage = 12)
     {
-        $tricks =  $this->model
-                        ->orWhere('title', 'LIKE', '%'.$term.'%')
-                        ->orWhere('description', 'LIKE', '%'.$term.'%')
-                        ->orWhereHas('tags', function ($query) use ($term) {
-                            $query->where('title', 'LIKE', '%' . $term . '%')
-                                  ->orWhere('slug', 'LIKE', '%' . $term . '%');
-                        })
-                        ->orWhereHas('categories', function ($query) use ($term) {
-                            $query->where('name', 'LIKE', '%' . $term . '%')
-                                  ->orWhere('slug', 'LIKE', '%' . $term . '%');
-                        })
-                        ->orderBy('created_at', 'desc')
-                        ->orderBy('title', 'asc')
-                        ->paginate($perPage);
+        $tricks = $this->model
+            ->orWhere('title', 'LIKE', '%'.$term.'%')
+            ->orWhere('description', 'LIKE', '%'.$term.'%')
+            ->orWhereHas('tags', function ($query) use ($term) {
+                    $query->where('title', 'LIKE', '%' . $term . '%')
+                        ->orWhere('slug', 'LIKE', '%' . $term . '%');
+                })
+            ->orWhereHas('categories', function ($query) use ($term) {
+                    $query->where('name', 'LIKE', '%' . $term . '%')
+                        ->orWhere('slug', 'LIKE', '%' . $term . '%');
+                })
+            ->orderBy('created_at', 'desc')
+            ->orderBy('title', 'asc')
+            ->paginate($perPage);
 
         return $tricks;
     }
@@ -211,7 +212,7 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
     /**
      * Get a list of tag ids that are associated with the given trick.
      *
-     * @param  \Tricks\Trick $trick
+     * @param \Tricks\Trick $trick
      * @return array
      */
     public function listTagsIdsForTrick(Trick $trick)
@@ -222,7 +223,7 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
     /**
      * Get a list of category ids that are associated with the given trick.
      *
-     * @param  \Tricks\Trick $trick
+     * @param \Tricks\Trick $trick
      * @return array
      */
     public function listCategoriesIdsForTrick(Trick $trick)
@@ -233,18 +234,21 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
     /**
      * Create a new trick in the database.
      *
-     * @param  array $data
+     * @param array $data
      * @return \Tricks\Trick
      */
     public function create(array $data)
     {
         $trick = $this->getNew();
 
-        $trick->user_id     = $data['user_id'];
-        $trick->title       = e($data['title']);
-        $trick->slug        = Str::slug($data['title'], '-');
+        $trick->user_id = $data['user_id'];
+        $trick->title = e($data['title']);
+        //$trick->slug        = Str::slug($data['title'], '-');
+        // ascii変換されるためシンプルにslug作成するように変更
+        $trick->slug = $this->slug($data['title']);
+
         $trick->description = e($data['description']);
-        $trick->code        = $data['code'];
+        $trick->code = $data['code'];
 
         $trick->save();
 
@@ -257,17 +261,17 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
     /**
      * Update the trick in the database.
      *
-     * @param  \Tricks\Trick $trick
-     * @param  array $data
+     * @param \Tricks\Trick $trick
+     * @param array $data
      * @return \Tricks\Trick
      */
     public function edit(Trick $trick, array $data)
     {
         //$trick->user_id = $data['user_id'];
-        $trick->title       = e($data['title']);
-        $trick->slug        = Str::slug($data['title'], '-');
+        $trick->title = e($data['title']);
+        $trick->slug = Str::slug($data['title'], '-');
         $trick->description = e($data['description']);
-        $trick->code        = $data['code'];
+        $trick->code = $data['code'];
 
         $trick->save();
 
@@ -280,7 +284,7 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
     /**
      * Increment the view count on the given trick.
      *
-     * @param  \Tricks\Trick $trick
+     * @param \Tricks\Trick $trick
      * @return \Tricks\Trick
      */
     public function incrementViews(Trick $trick)
@@ -294,8 +298,8 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
     /**
      * Find all tricks for the tag that matches the given slug.
      *
-     * @param  string $slug
-     * @param  integer $perPage
+     * @param string $slug
+     * @param integer $perPage
      * @return \Illuminate\Pagination\Paginator|\Tricks\Trick[]
      */
     public function findByTag($slug, $perPage = 9)
@@ -303,7 +307,8 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
         $tag = $this->tag->whereSlug($slug)->first();
 
         if (is_null($tag)) {
-            throw new TagNotFoundException('The tag "' . $slug . '" does not exist!');
+            $message = sprintf(\Lang::get('home.error.message.tag'), $slug);
+            throw new TagNotFoundException($message);
         }
 
         $tricks = $tag->tricks()->orderBy('created_at', 'desc')->paginate($perPage);
@@ -314,15 +319,15 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
     /**
      * Find the next trick that was added after the given trick.
      *
-     * @param  \Tricks\Trick  $trick
+     * @param \Tricks\Trick $trick
      * @return \Tricks\Trick|null
      */
     public function findNextTrick(Trick $trick)
     {
         $next = $this->model->where('created_at', '>=', $trick->created_at)
-                            ->where('id', '<>', $trick->id)
-                            ->orderBy('created_at', 'asc')
-                            ->first([ 'slug', 'title' ]);
+            ->where('id', '<>', $trick->id)
+            ->orderBy('created_at', 'asc')
+            ->first([ 'slug', 'title' ]);
 
         return $next;
     }
@@ -330,15 +335,15 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
     /**
      * Find the previous trick added before the given trick.
      *
-     * @param  \Tricks\Trick  $trick
+     * @param \Tricks\Trick $trick
      * @return \Tricks\Trick|null
      */
     public function findPreviousTrick(Trick $trick)
     {
         $prev = $this->model->where('created_at', '<=', $trick->created_at)
-                            ->where('id', '<>', $trick->id)
-                            ->orderBy('created_at', 'desc')
-                            ->first([ 'slug', 'title' ]);
+            ->where('id', '<>', $trick->id)
+            ->orderBy('created_at', 'desc')
+            ->first([ 'slug', 'title' ]);
 
         return $prev;
     }
@@ -346,8 +351,8 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
     /**
      * Check if the user owns the trick corresponding to the given slug.
      *
-     * @param  string  $slug
-     * @param  mixed   $userId
+     * @param string $slug
+     * @param mixed $userId
      * @return bool
      */
     public function isTrickOwnedByUser($slug, $userId)
@@ -373,5 +378,25 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
     public function getEditForm($id)
     {
         return new TrickEditForm($id);
+    }
+
+    /**
+     * @param $string
+     * @param string $separator
+     * @return string
+     */
+    public function slug($string, $separator = '-')
+    {
+        $slugTitle = e($string);
+        $slugTitle = preg_replace('/　/', ' ', $slugTitle);
+        $slugTitle = preg_replace('/\s+/', ' ', $slugTitle);
+
+        $flip = $separator == '-' ? '_' : '-';
+        $title = preg_replace('!['.preg_quote($flip).']+!u', $separator, $slugTitle);
+        // Remove all characters that are not the separator, letters, numbers, or whitespace.
+        $title = preg_replace('![^'.preg_quote($separator).'\pL\pN\s]+!u', '', mb_strtolower($title));
+        // Replace all separator characters and whitespace by a single separator
+        $title = preg_replace('!['.preg_quote($separator).'\s]+!u', $separator, $title);
+        return trim(preg_replace('/ /', '-', $title));
     }
 }

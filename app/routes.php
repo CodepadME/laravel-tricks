@@ -7,7 +7,8 @@ Route::when('*', 'trick.view_throttle');
 
 # Route patterns
 Route::pattern('tag_slug', '[a-z0-9\-]+');
-Route::pattern('trick_slug', '[a-z0-9\-]+');
+//日本語許可
+//Route::pattern('trick_slug', '[a-z0-9亜-熙ぁ-んァ-ヶ、。!?！？〜 \-]+');
 
 # Admin routes
 Route::group([ 'prefix' => 'admin', 'namespace' => 'Controllers\Admin' ], function () {
