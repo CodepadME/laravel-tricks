@@ -173,7 +173,8 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
         $category = $this->category->whereSlug($slug)->first();
 
         if (is_null($category)) {
-            throw new CategoryNotFoundException('The category "'.$slug.'" does not exist!');
+            $message = sprintf(\Lang::get('home.error.message.category'), $slug);
+            throw new CategoryNotFoundException($message);
         }
 
         $tricks = $category->tricks()->orderBy('created_at', 'DESC')->paginate($perPage);
@@ -303,7 +304,8 @@ class TrickRepository extends AbstractRepository implements TrickRepositoryInter
         $tag = $this->tag->whereSlug($slug)->first();
 
         if (is_null($tag)) {
-            throw new TagNotFoundException('The tag "' . $slug . '" does not exist!');
+            $message = sprintf(\Lang::get('home.error.message.tag'), $slug);
+            throw new TagNotFoundException($message);
         }
 
         $tricks = $tag->tricks()->orderBy('created_at', 'desc')->paginate($perPage);
