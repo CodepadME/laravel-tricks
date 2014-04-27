@@ -69,7 +69,7 @@ class Builder
      */
     protected function getNavigationConfig($type)
     {
-        return $this->config->get('navigation.' . $type);
+        return $this->config->get('navigation.' . \Lang::getLocale() . '.' .$type);
     }
 
     /**

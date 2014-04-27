@@ -166,9 +166,9 @@ class TrickPresenter extends BasePresenter
         $title     = $this->resource->title;
         $baseTitle = ' | Laravel-Tricks.com';
         $maxLength = 70;
-
-        if (strlen($title.$baseTitle) > $maxLength) {
-            while (strlen($title.$baseTitle) > $maxLength) {
+        // マルチバイト対応
+        if (mb_strlen($title.$baseTitle) > $maxLength) {
+            while (mb_strlen($title.$baseTitle) > $maxLength) {
                 $title = $this->removeLastWord($title);
             }
         }

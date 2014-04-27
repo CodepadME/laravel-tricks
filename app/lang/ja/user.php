@@ -7,7 +7,7 @@ return [
     //
     'profile' => [
         'message' => '誰も知らない使い方や実装方法等、自分の"トリック"を他のユーザーに共有しましょう！',
-        'create' => 'トリックを投稿',
+        'create' => ' Create new Trick',
     ],
     'setting' => [
         'title' => 'アカウント設定',
@@ -15,7 +15,7 @@ return [
         'reset' => 'リセット',
         'update' => '更新',
         'notice_message' => 'メールアドレスを使ってログインしたい場合は、パスワードを作成してください',
-        'github_message' => 'あなたのGithubakアカウントはすでに使用されています、他のGithubアカウントを使用してください',
+        'github_message' => 'あなたのGitHubアカウントはすでに使用されています、他のGitHubアカウントを使用してください',
         'update_massage' => 'アカウント設定が更新されました!',
         'username'              => 'ユーザー名',
         'username_placeholder' => 'ユーザー名',

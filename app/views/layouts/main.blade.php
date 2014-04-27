@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
     <head>
-        @section('description', 'Laravel tricks is a website that aggregates useful tips and tricks for Laravel PHP framework')
+        @section('description', trans('layouts.main.description'))
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,8 +15,9 @@
         <meta property="og:description" content="@yield('description')" />
         <meta name="description" content="@yield('description')">
         <meta name="author" content="Stidges, @stidges and Maks Surguy, @msurguy">
+        <meta name="keywords" content="laravel, php, framework, web, artisans, taylor otwell">
         <title>@yield('title') | Laravel-Tricks.com</title>
-        <link rel="stylesheet" href="{{ URL::asset('css/laratricks.min.4.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('css/laratricks.min.css') }}">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         @yield('styles')
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
