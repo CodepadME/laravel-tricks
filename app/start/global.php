@@ -40,7 +40,7 @@ App::missing(function()
 {
     $error = trans('home.default_404');
 	
-	return Response::view('home.error', compact('error') , 404);
+    return Response::view('home.error', compact('error') , 404);
 });
 
 
