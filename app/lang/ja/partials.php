@@ -2,7 +2,7 @@
 
 return [
     'search' => [
-        'search_placeholder' => 'Search...',
+        'search_placeholder' => '検索...',
     ],
     'navigation' => [
         'register' => '登録',
@@ -10,8 +10,8 @@ return [
         'my_profile' => 'プロフィール',
         'logout' => 'ログアウト',
         'profile' => 'プロフィール',
-        'tricks' =>'My tricks',
-        'favorites' => 'My Favorites',
-        'settings' => 'Settings',
+        'tricks' =>'自分のトリック',
+        'favorites' => 'お気に入り',
+        'settings' => '設定',
     ]
 ];

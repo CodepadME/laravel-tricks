@@ -49,22 +49,22 @@ return array(
     'ja' => [
         'menu' => array(
             array(
-                'label' => 'Browse',
+                'label' => '新着',
                 'route' => 'browse.recent',
                 'active' => array('/','popular','comments')
             ),
             array(
-                'label' => 'Categories',
+                'label' => 'カテゴリ',
                 'route' => 'browse.categories',
                 'active' => array('categories*')
             ),
             array(
-                'label' => 'Tags',
+                'label' => 'タグ',
                 'route' => 'browse.tags',
                 'active' => array('tags*')
             ),
             array(
-                'label' => 'Create New',
+                'label' => '新規作成',
                 'route' => 'tricks.new',
                 'active' => array('user/tricks/new'),
                 // 'logged_in' => true
@@ -73,17 +73,17 @@ return array(
 
         'browse' => array(
             array(
-                'label' => '最新のtricks',
+                'label' => '最近',
                 'route' => 'browse.recent',
                 'active' => array('/')
             ),
             array(
-                'label' => '人気のtricks',
+                'label' => '人気',
                 'route' => 'browse.popular',
                 'active' => array('popular')
             ),
             array(
-                'label' => 'Hotなtricks',
+                'label' => 'コメント数',
                 'route' => 'browse.comments',
                 'active' => array('comments')
             ),

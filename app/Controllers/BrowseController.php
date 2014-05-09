@@ -71,10 +71,10 @@ class BrowseController extends BaseController
     {
         list($category, $tricks) = $this->tricks->findByCategory($category);
 
-        $type      = \Lang::get('browse.category', array('category' => $category->name));
-        $pageTitle = \Lang::get('browse.browsing_category', array('category' => $category->name));
+        $htmlTitle = \Lang::get('browse.html_title.category', array('category' => $category->name));
+        $pageTitle = \Lang::get('browse.page_title.category', array('category' => $category->name));
 
-        $this->view('browse.index', compact('tricks', 'type', 'pageTitle'));
+        $this->view('browse.index', compact('tricks', 'htmlTitle', 'pageTitle'));
     }
 
     /**
@@ -99,10 +99,10 @@ class BrowseController extends BaseController
     {
         list($tag, $tricks) = $this->tricks->findByTag($tag);
 
-        $type      = \Lang::get('browse.tag', array('tag' => $tag->name));
-        $pageTitle = \Lang::get('browse.browsing_tag', array('tag' => $tag->name));
+        $htmlTitle = \Lang::get('browse.html_title.tag', array('tag' => $tag->name));
+        $pageTitle = \Lang::get('browse.page_title.tag', array('tag' => $tag->name));
 
-        $this->view('browse.index', compact('tricks', 'type', 'pageTitle'));
+        $this->view('browse.index', compact('tricks', 'htmlTitle', 'pageTitle'));
     }
 
     /**
@@ -114,10 +114,10 @@ class BrowseController extends BaseController
     {
         $tricks = $this->tricks->findMostRecent();
 
-        $type      = \Lang::get('browse.recent');
-        $pageTitle = \Lang::get('browse.browsing_most_recent_tricks');
+        $htmlTitle = \Lang::get('browse.html_title.recent_tricks');
+        $pageTitle = \Lang::get('browse.page_title.recent_tricks');
 
-        $this->view('browse.index', compact('tricks', 'type', 'pageTitle'));
+        $this->view('browse.index', compact('tricks', 'htmlTitle', 'pageTitle'));
     }
 
     /**
@@ -129,10 +129,10 @@ class BrowseController extends BaseController
     {
         $tricks = $this->tricks->findMostPopular();
 
-        $type      = \Lang::get('browse.popular');
-        $pageTitle = \Lang::get('browse.browsing_most_popular_tricks');
+        $htmlTitle = \Lang::get('browse.html_title.popular_tricks');
+        $pageTitle = \Lang::get('browse.page_title.popular_tricks');
 
-        $this->view('browse.index', compact('tricks', 'type', 'pageTitle'));
+        $this->view('browse.index', compact('tricks', 'htmlTitle', 'pageTitle'));
     }
 
     /**
@@ -144,9 +144,9 @@ class BrowseController extends BaseController
     {
         $tricks = $this->tricks->findMostCommented();
 
-        $type      = \Lang::get('browse.most_commented');
-        $pageTitle = \Lang::get('browse.browsing_most_commented_tricks');
+        $htmlTitle = \Lang::get('browse.html_title.most_commented_tricks');
+        $pageTitle = \Lang::get('browse.page_title.most_commented_tricks');
 
-        $this->view('browse.index', compact('tricks', 'type', 'pageTitle'));
+        $this->view('browse.index', compact('tricks', 'htmlTitle', 'pageTitle'));
     }
 }

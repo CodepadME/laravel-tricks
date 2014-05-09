@@ -1,13 +1,17 @@
 <?php 
 
 return [
-    'my_favorites' => 'お気に入り',
-    'profile_title' => 'プロフィール',
-    'settings' => 'アカウント設定',
+    'page_title' => [
+        'profile_title' => 'プロフィール',
+        'my_tricks' => '投稿したトリック',
+        'my_favorites' => 'お気に入り',
+        'settings' => 'アカウント設定',
+        'submitted_tricks' => '投稿したトリック',
+    ],
     //
     'profile' => [
         'message' => '誰も知らない使い方や実装方法等、自分の"トリック"を他のユーザーに共有しましょう！',
-        'create' => ' Create new Trick',
+        'create' => '新規作成',
     ],
     'setting' => [
         'title' => 'アカウント設定',
@@ -29,6 +33,7 @@ return [
         'crop' => ' Crop the picture ',
     ],
     'public' => [
-        //
+        'total_tricks' => '全トリック数',
+        'last_trick' => '最後の投稿',
     ],
 ];

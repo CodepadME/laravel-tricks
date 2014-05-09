@@ -1,10 +1,10 @@
-@section('title', trans('browse.categories'))
+@section('title', trans('browse.html_title.categories'))
 
 @section('content')
     <div class="container">
         <div class="row push-down">
             <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12">
-                <h1 class="page-title">Categories</h1>
+                <h1 class="page-title">{{ trans('browse.page_title.categories') }}</h1>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                 @include('partials.search')

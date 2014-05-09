@@ -20,11 +20,11 @@
                 </div>
                 <table>
                     <tr>
-                        <th>Total tricks:</th>
+                        <th>{{ trans('user.public.total_tricks') }}</th>
                         <td>{{ count($tricks) }}</td>
                     </tr>
                     <tr>
-                        <th width="140">Last trick:</th>
+                        <th width="140">{{ trans('user.public.last_trick') }}</th>
                         <td>{{ $user->lastActivity($tricks) }}</td>
                     </tr>
                 </table>
@@ -34,7 +34,7 @@
 
     <div class="row push-down">
         <div class="col-lg-12">
-            <h1 class="page-title">Submitted tricks</h1>
+            <h1 class="page-title">{{ trans('user.page_title.submitted_tricks') }}</h1>
         </div>
     </div>
 

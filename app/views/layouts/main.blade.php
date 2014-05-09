@@ -16,7 +16,8 @@
         <meta name="description" content="@yield('description')">
         <meta name="author" content="Stidges, @stidges and Maks Surguy, @msurguy">
         <meta name="keywords" content="laravel, php, framework, web, artisans, taylor otwell">
-        <title>@yield('title') | Laravel-Tricks.com</title>
+        <title>@yield('title')
+         | {{{ trans('layouts.main.html_title_suffix') }}}</title>
         <link rel="stylesheet" href="{{ URL::asset('css/laratricks.min.css') }}">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         @yield('styles')

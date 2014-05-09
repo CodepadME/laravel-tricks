@@ -1,13 +1,17 @@
 <?php 
 
 return [
-    'my_favorites' => 'My Favorites',
-    'profile_title' => 'Profile',
-    'settings' => 'Settings',
+    'page_title' => [
+        'profile_title' => 'Profile',
+        'my_tricks' => 'My Tricks',
+        'my_favorites' => 'My Favorites',
+        'settings' => 'Settings',
+        'submitted_tricks' => 'Submitted tricks',
+    ],
     //
     'profile' => [
         'message' => 'Explore the tricks, create and share some of your own!',
-        'create' => ' Create new',
+        'create' => 'Create new',
     ],
     'setting' => [
         'title' => 'Account Settings ',
@@ -29,6 +33,7 @@ return [
         "crop" => " Crop the picture ",
     ],
     'public' => [
-        //
+        'total_tricks' => 'Total tricks: ',
+        'last_trick' => 'Last trick: ',
     ],
 ];
