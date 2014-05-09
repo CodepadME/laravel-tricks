@@ -2,10 +2,10 @@
 
 return [
     'page_title' => [
-        'profile_title' => 'Profile',
+        'profile' => 'Profile',
         'my_tricks' => 'My Tricks',
         'my_favorites' => 'My Favorites',
-        'settings' => 'Settings',
+        'settings' => 'User Settings',
         'submitted_tricks' => 'Submitted tricks',
     ],
     //

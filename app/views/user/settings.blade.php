@@ -1,4 +1,4 @@
-@section('title', trans('user.settings'))
+@section('title', trans('user.page_title.settings'))
 
 @section('styles')
 <link rel="stylesheet" href="{{ URL::asset('css/jquery.Jcrop.min.1.css') }}">
@@ -77,7 +77,7 @@ jQuery(function ($){
 <div class="container">
   <div class="row push-down">
     <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12">
-      <h1 class="page-title">User settings</h1>
+      <h1 class="page-title">{{ trans('user.page_title.settings') }}</h1>
     </div>
     <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 text-right">
       <a href="{{ url('user')}}" class="btn btn-primary">{{trans('user.setting.back')}}</a>

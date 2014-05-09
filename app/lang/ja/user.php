@@ -2,10 +2,10 @@
 
 return [
     'page_title' => [
-        'profile_title' => 'プロフィール',
+        'profile' => 'プロフィール',
         'my_tricks' => '投稿したトリック',
         'my_favorites' => 'お気に入り',
-        'settings' => 'アカウント設定',
+        'settings' => 'ユーザー設定',
         'submitted_tricks' => '投稿したトリック',
     ],
     //
