@@ -146,10 +146,6 @@ class UserTricksController extends BaseController
     {
         $trick = $this->trick->findBySlug($slug);
 
-        if ($trick->user_id != Auth::user()->id) {
-            return \Lang::get('user_tricks.trick_does_not_belong_to_you');
-        }
-
         $trick->tags()->detach();
         $trick->categories()->detach();
         $trick->delete();
