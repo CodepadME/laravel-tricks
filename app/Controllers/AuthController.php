@@ -38,10 +38,7 @@ class AuthController extends BaseController
      */
     public function getLogin()
     {
-        if (Auth::guest()) {
-            return $this->view('home.login');
-        }
-        return $this->redirectIntended(route('user.index'));
+        $this->view('home.login');
     }
 
     /**
