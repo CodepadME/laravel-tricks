@@ -73,7 +73,10 @@ class AuthController extends BaseController
      */
     public function getRegister()
     {
-        $this->view('home.register');
+        if (Auth::guest()) {
+            return $this->view('home.register');
+        }
+        return $this->redirectIntended(route('user.index'));
     }
 
     /**
