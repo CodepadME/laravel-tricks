@@ -2,15 +2,16 @@
 
 namespace Tricks\Presenters;
 
-use Tricks\User;
 use McCool\LaravelAutoPresenter\BasePresenter;
+use Tricks\User;
 
 class UserPresenter extends BasePresenter
 {
     /**
      * Create a new UserPresenter instance.
      *
-     * @param  \Tricks\User  $user
+     * @param \Tricks\User $user
+     *
      * @return void
      */
     public function __construct(User $user)
@@ -21,7 +22,8 @@ class UserPresenter extends BasePresenter
     /**
      * Get the timestamp of the last posted trick of this user.
      *
-     * @param  \Illuminate\Pagination\Paginator  $tricks
+     * @param \Illuminate\Pagination\Paginator $tricks
+     *
      * @return string
      */
     public function lastActivity($tricks)
@@ -31,7 +33,7 @@ class UserPresenter extends BasePresenter
         }
 
         $collection = $tricks->getCollection();
-        $sorted     = $collection->sortBy(function ($trick) {
+        $sorted = $collection->sortBy(function ($trick) {
             return $trick->created_at;
         })->reverse();
 
@@ -49,7 +51,7 @@ class UserPresenter extends BasePresenter
     {
         $profile = $this->resource->profile;
 
-        if (! is_null($profile) && ! empty($profile->name)) {
+        if (!is_null($profile) && !empty($profile->name)) {
             return $profile->name;
         }
 

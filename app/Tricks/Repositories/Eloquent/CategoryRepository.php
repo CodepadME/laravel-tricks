@@ -2,19 +2,19 @@
 
 namespace Tricks\Repositories\Eloquent;
 
-use Tricks\Category;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
-use Tricks\Services\Forms\CategoryForm;
-use Tricks\Exceptions\CategoryNotFoundException;
+use Illuminate\Support\Str;
+use Tricks\Category;
 use Tricks\Repositories\CategoryRepositoryInterface;
+use Tricks\Services\Forms\CategoryForm;
 
 class CategoryRepository extends AbstractRepository implements CategoryRepositoryInterface
 {
     /**
      * Create a new DbCategoryRepository instance.
      *
-     * @param  \Tricks\Category  $category
+     * @param \Tricks\Category $category
+     *
      * @return void
      */
     public function __construct(Category $category)
@@ -37,8 +37,9 @@ class CategoryRepository extends AbstractRepository implements CategoryRepositor
     /**
      * Find all categories.
      *
-     * @param  string  $orderColumn
-     * @param  string  $orderDir
+     * @param string $orderColumn
+     * @param string $orderDir
+     *
      * @return \Illuminate\Database\Eloquent\Collection|\Category[]
      */
     public function findAll($orderColumn = 'created_at', $orderDir = 'desc')
@@ -64,14 +65,15 @@ class CategoryRepository extends AbstractRepository implements CategoryRepositor
                            ->get([
                                'categories.name',
                                'categories.slug',
-                               DB::raw('COUNT(tricks.id) as trick_count')
+                               DB::raw('COUNT(tricks.id) as trick_count'),
                            ]);
     }
 
     /**
      * Find a category by id.
      *
-     * @param  mixed $id
+     * @param mixed $id
+     *
      * @return \Tricks\Category
      */
     public function findById($id)
@@ -82,17 +84,18 @@ class CategoryRepository extends AbstractRepository implements CategoryRepositor
     /**
      * Create a new category in the database.
      *
-     * @param  array $data
+     * @param array $data
+     *
      * @return \Tricks\Category
      */
     public function create(array $data)
     {
         $category = $this->getNew();
 
-        $category->name        = e($data['name']);
-        $category->slug        = Str::slug($category->name, '-');
+        $category->name = e($data['name']);
+        $category->slug = Str::slug($category->name, '-');
         $category->description = $data['description'];
-        $category->order       = $this->getMaxOrder() + 1;
+        $category->order = $this->getMaxOrder() + 1;
 
         $category->save();
 
@@ -102,17 +105,18 @@ class CategoryRepository extends AbstractRepository implements CategoryRepositor
     /**
      * Update the specified category in the database.
      *
-     * @param  mixed $id
-     * @param  array $data
+     * @param mixed $id
+     * @param array $data
+     *
      * @return \Tricks\Category
      */
     public function update($id, array $data)
     {
         $category = $this->findById($id);
 
-        $category->name         = e($data['name']);
-        $category->slug         = Str::slug($category->name, '-');
-        $category->description  = $data['description'];
+        $category->name = e($data['name']);
+        $category->slug = Str::slug($category->name, '-');
+        $category->description = $data['description'];
 
         $category->save();
 
@@ -132,7 +136,8 @@ class CategoryRepository extends AbstractRepository implements CategoryRepositor
     /**
      * Delete the specified category from the database.
      *
-     * @param  mixed $id
+     * @param mixed $id
+     *
      * @return void
      */
     public function delete($id)
@@ -145,13 +150,14 @@ class CategoryRepository extends AbstractRepository implements CategoryRepositor
     /**
      * Re-arrange the categories in the database.
      *
-     * @param  array $data
+     * @param array $data
+     *
      * @return void
      */
     public function arrange(array $data)
     {
         $ids = array_values($data);
-        $categories = $this->model->whereIn('id', $ids)->get([ 'id' ]);
+        $categories = $this->model->whereIn('id', $ids)->get(['id']);
 
         foreach ($data as $order => $id) {
             if ($category = $categories->find($id)) {
@@ -168,6 +174,6 @@ class CategoryRepository extends AbstractRepository implements CategoryRepositor
      */
     public function getForm()
     {
-        return new CategoryForm;
+        return new CategoryForm();
     }
 }

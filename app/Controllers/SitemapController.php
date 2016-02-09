@@ -16,7 +16,8 @@ class SitemapController extends BaseController
     /**
      * Create a new SitemapController instance.
      *
-     * @param  \Tricks\Services\Sitemap\Builder  $builder
+     * @param \Tricks\Services\Sitemap\Builder $builder
+     *
      * @return void
      */
     public function __construct(Builder $builder)

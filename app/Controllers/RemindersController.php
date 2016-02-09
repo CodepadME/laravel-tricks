@@ -4,8 +4,8 @@ namespace Controllers;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Redirect;
 
@@ -44,7 +44,8 @@ class RemindersController extends BaseController
     /**
      * Display the password reset view for the given token.
      *
-     * @param  string  $token
+     * @param string $token
+     *
      * @return \Response
      */
     public function getReset($token = null)
@@ -53,7 +54,7 @@ class RemindersController extends BaseController
             App::abort(404);
         }
 
-        $this->view('password.reset', [ 'token' => $token ]);
+        $this->view('password.reset', ['token' => $token]);
     }
 
     /**
@@ -67,7 +68,7 @@ class RemindersController extends BaseController
             'email',
             'password',
             'password_confirmation',
-            'token'
+            'token',
         ]);
 
         $response = Password::reset($credentials, function ($user, $password) {

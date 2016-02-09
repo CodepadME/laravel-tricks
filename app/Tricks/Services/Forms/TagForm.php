@@ -10,6 +10,6 @@ class TagForm extends AbstractForm
      * @var array
      */
     protected $rules = [
-        'name' => 'required'
+        'name' => 'required',
     ];
 }

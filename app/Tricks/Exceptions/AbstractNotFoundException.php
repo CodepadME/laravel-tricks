@@ -6,5 +6,4 @@ use Exception;
 
 abstract class AbstractNotFoundException extends Exception
 {
-
 }

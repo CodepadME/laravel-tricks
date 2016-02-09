@@ -46,9 +46,10 @@ class Builder
     /**
      * Create a new feed builder instance.
      *
-     * @param  \Tricks\Repositories\TrickRepositoryInterface  $tricks
-     * @param  \Illuminate\Http\Response                      $response
-     * @param  \Illuminate\View\Environment                   $view
+     * @param \Tricks\Repositories\TrickRepositoryInterface $tricks
+     * @param \Illuminate\Http\Response                     $response
+     * @param \Illuminate\View\Environment                  $view
+     *
      * @return void
      */
     public function __construct(
@@ -64,7 +65,8 @@ class Builder
     /**
      * Set the feed type to build.
      *
-     * @param  string  $type
+     * @param string $type
+     *
      * @return void
      */
     public function setType($type)
@@ -75,7 +77,8 @@ class Builder
     /**
      * Set the charset to render the feed in.
      *
-     * @param  string  $charset
+     * @param string $charset
+     *
      * @return void
      */
     public function setCharset($charset)
@@ -123,7 +126,7 @@ class Builder
     {
         $contentType = $this->getContentType();
 
-        $header = $contentType . '; charset=' . $this->charset;
+        $header = $contentType.'; charset='.$this->charset;
 
         $this->response->header('Content-Type', $header);
     }
@@ -141,7 +144,8 @@ class Builder
     /**
      * Prepare the feed view.
      *
-     * @param  array  $data
+     * @param array $data
+     *
      * @return \Illuminate\View\View
      */
     protected function prepareView(array $data)

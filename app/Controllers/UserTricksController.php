@@ -3,9 +3,9 @@
 namespace Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Tricks\Repositories\CategoryRepositoryInterface;
 use Tricks\Repositories\TagRepositoryInterface;
 use Tricks\Repositories\TrickRepositoryInterface;
-use Tricks\Repositories\CategoryRepositoryInterface;
 
 class UserTricksController extends BaseController
 {
@@ -33,9 +33,10 @@ class UserTricksController extends BaseController
     /**
      * Create a new TrickController instance.
      *
-     * @param  \Tricks\Repositories\TrickRepositoryInterface  $trick
-     * @param  \Tricks\Repositories\TagRepositoryInterface  $tags
-     * @param  \Tricks\Repositories\CategoryRepositoryInterface  $categories
+     * @param \Tricks\Repositories\TrickRepositoryInterface    $trick
+     * @param \Tricks\Repositories\TagRepositoryInterface      $tags
+     * @param \Tricks\Repositories\CategoryRepositoryInterface $categories
+     *
      * @return void
      */
     public function __construct(
@@ -47,11 +48,11 @@ class UserTricksController extends BaseController
 
         $this->beforeFilter('auth');
         $this->beforeFilter('trick.owner', [
-            'only' => [ 'getEdit', 'postEdit', 'getDelete' ]
+            'only' => ['getEdit', 'postEdit', 'getDelete'],
         ]);
 
-        $this->trick      = $trick;
-        $this->tags       = $tags;
+        $this->trick = $trick;
+        $this->tags = $tags;
         $this->categories = $categories;
     }
 
@@ -62,7 +63,7 @@ class UserTricksController extends BaseController
      */
     public function getNew()
     {
-        $tagList      = $this->tags->listAll();
+        $tagList = $this->tags->listAll();
         $categoryList = $this->categories->listAll();
 
         $this->view('tricks.new', compact('tagList', 'categoryList'));
@@ -77,8 +78,8 @@ class UserTricksController extends BaseController
     {
         $form = $this->trick->getCreationForm();
 
-        if (! $form->isValid()) {
-            return $this->redirectBack([ 'errors' => $form->getErrors() ]);
+        if (!$form->isValid()) {
+            return $this->redirectBack(['errors' => $form->getErrors()]);
         }
 
         $data = $form->getInputData();
@@ -92,16 +93,17 @@ class UserTricksController extends BaseController
     /**
      * Show the edit trick page.
      *
-     * @param  string $slug
+     * @param string $slug
+     *
      * @return \Response
      */
     public function getEdit($slug)
     {
-        $trick        = $this->trick->findBySlug($slug);
-        $tagList      = $this->tags->listAll();
+        $trick = $this->trick->findBySlug($slug);
+        $tagList = $this->tags->listAll();
         $categoryList = $this->categories->listAll();
 
-        $selectedTags       = $this->trick->listTagsIdsForTrick($trick);
+        $selectedTags = $this->trick->listTagsIdsForTrick($trick);
         $selectedCategories = $this->trick->listCategoriesIdsForTrick($trick);
 
         $this->view('tricks.edit', [
@@ -109,37 +111,39 @@ class UserTricksController extends BaseController
             'selectedTags'       => $selectedTags,
             'categoryList'       => $categoryList,
             'selectedCategories' => $selectedCategories,
-            'trick'              => $trick
+            'trick'              => $trick,
         ]);
     }
 
     /**
      * Handle the editing of a trick.
      *
-     * @param  string $slug
+     * @param string $slug
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postEdit($slug)
     {
         $trick = $this->trick->findBySlug($slug);
-        $form  = $this->trick->getEditForm($trick->id);
+        $form = $this->trick->getEditForm($trick->id);
 
-        if (! $form->isValid()) {
-            return $this->redirectBack([ 'errors' => $form->getErrors() ]);
+        if (!$form->isValid()) {
+            return $this->redirectBack(['errors' => $form->getErrors()]);
         }
 
-        $data  = $form->getInputData();
+        $data = $form->getInputData();
         $trick = $this->trick->edit($trick, $data);
 
-        return $this->redirectRoute('tricks.edit', [ $trick->slug ], [
-            'success' => \Lang::get('user_tricks.trick_updated')
+        return $this->redirectRoute('tricks.edit', [$trick->slug], [
+            'success' => \Lang::get('user_tricks.trick_updated'),
         ]);
     }
 
     /**
      * Delete a trick from the database.
      *
-     * @param  string $slug
+     * @param string $slug
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getDelete($slug)
@@ -151,7 +155,7 @@ class UserTricksController extends BaseController
         $trick->delete();
 
         return $this->redirectRoute('user.index', null, [
-            'success' => \Lang::get('user_tricks.trick_deleted')
+            'success' => \Lang::get('user_tricks.trick_deleted'),
         ]);
     }
 }

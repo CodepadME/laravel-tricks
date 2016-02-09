@@ -7,43 +7,40 @@ use Mockery;
 use TestCase;
 use Validator;
 
-class ConcreteForm
-extends AbstractForm
+class ConcreteForm extends AbstractForm
 {
-
 }
 
-class AbstractFormTest
-extends TestCase
+class AbstractFormTest extends TestCase
 {
-  public function tearDown()
-  {
-      Mockery::close();
-  }
+    public function tearDown()
+    {
+        Mockery::close();
+    }
 
   /**
    * @group tricks/services
    */
   public function testConstructor()
   {
-    $mock = Mockery::mock('stdClass');
+      $mock = Mockery::mock('stdClass');
 
-    $mock
+      $mock
       ->shouldReceive('make')
       ->atLeast()->once()
       ->with('request')
       ->andReturn($mock);
 
-    $mock
+      $mock
       ->shouldReceive('all')
       ->atLeast()->once()
       ->andReturn('mocked');
 
-    App::swap($mock);
+      App::swap($mock);
 
-    $concreteForm = new ConcreteForm();
+      $concreteForm = new ConcreteForm();
 
-    $this->assertEquals(
+      $this->assertEquals(
       'mocked',
       $this->getProtectedProperty($concreteForm, 'inputData')
     );
@@ -54,11 +51,11 @@ extends TestCase
    */
   public function testGetInputData()
   {
-    $concreteForm = new ConcreteForm();
+      $concreteForm = new ConcreteForm();
 
-    $this->setProtectedProperty($concreteForm, 'inputData', 'mocked');
+      $this->setProtectedProperty($concreteForm, 'inputData', 'mocked');
 
-    $this->assertEquals(
+      $this->assertEquals(
       'mocked',
       $concreteForm->getInputData()
     );
@@ -69,28 +66,28 @@ extends TestCase
    */
   public function testIsValid()
   {
-    $concreteFormMock = Mockery::mock('Tricks\Services\Forms\ConcreteForm')
+      $concreteFormMock = Mockery::mock('Tricks\Services\Forms\ConcreteForm')
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $concreteFormMock
+      $concreteFormMock
       ->shouldReceive('getInputData')
       ->atLeast()->once()
       ->andReturn(['mocked']);
 
-    $concreteFormMock
+      $concreteFormMock
       ->shouldReceive('getPreparedRules')
       ->atLeast()->once()
       ->andReturn(['mocked']);
 
-    $concreteFormMock
+      $concreteFormMock
       ->shouldReceive('getMessages')
       ->atLeast()->once()
       ->andReturn(['mocked']);
 
-    $mock = Mockery::mock('stdClass');
+      $mock = Mockery::mock('stdClass');
 
-    $mock
+      $mock
       ->shouldReceive('make')
       ->atLeast()->once()
       ->with(
@@ -100,19 +97,19 @@ extends TestCase
       )
       ->andReturn($mock);
 
-    $mock
+      $mock
       ->shouldReceive('passes')
       ->atLeast()->once()
       ->andReturn('mocked');
 
-    Validator::swap($mock);
+      Validator::swap($mock);
 
-    $this->assertEquals(
+      $this->assertEquals(
       'mocked',
       $concreteFormMock->isValid()
     );
 
-    $this->assertSame(
+      $this->assertSame(
       $mock,
       $this->getProtectedProperty($concreteFormMock, 'validator')
     );
@@ -123,18 +120,18 @@ extends TestCase
    */
   public function testGetErrors()
   {
-    $mock = Mockery::mock('stdClass');
+      $mock = Mockery::mock('stdClass');
 
-    $mock
+      $mock
       ->shouldReceive('errors')
       ->atLeast()->once()
       ->andReturn('mocked');
 
-    $concreteForm = new ConcreteForm();
+      $concreteForm = new ConcreteForm();
 
-    $this->setProtectedProperty($concreteForm, 'validator', $mock);
+      $this->setProtectedProperty($concreteForm, 'validator', $mock);
 
-    $this->assertEquals(
+      $this->assertEquals(
       'mocked',
       $concreteForm->getErrors()
     );
@@ -145,13 +142,13 @@ extends TestCase
    */
   public function testGetPreparedRules()
   {
-    $concreteFormMock = Mockery::mock('Tricks\Services\Forms\ConcreteForm')
+      $concreteFormMock = Mockery::mock('Tricks\Services\Forms\ConcreteForm')
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $this->setProtectedProperty($concreteFormMock, 'rules', 'mocked');
+      $this->setProtectedProperty($concreteFormMock, 'rules', 'mocked');
 
-    $this->assertEquals(
+      $this->assertEquals(
       'mocked',
       $concreteFormMock->getPreparedRules()
     );
@@ -162,13 +159,13 @@ extends TestCase
    */
   public function testGetMessages()
   {
-    $concreteFormMock = Mockery::mock('Tricks\Services\Forms\ConcreteForm')
+      $concreteFormMock = Mockery::mock('Tricks\Services\Forms\ConcreteForm')
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $this->setProtectedProperty($concreteFormMock, 'messages', 'mocked');
+      $this->setProtectedProperty($concreteFormMock, 'messages', 'mocked');
 
-    $this->assertEquals(
+      $this->assertEquals(
       'mocked',
       $concreteFormMock->getMessages()
     );

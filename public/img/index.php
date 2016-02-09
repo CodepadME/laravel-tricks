@@ -1,1 +1,1 @@
-<?php die('Directory listing prohibited'); ?>
+<?php die('Directory listing prohibited');

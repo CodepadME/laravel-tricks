@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -41,8 +41,8 @@ return array(
     |
     */
 
-    'filter' => array(
+    'filter' => [
         'routes', // It might be a good idea to not collect routes in every request as this might use a lot of disk space
-    )
+    ],
 
-);
+];

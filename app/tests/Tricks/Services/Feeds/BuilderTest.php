@@ -5,42 +5,41 @@ namespace Tricks\Services\Feeds;
 use Mockery;
 use TestCase;
 
-class BuilderTest
-extends TestCase
+class BuilderTest extends TestCase
 {
-  public function tearDown()
-  {
-      Mockery::close();
-  }
+    public function tearDown()
+    {
+        Mockery::close();
+    }
 
   /**
    * @group tricks/services
    */
   public function testConstructor()
   {
-    $trickRepositoryInterfaceMock = Mockery::mock('Tricks\Repositories\TrickRepositoryInterface');
+      $trickRepositoryInterfaceMock = Mockery::mock('Tricks\Repositories\TrickRepositoryInterface');
 
-    $responseMock = Mockery::mock('Illuminate\Http\Response');
+      $responseMock = Mockery::mock('Illuminate\Http\Response');
 
-    $environmentMock = Mockery::mock('Illuminate\View\Environment');
+      $environmentMock = Mockery::mock('Illuminate\View\Environment');
 
-    $builder = new Builder(
+      $builder = new Builder(
       $trickRepositoryInterfaceMock,
       $responseMock,
       $environmentMock
     );
 
-    $this->assertSame(
+      $this->assertSame(
       $trickRepositoryInterfaceMock,
       $this->getProtectedProperty($builder, 'tricks')
     );
 
-    $this->assertSame(
+      $this->assertSame(
       $responseMock,
       $this->getProtectedProperty($builder, 'response')
     );
 
-    $this->assertSame(
+      $this->assertSame(
       $environmentMock,
       $this->getProtectedProperty($builder, 'view')
     );
@@ -51,15 +50,15 @@ extends TestCase
    */
   public function testSetType()
   {
-    $builder = new Builder(
+      $builder = new Builder(
       Mockery::mock('Tricks\Repositories\TrickRepositoryInterface'),
       Mockery::mock('Illuminate\Http\Response'),
       Mockery::mock('Illuminate\View\Environment')
     );
 
-    $builder->setType('Foo');
+      $builder->setType('Foo');
 
-    $this->assertSame(
+      $this->assertSame(
       'foo',
       $this->getProtectedProperty($builder, 'type')
     );
@@ -70,15 +69,15 @@ extends TestCase
    */
   public function testSetCharset()
   {
-    $builder = new Builder(
+      $builder = new Builder(
       Mockery::mock('Tricks\Repositories\TrickRepositoryInterface'),
       Mockery::mock('Illuminate\Http\Response'),
       Mockery::mock('Illuminate\View\Environment')
     );
 
-    $builder->setCharset('foo');
+      $builder->setCharset('foo');
 
-    $this->assertSame(
+      $this->assertSame(
       'foo',
       $this->getProtectedProperty($builder, 'charset')
     );
@@ -89,46 +88,45 @@ extends TestCase
    */
   public function testRender()
   {
-    $environmentMock = Mockery::mock('Illuminate\View\Environment');
+      $environmentMock = Mockery::mock('Illuminate\View\Environment');
 
-    $responseMock = Mockery::mock('Illuminate\Http\Response')
+      $responseMock = Mockery::mock('Illuminate\Http\Response')
       ->makePartial();
 
-    $responseMock
+      $responseMock
       ->shouldReceive('setContent')
       ->atLeast()->once()
       ->with($environmentMock);
 
-    $builderMock = Mockery::mock('Tricks\Services\Feeds\Builder', [
+      $builderMock = Mockery::mock('Tricks\Services\Feeds\Builder', [
       Mockery::mock('Tricks\Repositories\TrickRepositoryInterface'),
       $responseMock,
-      $environmentMock
+      $environmentMock,
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $builderMock
+      $builderMock
       ->shouldReceive('setType')
       ->atLeast()->once()
       ->with('foo');
 
-    $builderMock
+      $builderMock
       ->shouldReceive('getFeedData')
       ->atLeast()->once()
       ->andReturn([]);
 
-    $builderMock
+      $builderMock
       ->shouldReceive('prepareView')
       ->atLeast()->once()
       ->with([])
       ->andReturn($environmentMock);
 
-
-    $builderMock
+      $builderMock
       ->shouldReceive('prepareHeaders')
       ->atLeast()->once();
 
-    $this->assertSame(
+      $this->assertSame(
       $responseMock,
       $builderMock->render('foo')
     );
@@ -139,23 +137,23 @@ extends TestCase
    */
   public function testGetFeedData()
   {
-    $trickRepositoryInterfaceMock = Mockery::mock('Tricks\Repositories\TrickRepositoryInterface')
+      $trickRepositoryInterfaceMock = Mockery::mock('Tricks\Repositories\TrickRepositoryInterface')
       ->makePartial();
 
-    $trickRepositoryInterfaceMock
+      $trickRepositoryInterfaceMock
       ->shouldReceive('findForFeed')
       ->atLeast()->once()
       ->andReturn('mocked');
 
-    $builderMock = Mockery::mock('Tricks\Services\Feeds\Builder', [
+      $builderMock = Mockery::mock('Tricks\Services\Feeds\Builder', [
       $trickRepositoryInterfaceMock,
       Mockery::mock('Illuminate\Http\Response'),
-      Mockery::mock('Illuminate\View\Environment')
+      Mockery::mock('Illuminate\View\Environment'),
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $this->assertEquals(
+      $this->assertEquals(
       ['tricks' => 'mocked'],
       $builderMock->getFeedData()
     );
@@ -166,30 +164,30 @@ extends TestCase
    */
   public function testPrepareHeaders()
   {
-    $responseMock = Mockery::mock('Illuminate\Http\Response')
+      $responseMock = Mockery::mock('Illuminate\Http\Response')
       ->makePartial();
 
-    $responseMock
+      $responseMock
       ->shouldReceive('header')
       ->atLeast()->once()
       ->with('Content-Type', 'bar; charset=foo');
 
-    $builderMock = Mockery::mock('Tricks\Services\Feeds\Builder', [
+      $builderMock = Mockery::mock('Tricks\Services\Feeds\Builder', [
       Mockery::mock('Tricks\Repositories\TrickRepositoryInterface'),
       $responseMock,
-      Mockery::mock('Illuminate\View\Environment')
+      Mockery::mock('Illuminate\View\Environment'),
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $this->setProtectedProperty($builderMock, 'charset', 'foo');
+      $this->setProtectedProperty($builderMock, 'charset', 'foo');
 
-    $builderMock
+      $builderMock
       ->shouldReceive('getContentType')
       ->atLeast()->once()
       ->andReturn('bar');
 
-    $builderMock->prepareHeaders();
+      $builderMock->prepareHeaders();
   }
 
   /**
@@ -197,24 +195,24 @@ extends TestCase
    */
   public function testGetContentType()
   {
-    $builderMock = Mockery::mock('Tricks\Services\Feeds\Builder', [
+      $builderMock = Mockery::mock('Tricks\Services\Feeds\Builder', [
       Mockery::mock('Tricks\Repositories\TrickRepositoryInterface'),
       Mockery::mock('Illuminate\Http\Response'),
-      Mockery::mock('Illuminate\View\Environment')
+      Mockery::mock('Illuminate\View\Environment'),
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $this->setProtectedProperty($builderMock, 'type', 'rss');
+      $this->setProtectedProperty($builderMock, 'type', 'rss');
 
-    $this->assertSame(
+      $this->assertSame(
       'application/rss+xml',
       $builderMock->getContentType()
     );
 
-    $this->setProtectedProperty($builderMock, 'type', 'atom');
+      $this->setProtectedProperty($builderMock, 'type', 'atom');
 
-    $this->assertSame(
+      $this->assertSame(
       'application/atom+xml',
       $builderMock->getContentType()
     );
@@ -225,31 +223,31 @@ extends TestCase
    */
   public function testPrepareView()
   {
-    $data = ['foo' => 'bar'];
+      $data = ['foo' => 'bar'];
 
-    $environmentMock = Mockery::mock('Illuminate\View\Environment')
+      $environmentMock = Mockery::mock('Illuminate\View\Environment')
       ->makePartial();
 
-    $environmentMock
+      $environmentMock
       ->shouldReceive('make')
       ->atLeast()->once()
       ->with('mocked', $data)
       ->andReturn('mocked');
 
-    $builderMock = Mockery::mock('Tricks\Services\Feeds\Builder', [
+      $builderMock = Mockery::mock('Tricks\Services\Feeds\Builder', [
       Mockery::mock('Tricks\Repositories\TrickRepositoryInterface'),
       Mockery::mock('Illuminate\Http\Response'),
-      $environmentMock
+      $environmentMock,
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $builderMock
+      $builderMock
       ->shouldReceive('getViewName')
       ->atLeast()->once()
       ->andReturn('mocked');
 
-    $this->assertEquals(
+      $this->assertEquals(
       'mocked',
       $builderMock->prepareView($data)
     );
@@ -260,24 +258,24 @@ extends TestCase
    */
   public function testGetViewName()
   {
-    $builderMock = Mockery::mock('Tricks\Services\Feeds\Builder', [
+      $builderMock = Mockery::mock('Tricks\Services\Feeds\Builder', [
       Mockery::mock('Tricks\Repositories\TrickRepositoryInterface'),
       Mockery::mock('Illuminate\Http\Response'),
-      Mockery::mock('Illuminate\View\Environment')
+      Mockery::mock('Illuminate\View\Environment'),
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $this->setProtectedProperty($builderMock, 'type', 'rss');
+      $this->setProtectedProperty($builderMock, 'type', 'rss');
 
-    $this->assertSame(
+      $this->assertSame(
       'feeds.rss',
       $builderMock->getViewName()
     );
 
-    $this->setProtectedProperty($builderMock, 'type', 'atom');
+      $this->setProtectedProperty($builderMock, 'type', 'atom');
 
-    $this->assertSame(
+      $this->assertSame(
       'feeds.atom',
       $builderMock->getViewName()
     );

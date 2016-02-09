@@ -5,29 +5,28 @@ namespace Tricks;
 use Mockery;
 use TestCase;
 
-class TrickTest
-extends TestCase
+class TrickTest extends TestCase
 {
-  public function tearDown()
-  {
-      Mockery::close();
-  }
+    public function tearDown()
+    {
+        Mockery::close();
+    }
 
   /**
    * @group tricks
    */
   public function testVotes()
   {
-    $mock = Mockery::mock('Tricks\Trick')
+      $mock = Mockery::mock('Tricks\Trick')
       ->makePartial();
 
-    $mock
+      $mock
       ->shouldReceive('belongsToMany')
       ->atLeast()->once()
       ->with('Tricks\User', 'votes')
       ->andReturn('mocked');
 
-    $this->assertEquals('mocked', $mock->votes());
+      $this->assertEquals('mocked', $mock->votes());
   }
 
   /**
@@ -35,16 +34,16 @@ extends TestCase
    */
   public function testUser()
   {
-    $mock = Mockery::mock('Tricks\Trick')
+      $mock = Mockery::mock('Tricks\Trick')
       ->makePartial();
 
-    $mock
+      $mock
       ->shouldReceive('belongsTo')
       ->atLeast()->once()
       ->with('Tricks\User')
       ->andReturn('mocked');
 
-    $this->assertEquals('mocked', $mock->user());
+      $this->assertEquals('mocked', $mock->user());
   }
 
   /**
@@ -52,16 +51,16 @@ extends TestCase
    */
   public function testTags()
   {
-    $mock = Mockery::mock('Tricks\Trick')
+      $mock = Mockery::mock('Tricks\Trick')
       ->makePartial();
 
-    $mock
+      $mock
       ->shouldReceive('belongsToMany')
       ->atLeast()->once()
       ->with('Tricks\Tag')
       ->andReturn('mocked');
 
-    $this->assertEquals('mocked', $mock->tags());
+      $this->assertEquals('mocked', $mock->tags());
   }
 
   /**
@@ -69,15 +68,15 @@ extends TestCase
    */
   public function testCategories()
   {
-    $mock = Mockery::mock('Tricks\Trick')
+      $mock = Mockery::mock('Tricks\Trick')
       ->makePartial();
 
-    $mock
+      $mock
       ->shouldReceive('belongsToMany')
       ->atLeast()->once()
       ->with('Tricks\Category')
       ->andReturn('mocked');
 
-    $this->assertEquals('mocked', $mock->categories());
+      $this->assertEquals('mocked', $mock->categories());
   }
 }

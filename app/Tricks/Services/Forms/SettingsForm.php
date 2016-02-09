@@ -28,14 +28,15 @@ class SettingsForm extends AbstractForm
      */
     protected $rules = [
         'username' => 'required|min:4',
-        'password' => 'confirmed|min:6'
+        'password' => 'confirmed|min:6',
     ];
 
     /**
      * Create a new SettingsForm instance.
      *
-     * @param  \Illuminate\Config\Repository  $config
-     * @param  \Illuminate\Auth\AuthManager   $auth
+     * @param \Illuminate\Config\Repository $config
+     * @param \Illuminate\Auth\AuthManager  $auth
+     *
      * @return void
      */
     public function __construct(Repository $config, AuthManager $auth)
@@ -54,10 +55,10 @@ class SettingsForm extends AbstractForm
     protected function getPreparedRules()
     {
         $forbidden = implode(',', $this->config->get('config.forbidden_usernames'));
-        $userId    = $this->auth->user()->id;
+        $userId = $this->auth->user()->id;
 
-        $this->rules['username'] .= '|not_in:' . $forbidden;
-        $this->rules['username'] .= '|unique:users,username,' . $userId;
+        $this->rules['username'] .= '|not_in:'.$forbidden;
+        $this->rules['username'] .= '|unique:users,username,'.$userId;
 
         return $this->rules;
     }
@@ -70,7 +71,7 @@ class SettingsForm extends AbstractForm
     public function getInputData()
     {
         return array_only($this->inputData, [
-            'username', 'password', 'password_confirmation'
+            'username', 'password', 'password_confirmation',
         ]);
     }
 }

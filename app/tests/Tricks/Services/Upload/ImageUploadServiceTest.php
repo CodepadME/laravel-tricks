@@ -2,51 +2,51 @@
 
 namespace Tricks\Services\Upload;
 
-use Intervention\Image\Image as Base;
 use Image;
+use Intervention\Image\Image as Base;
 use Mockery;
-use ReflectionMethod;
 use TestCase;
 
 $headers = [];
 
-function header($value) {
-  global $headers;
-  $headers[] = $value;
-}
-
-function get_headers() {
-  global $headers;
-  return $headers;
-}
-
-class MockableImage
-extends Base
+function header($value)
 {
-  public function __construct($path)
-  {
-    // nothing to see here
-  }
+    global $headers;
+    $headers[] = $value;
 }
 
-class ImageUploadServiceTest
-extends TestCase
+function get_headers()
 {
-  public function tearDown()
-  {
-      Mockery::close();
-  }
+    global $headers;
+
+    return $headers;
+}
+
+class MockableImage extends Base
+{
+    public function __construct($path)
+    {
+        // nothing to see here
+    }
+}
+
+class ImageUploadServiceTest extends TestCase
+{
+    public function tearDown()
+    {
+        Mockery::close();
+    }
 
   /**
    * @group tricks/services
    */
   public function testConstructor()
   {
-    $filesystemMock = Mockery::mock('Illuminate\Filesystem\Filesystem');
+      $filesystemMock = Mockery::mock('Illuminate\Filesystem\Filesystem');
 
-    $imageUploadService = new ImageUploadService($filesystemMock);
+      $imageUploadService = new ImageUploadService($filesystemMock);
 
-    $this->assertEquals(
+      $this->assertEquals(
       $filesystemMock,
       $this->getProtectedProperty($imageUploadService, 'filesystem')
     );
@@ -57,24 +57,24 @@ extends TestCase
    */
   public function testEnableCORS()
   {
-    $filesystemMock = Mockery::mock('Illuminate\Filesystem\Filesystem');
+      $filesystemMock = Mockery::mock('Illuminate\Filesystem\Filesystem');
 
-    $imageUploadService = new ImageUploadService($filesystemMock);
+      $imageUploadService = new ImageUploadService($filesystemMock);
 
-    $imageUploadService->enableCORS('foo');
-    $headers = get_headers();
+      $imageUploadService->enableCORS('foo');
+      $headers = get_headers();
 
-    $this->assertContains(
+      $this->assertContains(
       'Access-Control-Allow-Origin: foo',
       $headers
     );
 
-    $this->assertContains(
+      $this->assertContains(
       'Access-Control-Allow-Methods: POST, GET, OPTIONS',
       $headers
     );
 
-    $this->assertContains(
+      $this->assertContains(
       'Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Range, Content-Disposition, Content-Type',
       $headers
     );
@@ -85,16 +85,16 @@ extends TestCase
    */
   public function testGetFullPath()
   {
-    $filesystemMock = Mockery::mock('Illuminate\Filesystem\Filesystem');
+      $filesystemMock = Mockery::mock('Illuminate\Filesystem\Filesystem');
 
-    $imageUploadServiceMock = Mockery::mock('Tricks\Services\Upload\ImageUploadService', [
-      $filesystemMock
+      $imageUploadServiceMock = Mockery::mock('Tricks\Services\Upload\ImageUploadService', [
+      $filesystemMock,
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $this->assertEquals(
-      realpath(__DIR__ . '/../../../../../public/favicon.ico'),
+      $this->assertEquals(
+      realpath(__DIR__.'/../../../../../public/favicon.ico'),
       $imageUploadServiceMock->getFullPath('favicon.ico')
     );
   }
@@ -104,17 +104,17 @@ extends TestCase
    */
   public function testMakeFilename()
   {
-    $filesystemMock = Mockery::mock('Illuminate\Filesystem\Filesystem');
+      $filesystemMock = Mockery::mock('Illuminate\Filesystem\Filesystem');
 
-    $imageUploadServiceMock = Mockery::mock('Tricks\Services\Upload\ImageUploadService', [
-      $filesystemMock
+      $imageUploadServiceMock = Mockery::mock('Tricks\Services\Upload\ImageUploadService', [
+      $filesystemMock,
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $this->setProtectedProperty($imageUploadServiceMock, 'extension', 'foo');
+      $this->setProtectedProperty($imageUploadServiceMock, 'extension', 'foo');
 
-    $this->assertRegExp(
+      $this->assertRegExp(
       '/[0-9a-f]{40}\.foo/',
       $imageUploadServiceMock->makeFilename()
     );
@@ -125,22 +125,22 @@ extends TestCase
    */
   public function testGetFile()
   {
-    $filesystemMock = Mockery::mock('Illuminate\Filesystem\Filesystem')
+      $filesystemMock = Mockery::mock('Illuminate\Filesystem\Filesystem')
       ->makePartial();
 
-    $filesystemMock
+      $filesystemMock
       ->shouldReceive('get')
       ->atLeast()->once()
       ->with('foo')
       ->andReturn('mocked');
 
-    $imageUploadServiceMock = Mockery::mock('Tricks\Services\Upload\ImageUploadService', [
-      $filesystemMock
+      $imageUploadServiceMock = Mockery::mock('Tricks\Services\Upload\ImageUploadService', [
+      $filesystemMock,
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $this->assertEquals(
+      $this->assertEquals(
       'mocked',
       $imageUploadServiceMock->getFile('foo')
     );
@@ -151,22 +151,22 @@ extends TestCase
    */
   public function testGetFileSize()
   {
-    $filesystemMock = Mockery::mock('Illuminate\Filesystem\Filesystem')
+      $filesystemMock = Mockery::mock('Illuminate\Filesystem\Filesystem')
       ->makePartial();
 
-    $filesystemMock
+      $filesystemMock
       ->shouldReceive('size')
       ->atLeast()->once()
       ->with('foo')
       ->andReturn('mocked');
 
-    $imageUploadServiceMock = Mockery::mock('Tricks\Services\Upload\ImageUploadService', [
-      $filesystemMock
+      $imageUploadServiceMock = Mockery::mock('Tricks\Services\Upload\ImageUploadService', [
+      $filesystemMock,
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $this->assertEquals(
+      $this->assertEquals(
       'mocked',
       $imageUploadServiceMock->getFileSize('foo')
     );
@@ -177,21 +177,21 @@ extends TestCase
    */
   public function testGetDataUrl()
   {
-    $filesystemMock = Mockery::mock('Illuminate\Filesystem\Filesystem');
+      $filesystemMock = Mockery::mock('Illuminate\Filesystem\Filesystem');
 
-    $imageUploadServiceMock = Mockery::mock('Tricks\Services\Upload\ImageUploadService', [
-      $filesystemMock
+      $imageUploadServiceMock = Mockery::mock('Tricks\Services\Upload\ImageUploadService', [
+      $filesystemMock,
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $imageUploadServiceMock
+      $imageUploadServiceMock
       ->shouldReceive('getFile')
       ->atLeast()->once()
       ->andReturn('bar');
 
-    $this->assertEquals(
-      'data:foo;base64,' . base64_encode('bar'),
+      $this->assertEquals(
+      'data:foo;base64,'.base64_encode('bar'),
       $imageUploadServiceMock->getDataUrl('foo', 'bar')
     );
   }
@@ -201,34 +201,34 @@ extends TestCase
    */
   public function testsGetJsonBody()
   {
-    $filesystemMock = Mockery::mock('Illuminate\Filesystem\Filesystem');
+      $filesystemMock = Mockery::mock('Illuminate\Filesystem\Filesystem');
 
-    $imageUploadServiceMock = Mockery::mock('Tricks\Services\Upload\ImageUploadService', [
-      $filesystemMock
+      $imageUploadServiceMock = Mockery::mock('Tricks\Services\Upload\ImageUploadService', [
+      $filesystemMock,
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $imageUploadServiceMock
+      $imageUploadServiceMock
       ->shouldReceive('getFileSize')
       ->atLeast()->once()
       ->with('foo')
       ->andReturn('mocked');
 
-    $imageUploadServiceMock
+      $imageUploadServiceMock
       ->shouldReceive('getDataUrl')
       ->atLeast()->once()
       ->with('bar', 'foo')
       ->andReturn('mocked');
 
-    $this->assertEquals(
+      $this->assertEquals(
       [
         'images' => [
           'filename' => 'baz',
           'mime'     => 'bar',
           'size'     => 'mocked',
-          'dataURL'  => 'mocked'
-        ]
+          'dataURL'  => 'mocked',
+        ],
       ],
       $imageUploadServiceMock->getJsonBody('baz', 'bar', 'foo')
     );
@@ -239,6 +239,6 @@ extends TestCase
    */
   public function testHandle()
   {
-    $this->incomplete('Need to mock Image::make()');
+      $this->incomplete('Need to mock Image::make()');
   }
 }

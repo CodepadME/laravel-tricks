@@ -5,42 +5,41 @@ namespace Tricks\Filters;
 use Mockery;
 use TestCase;
 
-class TrickOwnerFilterTest
-extends TestCase
+class TrickOwnerFilterTest extends TestCase
 {
-  public function tearDown()
-  {
-      Mockery::close();
-  }
+    public function tearDown()
+    {
+        Mockery::close();
+    }
 
   /**
    * @group tricks/filters
    */
   public function testConstructor()
   {
-    $authManagerMock = Mockery::mock('Illuminate\Auth\AuthManager');
+      $authManagerMock = Mockery::mock('Illuminate\Auth\AuthManager');
 
-    $redirectorMock = Mockery::mock('Illuminate\Routing\Redirector');
+      $redirectorMock = Mockery::mock('Illuminate\Routing\Redirector');
 
-    $trickRepositoryMock = Mockery::mock('Tricks\Repositories\TrickRepositoryInterface');
+      $trickRepositoryMock = Mockery::mock('Tricks\Repositories\TrickRepositoryInterface');
 
-    $trickOwnerFilter = new TrickOwnerFilter(
+      $trickOwnerFilter = new TrickOwnerFilter(
       $authManagerMock,
       $redirectorMock,
       $trickRepositoryMock
     );
 
-    $this->assertSame(
+      $this->assertSame(
       $authManagerMock,
       $this->getProtectedProperty($trickOwnerFilter, 'auth')
     );
 
-    $this->assertSame(
+      $this->assertSame(
       $redirectorMock,
       $this->getProtectedProperty($trickOwnerFilter, 'redirect')
     );
 
-    $this->assertSame(
+      $this->assertSame(
       $trickRepositoryMock,
       $this->getProtectedProperty($trickOwnerFilter, 'tricks')
     );
@@ -51,31 +50,31 @@ extends TestCase
    */
   public function testFilter()
   {
-    $routeMock1 = Mockery::mock('Illuminate\Routing\Route');
+      $routeMock1 = Mockery::mock('Illuminate\Routing\Route');
 
-    $routeMock2 = Mockery::mock('Illuminate\Routing\Route');
+      $routeMock2 = Mockery::mock('Illuminate\Routing\Route');
 
-    $authManagerMock = Mockery::mock('Illuminate\Auth\AuthManager');
+      $authManagerMock = Mockery::mock('Illuminate\Auth\AuthManager');
 
-    $redirectorMock = Mockery::mock('Illuminate\Routing\Redirector');
+      $redirectorMock = Mockery::mock('Illuminate\Routing\Redirector');
 
-    $redirectorMock
+      $redirectorMock
       ->shouldReceive('route')
       ->atLeast()->once()
       ->with('browse.recent')
       ->andReturn('mocked route');
 
-    $trickRepositoryMock = Mockery::mock('Tricks\Repositories\TrickRepositoryInterface');
+      $trickRepositoryMock = Mockery::mock('Tricks\Repositories\TrickRepositoryInterface');
 
-    $trickOwnerFilterMock = Mockery::mock('Tricks\Filters\TrickOwnerFilter', [
+      $trickOwnerFilterMock = Mockery::mock('Tricks\Filters\TrickOwnerFilter', [
       $authManagerMock,
       $redirectorMock,
-      $trickRepositoryMock
+      $trickRepositoryMock,
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $trickOwnerFilterMock
+      $trickOwnerFilterMock
       ->shouldReceive('getSlug')
       ->atLeast()->once()
       ->with($routeMock1)
@@ -87,28 +86,28 @@ extends TestCase
         ->with($routeMock2)
         ->andReturn('mocked route2 getSlug');
 
-    $trickOwnerFilterMock
+      $trickOwnerFilterMock
       ->shouldReceive('getUserId')
       ->atLeast()->once()
       ->andReturn(1);
 
-    $trickOwnerFilterMock
+      $trickOwnerFilterMock
       ->shouldReceive('isTrickOwnedByUser')
       ->atLeast()->once()
       ->with('mocked route1 getSlug', 1)
       ->andReturn(true);
 
-    $trickOwnerFilterMock
+      $trickOwnerFilterMock
       ->shouldReceive('isTrickOwnedByUser')
       ->atLeast()->once()
       ->with('mocked route2 getSlug', 1)
       ->andReturn(false);
 
-    $this->assertNull(
+      $this->assertNull(
       $trickOwnerFilterMock->filter($routeMock1)
     );
 
-    $this->assertEquals(
+      $this->assertEquals(
       'mocked route',
       $trickOwnerFilterMock->filter($routeMock2)
     );
@@ -119,28 +118,28 @@ extends TestCase
    */
   public function testGetUserId()
   {
-    $authManagerMock = Mockery::mock('Illuminate\Auth\AuthManager');
+      $authManagerMock = Mockery::mock('Illuminate\Auth\AuthManager');
 
-    $authManagerMock
+      $authManagerMock
       ->shouldReceive('user')
       ->atLeast()->once()
       ->andReturn($authManagerMock);
 
-    $authManagerMock->id = 1;
+      $authManagerMock->id = 1;
 
-    $redirectorMock = Mockery::mock('Illuminate\Routing\Redirector');
+      $redirectorMock = Mockery::mock('Illuminate\Routing\Redirector');
 
-    $trickRepositoryMock = Mockery::mock('Tricks\Repositories\TrickRepositoryInterface');
+      $trickRepositoryMock = Mockery::mock('Tricks\Repositories\TrickRepositoryInterface');
 
-    $trickOwnerFilterMock = Mockery::mock('Tricks\Filters\TrickOwnerFilter', [
+      $trickOwnerFilterMock = Mockery::mock('Tricks\Filters\TrickOwnerFilter', [
       $authManagerMock,
       $redirectorMock,
-      $trickRepositoryMock
+      $trickRepositoryMock,
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $this->assertEquals(
+      $this->assertEquals(
       1,
       $trickOwnerFilterMock->getUserId()
     );
@@ -151,23 +150,23 @@ extends TestCase
    */
   public function testGetSlug()
   {
-    $routeMock = Mockery::mock('Illuminate\Routing\Route');
+      $routeMock = Mockery::mock('Illuminate\Routing\Route');
 
-    $routeMock
+      $routeMock
       ->shouldReceive('getParameter')
       ->atLeast()->once()
       ->with('trick_slug')
       ->andReturn('mocked getParameter');
 
-    $trickOwnerFilterMock = Mockery::mock('Tricks\Filters\TrickOwnerFilter', [
+      $trickOwnerFilterMock = Mockery::mock('Tricks\Filters\TrickOwnerFilter', [
       Mockery::mock('Illuminate\Auth\AuthManager'),
       Mockery::mock('Illuminate\Routing\Redirector'),
-      Mockery::mock('Tricks\Repositories\TrickRepositoryInterface')
+      Mockery::mock('Tricks\Repositories\TrickRepositoryInterface'),
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $this->assertEquals(
+      $this->assertEquals(
       'mocked getParameter',
       $trickOwnerFilterMock->getSlug($routeMock)
     );
@@ -178,27 +177,27 @@ extends TestCase
    */
   public function testIsTrickOwnedByUser()
   {
-    $authManagerMock = Mockery::mock('Illuminate\Auth\AuthManager');
+      $authManagerMock = Mockery::mock('Illuminate\Auth\AuthManager');
 
-    $redirectorMock = Mockery::mock('Illuminate\Routing\Redirector');
+      $redirectorMock = Mockery::mock('Illuminate\Routing\Redirector');
 
-    $trickRepositoryMock = Mockery::mock('Tricks\Repositories\TrickRepositoryInterface');
+      $trickRepositoryMock = Mockery::mock('Tricks\Repositories\TrickRepositoryInterface');
 
-    $trickRepositoryMock
+      $trickRepositoryMock
       ->shouldReceive('isTrickOwnedByUser')
       ->atLeast()->once()
       ->with('foo', 1)
       ->andReturn('mocked isTrickOwnedByUser');
 
-    $trickOwnerFilterMock = Mockery::mock('Tricks\Filters\TrickOwnerFilter', [
+      $trickOwnerFilterMock = Mockery::mock('Tricks\Filters\TrickOwnerFilter', [
       $authManagerMock,
       $redirectorMock,
-      $trickRepositoryMock
+      $trickRepositoryMock,
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $this->assertEquals(
+      $this->assertEquals(
       'mocked isTrickOwnedByUser',
       $trickOwnerFilterMock->isTrickOwnedByUser('foo', 1)
     );

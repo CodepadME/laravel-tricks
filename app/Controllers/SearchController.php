@@ -17,7 +17,8 @@ class SearchController extends BaseController
     /**
      * Create a new SearchController instance.
      *
-     * @param  \Tricks\Repositories\TrickRepositoryInterface  $tricks
+     * @param \Tricks\Repositories\TrickRepositoryInterface $tricks
+     *
      * @return void
      */
     public function __construct(TrickRepositoryInterface $tricks)
@@ -34,10 +35,10 @@ class SearchController extends BaseController
      */
     public function getIndex()
     {
-        $term   = e(Input::get('q'));
+        $term = e(Input::get('q'));
         $tricks = null;
 
-        if (! empty($term)) {
+        if (!empty($term)) {
             $tricks = $this->tricks->searchByTermPaginated($term, 12);
         }
 

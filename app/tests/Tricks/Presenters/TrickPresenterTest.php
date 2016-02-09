@@ -10,36 +10,35 @@ use Tricks\Category;
 use Tricks\Trick;
 use URL;
 
-class TrickPresenterTest
-extends TestCase
+class TrickPresenterTest extends TestCase
 {
-  public function tearDown()
-  {
-      Mockery::close();
-  }
+    public function tearDown()
+    {
+        Mockery::close();
+    }
 
-  protected function getTrickMockWithSlug()
-  {
-    $mock = Mockery::mock('Tricks\Trick')
+    protected function getTrickMockWithSlug()
+    {
+        $mock = Mockery::mock('Tricks\Trick')
       ->makePartial();
 
-    $mock->slug = 'mocked';
+        $mock->slug = 'mocked';
 
-    return $mock;
-  }
+        return $mock;
+    }
 
   /**
    * @group tricks/presenters
    */
   public function testConstructor()
   {
-    $mock = Mockery::mock('Tricks\Trick');
+      $mock = Mockery::mock('Tricks\Trick');
 
-    $trickPresenter = new TrickPresenter(
+      $trickPresenter = new TrickPresenter(
       $mock
     );
 
-    $this->assertSame(
+      $this->assertSame(
       $mock,
       $this->getProtectedProperty($trickPresenter, 'resource')
     );
@@ -50,21 +49,21 @@ extends TestCase
    */
   public function testEditLink()
   {
-    $urlMock = Mockery::mock('stdClass');
+      $urlMock = Mockery::mock('stdClass');
 
-    $urlMock
+      $urlMock
       ->shouldReceive('route')
       ->atLeast()->once()
       ->with('tricks.edit', ['mocked'])
       ->andReturn('mocked');
 
-    URL::swap($urlMock);
+      URL::swap($urlMock);
 
-    $trickPresenter = new TrickPresenter(
+      $trickPresenter = new TrickPresenter(
       $this->getTrickMockWithSlug()
     );
 
-    $this->assertEquals('mocked', $trickPresenter->editLink());
+      $this->assertEquals('mocked', $trickPresenter->editLink());
   }
 
   /**
@@ -72,21 +71,21 @@ extends TestCase
    */
   public function testDeleteLink()
   {
-    $urlMock = Mockery::mock('stdClass');
+      $urlMock = Mockery::mock('stdClass');
 
-    $urlMock
+      $urlMock
       ->shouldReceive('route')
       ->atLeast()->once()
       ->with('tricks.delete', ['mocked'])
       ->andReturn('mocked');
 
-    URL::swap($urlMock);
+      URL::swap($urlMock);
 
-    $trickPresenter = new TrickPresenter(
+      $trickPresenter = new TrickPresenter(
       $this->getTrickMockWithSlug()
     );
 
-    $this->assertEquals('mocked', $trickPresenter->deleteLink());
+      $this->assertEquals('mocked', $trickPresenter->deleteLink());
   }
 
   /**
@@ -94,22 +93,22 @@ extends TestCase
    */
   public function testTimeAgoLink()
   {
-    $trickMock = Mockery::mock('Tricks\Trick')
+      $trickMock = Mockery::mock('Tricks\Trick')
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $trickMock
+      $trickMock
       ->shouldReceive('getDateFormat')
       ->atLeast()->once()
       ->andReturn('Y-m-d H:i:s');
 
-    $trickMock->created_at = Carbon::now();
+      $trickMock->created_at = Carbon::now();
 
-    $trickPresenter = new TrickPresenter(
+      $trickPresenter = new TrickPresenter(
       $trickMock
     );
 
-    $this->assertEquals($trickMock->created_at->diffForHumans(), $trickPresenter->timeago());
+      $this->assertEquals($trickMock->created_at->diffForHumans(), $trickPresenter->timeago());
   }
 
   /**
@@ -117,42 +116,42 @@ extends TestCase
    */
   public function testLikedByUser()
   {
-    $userMock = Mockery::mock('Tricks\User')
+      $userMock = Mockery::mock('Tricks\User')
       ->makePartial();
 
-    $userMock->id = 'mocked';
+      $userMock->id = 'mocked';
 
-    $trickMock = Mockery::mock('Tricks\Trick');
+      $trickMock = Mockery::mock('Tricks\Trick');
 
-    $trickMock
+      $trickMock
       ->shouldReceive('votes')
       ->atLeast()->once()
       ->andReturn($trickMock);
 
-    $trickMock
+      $trickMock
       ->shouldReceive('where')
       ->atLeast()->once()
       ->with('users.id', 'mocked')
       ->andReturn($trickMock);
 
-    $trickMock
+      $trickMock
       ->shouldReceive('exists')
       ->atLeast()->once()
       ->andReturn(true);
 
-    $trickPresenter = new TrickPresenter(
+      $trickPresenter = new TrickPresenter(
       $trickMock
     );
 
-    $this->assertFalse(
+      $this->assertFalse(
       $trickPresenter->likedByUser(null)
     );
 
-    $this->assertTrue(
+      $this->assertTrue(
       $trickPresenter->likedByUser($userMock)
     );
 
-    $this->assertTrue(
+      $this->assertTrue(
       $this->getProtectedProperty($trickPresenter, 'likedByUser')
     );
   }
@@ -162,16 +161,16 @@ extends TestCase
    */
   public function testAllCategories()
   {
-    $trickMock = Mockery::mock('Tricks\Trick')
+      $trickMock = Mockery::mock('Tricks\Trick')
       ->makePartial();
 
-    $trickMock->categories = 'mocked';
+      $trickMock->categories = 'mocked';
 
-    $trickPresenter = new TrickPresenter(
+      $trickPresenter = new TrickPresenter(
       $trickMock
     );
 
-    $this->assertEquals(
+      $this->assertEquals(
       'mocked',
       $trickPresenter->allCategories()
     );
@@ -182,35 +181,35 @@ extends TestCase
    */
   public function testCategories()
   {
-    $categoryMock = Mockery::mock('Tricks\Category');
+      $categoryMock = Mockery::mock('Tricks\Category');
 
-    $trickMock = Mockery::mock('Tricks\Trick')
+      $trickMock = Mockery::mock('Tricks\Trick')
       ->makePartial();
 
-    $trickMock->categories = [
+      $trickMock->categories = [
       $categoryMock,
       $categoryMock,
-      $categoryMock
+      $categoryMock,
     ];
 
-    $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter', [
-      $trickMock
+      $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter', [
+      $trickMock,
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $trickPresenterMock
+      $trickPresenterMock
       ->shouldReceive('hasCategories')
       ->atLeast()->once()
       ->andReturn(true);
 
-    $trickPresenterMock
+      $trickPresenterMock
       ->shouldReceive('getCategoryLink')
       ->atLeast()->once()
       ->with($categoryMock)
       ->andReturn('[category]');
 
-    $this->assertEquals(
+      $this->assertEquals(
       'in [category], [category], [category]',
       $trickPresenterMock->categories()
     );
@@ -221,21 +220,21 @@ extends TestCase
    */
   public function testHasCategories()
   {
-    $trick = new Trick();
+      $trick = new Trick();
 
-    $trick->categories = [
+      $trick->categories = [
       'foo',
       'bar',
-      'baz'
+      'baz',
     ];
 
-    $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter', [
-      $trick
+      $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter', [
+      $trick,
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $this->assertTrue($trickPresenterMock->hasCategories());
+      $this->assertTrue($trickPresenterMock->hasCategories());
   }
 
   /**
@@ -243,29 +242,29 @@ extends TestCase
    */
   public function testGetCategoryLink()
   {
-    $category = new Category();
-    $category->name = 'foo';
-    $category->slug = 'bar';
+      $category = new Category();
+      $category->name = 'foo';
+      $category->slug = 'bar';
 
-    $htmlMock = Mockery::mock('stdClass');
+      $htmlMock = Mockery::mock('stdClass');
 
-    $htmlMock
+      $htmlMock
       ->shouldReceive('linkRoute')
       ->atLeast()->once()
       ->with('tricks.browse.category', 'foo', ['bar'])
       ->andReturn('mocked');
 
-    HTML::swap($htmlMock);
+      HTML::swap($htmlMock);
 
-    $trickMock = Mockery::mock('Tricks\Trick');
+      $trickMock = Mockery::mock('Tricks\Trick');
 
-    $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter', [
-      $trickMock
+      $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter', [
+      $trickMock,
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $this->assertEquals(
+      $this->assertEquals(
       'mocked',
       $trickPresenterMock->getCategoryLink($category)
     );
@@ -276,26 +275,26 @@ extends TestCase
    */
   public function testPageDescription()
   {
-    $trick = new Trick();
+      $trick = new Trick();
 
-    $trick->description = 'Lorem ipsum dolor sit amet, consectetur adipiscing
+      $trick->description = 'Lorem ipsum dolor sit amet, consectetur adipiscing
     elit. Donec porta nisi sed euismod ornare. Integer dapibus, tortor sed
     malesuada ullamcorper, ante neque bibendum nulla, eget vulputate turpis urna
     et velit. Nam egestas, magna vel hendrerit egestas, leo sem gravida dui, in
     facilisis massa erat eget nisl.';
 
-    $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter', [
-      $trick
+      $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter', [
+      $trick,
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $trickPresenterMock
+      $trickPresenterMock
       ->shouldReceive('removeLastWord')
       ->atLeast()->once()
       ->andReturn('mocked');
 
-    $this->assertEquals(
+      $this->assertEquals(
       'mocked...',
       $trickPresenterMock->pageDescription()
     );
@@ -306,26 +305,26 @@ extends TestCase
    */
   public function testPageTitle()
   {
-    $trick = new Trick();
+      $trick = new Trick();
 
-    $trick->title = 'Lorem ipsum dolor sit amet, consectetur adipiscing
+      $trick->title = 'Lorem ipsum dolor sit amet, consectetur adipiscing
     elit. Donec porta nisi sed euismod ornare. Integer dapibus, tortor sed
     malesuada ullamcorper, ante neque bibendum nulla, eget vulputate turpis urna
     et velit. Nam egestas, magna vel hendrerit egestas, leo sem gravida dui, in
     facilisis massa erat eget nisl.';
 
-    $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter', [
-      $trick
+      $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter', [
+      $trick,
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $trickPresenterMock
+      $trickPresenterMock
       ->shouldReceive('removeLastWord')
       ->atLeast()->once()
       ->andReturn('mocked');
 
-    $this->assertEquals(
+      $this->assertEquals(
       'mocked',
       $trickPresenterMock->pageTitle()
     );
@@ -336,15 +335,15 @@ extends TestCase
    */
   public function testRemoveLastWord()
   {
-    $before = 'foo bar baz';
+      $before = 'foo bar baz';
 
-    $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter', [
-      Mockery::mock('Tricks\Trick')
+      $trickPresenterMock = Mockery::mock('Tricks\Presenters\TrickPresenter', [
+      Mockery::mock('Tricks\Trick'),
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $this->assertEquals(
+      $this->assertEquals(
       'foo bar',
       $trickPresenterMock->removeLastWord($before)
     );
@@ -355,34 +354,34 @@ extends TestCase
    */
   public function testTagUri()
   {
-    $urlMock = Mockery::mock('stdClass');
+      $urlMock = Mockery::mock('stdClass');
 
-    $urlMock
+      $urlMock
       ->shouldReceive('route')
       ->atLeast()->once()
       ->with('tricks.show', 'mocked')
       ->andReturn('http://foo.com/bar');
 
-    URL::swap($urlMock);
+      URL::swap($urlMock);
 
-    $trickMock = Mockery::mock('Tricks\Trick')
+      $trickMock = Mockery::mock('Tricks\Trick')
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $trickMock
+      $trickMock
       ->shouldReceive('getDateFormat')
       ->atLeast()->once()
       ->andReturn('Y-m-d H:i:s');
 
-    $trickMock->slug       = 'mocked';
-    $trickMock->created_at = Carbon::now();
+      $trickMock->slug = 'mocked';
+      $trickMock->created_at = Carbon::now();
 
-    $trickPresenter = new TrickPresenter(
+      $trickPresenter = new TrickPresenter(
       $trickMock
     );
 
-    $this->assertEquals(
-      'tag:foo.com,' . $trickMock->created_at->format('Y-m-d') . ':/bar',
+      $this->assertEquals(
+      'tag:foo.com,'.$trickMock->created_at->format('Y-m-d').':/bar',
       $trickPresenter->tagUri()
     );
   }

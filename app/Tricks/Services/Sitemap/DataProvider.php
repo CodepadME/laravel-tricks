@@ -3,9 +3,9 @@
 namespace Tricks\Services\Sitemap;
 
 use Illuminate\Routing\UrlGenerator;
+use Tricks\Repositories\CategoryRepositoryInterface;
 use Tricks\Repositories\TagRepositoryInterface;
 use Tricks\Repositories\TrickRepositoryInterface;
-use Tricks\Repositories\CategoryRepositoryInterface;
 
 class DataProvider
 {
@@ -40,10 +40,11 @@ class DataProvider
     /**
      * Create a new data provider instance.
      *
-     * @param  \Illuminate\Routing\UrlGenerator                  $url
-     * @param  \Tricks\Repositories\TagRepositoryInterface       $tags
-     * @param  \Tricks\Repositories\TrickRepositoryInterface     $tricks
-     * @param  \Tricks\Repositories\CategoryRepositoryInterface  $categories
+     * @param \Illuminate\Routing\UrlGenerator                 $url
+     * @param \Tricks\Repositories\TagRepositoryInterface      $tags
+     * @param \Tricks\Repositories\TrickRepositoryInterface    $tricks
+     * @param \Tricks\Repositories\CategoryRepositoryInterface $categories
+     *
      * @return void
      */
     public function __construct(
@@ -71,7 +72,8 @@ class DataProvider
     /**
      * Get the url for the given tag.
      *
-     * @param  \Tricks\Tag  $tag
+     * @param \Tricks\Tag $tag
+     *
      * @return string
      */
     public function getTagUrl($tag)
@@ -92,7 +94,8 @@ class DataProvider
     /**
      * Get the url for the given trick.
      *
-     * @param  \Tricks\Trick  $trick
+     * @param \Tricks\Trick $trick
+     *
      * @return string
      */
     public function getTrickUrl($trick)
@@ -113,7 +116,8 @@ class DataProvider
     /**
      * Get the url for the given category.
      *
-     * @param  \Tricks\Category  $category
+     * @param \Tricks\Category $category
+     *
      * @return string
      */
     public function getCategoryUrl($category)
@@ -143,9 +147,10 @@ class DataProvider
     /**
      * Get the data for the given page.
      *
-     * @param  string  $route
-     * @param  string  $freq
-     * @param  string  $priority
+     * @param string $route
+     * @param string $freq
+     * @param string $priority
+     *
      * @return array
      */
     protected function getPage($route, $freq, $priority)

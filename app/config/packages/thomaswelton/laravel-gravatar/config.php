@@ -1,6 +1,6 @@
 <?php
 
-return array(
-    'size' => 100,
-    'default' => 'mm'
-);
+return [
+    'size'    => 100,
+    'default' => 'mm',
+];
