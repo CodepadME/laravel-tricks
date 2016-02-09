@@ -4,7 +4,6 @@ namespace Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Tricks\Repositories\TrickRepositoryInterface;
@@ -21,7 +20,8 @@ class TricksController extends BaseController
     /**
      * Create a new TricksController instance.
      *
-     * @param \Tricks\Repositories\TrickRepositoryInterface  $tricks
+     * @param \Tricks\Repositories\TrickRepositoryInterface $tricks
+     *
      * @return void
      */
     public function __construct(TrickRepositoryInterface $tricks)
@@ -34,7 +34,8 @@ class TricksController extends BaseController
     /**
      * Show the single trick page.
      *
-     * @param  string $slug
+     * @param string $slug
+     *
      * @return \Response
      */
     public function getShow($slug = null)
@@ -60,12 +61,13 @@ class TricksController extends BaseController
     /**
      * Handle the liking of a trick.
      *
-     * @param  string $slug
+     * @param string $slug
+     *
      * @return \Response
      */
     public function postLike($slug)
     {
-        if (! Request::ajax() || ! Auth::check()) {
+        if (!Request::ajax() || !Auth::check()) {
             $this->redirectRoute('browse.recent');
         }
 
@@ -79,14 +81,12 @@ class TricksController extends BaseController
 
         $voted = $trick->votes()->whereUserId($user->id)->first();
 
-        if(!$voted) {
-
+        if (!$voted) {
             $user = $trick->votes()->attach($user->id, [
-                'created_at' => new \DateTime,
-                'updated_at' => new \DateTime
+                'created_at' => new \DateTime(),
+                'updated_at' => new \DateTime(),
             ]);
             $trick->vote_cache = $trick->vote_cache + 1;
-
         } else {
             $trick->votes()->detach($voted->id);
             $trick->vote_cache = $trick->vote_cache - 1;

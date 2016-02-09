@@ -2,23 +2,22 @@
 
 namespace Tricks\Repositories\Eloquent;
 
-use Tricks\User;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
-use Tricks\Services\Forms\SettingsForm;
-use Tricks\Services\Forms\RegistrationForm;
+use League\OAuth2\Client\Provider\User as OAuthUser;
 use Tricks\Exceptions\UserNotFoundException;
 use Tricks\Repositories\UserRepositoryInterface;
-use League\OAuth2\Client\Provider\User as OAuthUser;
+use Tricks\User;
 
 class UserRepository extends AbstractRepository implements UserRepositoryInterface
 {
     /**
      * Create a new DbUserRepository instance.
      *
-     * @param  \Tricks\User  $user
+     * @param \Tricks\User $user
+     *
      * @return void
      */
     public function __construct(User $user)
@@ -29,7 +28,8 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
     /**
      * Find all users paginated.
      *
-     * @param  int  $perPage
+     * @param int $perPage
+     *
      * @return Illuminate\Database\Eloquent\Collection|\Tricks\User[]
      */
     public function findAllPaginated($perPage = 200)
@@ -42,7 +42,8 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
     /**
      * Find a user by it's username.
      *
-     * @param  string $username
+     * @param string $username
+     *
      * @return \Tricks\User
      */
     public function findByUsername($username)
@@ -53,7 +54,8 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
     /**
      * Find a user by it's email.
      *
-     * @param  string $email
+     * @param string $email
+     *
      * @return \Tricks\User
      */
     public function findByEmail($email)
@@ -64,33 +66,36 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
     /**
      * Require a user by it's username.
      *
-     * @param  string $username
-     * @return \Tricks\User
+     * @param string $username
+     *
      * @throws \Tricks\Exceptions\UserNotFoundException
+     *
+     * @return \Tricks\User
      */
     public function requireByUsername($username)
     {
-        if (! is_null($user = $this->findByUsername($username))) {
+        if (!is_null($user = $this->findByUsername($username))) {
             return $user;
         }
 
-        throw new UserNotFoundException('The user "' . $username . '" does not exist!');
+        throw new UserNotFoundException('The user "'.$username.'" does not exist!');
     }
 
     /**
      * Create a new user in the database.
      *
-     * @param  array  $data
+     * @param array $data
+     *
      * @return \Tricks\User
      */
     public function create(array $data)
     {
         $user = $this->getNew();
 
-        $user->email    = e($data['email']);
+        $user->email = e($data['email']);
         $user->username = e($data['username']);
         $user->password = Hash::make($data['password']);
-        $user->photo    = isset($data['image_url']) ? $data['image_url'] : null;
+        $user->photo = isset($data['image_url']) ? $data['image_url'] : null;
 
         $user->save();
 
@@ -100,21 +105,22 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
     /**
      * Create a new user in the database using GitHub data.
      *
-     * @param  \League\OAuth2\Client\Provider\User  $data
+     * @param \League\OAuth2\Client\Provider\User $data
+     *
      * @return \Tricks\User
      */
     public function createFromGithubData(OAuthUser $data)
     {
-        $user        = $this->getNew();
+        $user = $this->getNew();
 
-        $username    = $data->nickname;
+        $username = $data->nickname;
         $isAvailable = is_null($this->findByUsername($username));
-        $isAllowed   = $this->usernameIsAllowed($username);
+        $isAllowed = $this->usernameIsAllowed($username);
 
         $user->username = $username;
 
-        if (! $isAvailable or ! $isAllowed) {
-            $user->username .= '_' . str_random(3);
+        if (!$isAvailable or !$isAllowed) {
+            $user->username .= '_'.str_random(3);
             Session::flash('username_required', true);
         }
 
@@ -131,19 +137,21 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
     /**
      * Returns whether the given username is allowed to be used.
      *
-     * @param  string  $username
+     * @param string $username
+     *
      * @return bool
      */
     protected function usernameIsAllowed($username)
     {
-        return ! in_array(strtolower($username), Config::get('config.forbidden_usernames'));
+        return !in_array(strtolower($username), Config::get('config.forbidden_usernames'));
     }
 
     /**
      * Update the user's settings.
      *
-     * @param  \Tricks\User  $user
-     * @param  array $data
+     * @param \Tricks\User $user
+     * @param array        $data
+     *
      * @return \Tricks\User
      */
     public function updateSettings(User $user, array $data)

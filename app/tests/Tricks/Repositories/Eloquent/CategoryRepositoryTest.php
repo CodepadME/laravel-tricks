@@ -6,25 +6,24 @@ use DB;
 use Mockery;
 use TestCase;
 
-class CategoryRepositoryTest
-extends TestCase
+class CategoryRepositoryTest extends TestCase
 {
-  public function tearDown()
-  {
-      Mockery::close();
-  }
+    public function tearDown()
+    {
+        Mockery::close();
+    }
 
   /**
    * @group tricks/repositories
    */
   public function testConstructor()
   {
-    $categoryMock = Mockery::mock('Tricks\Category')
+      $categoryMock = Mockery::mock('Tricks\Category')
       ->makePartial();
 
-    $categoryRepository = new CategoryRepository($categoryMock);
+      $categoryRepository = new CategoryRepository($categoryMock);
 
-    $this->assertSame(
+      $this->assertSame(
       $categoryMock,
       $this->getProtectedProperty($categoryRepository, 'model')
     );
@@ -35,18 +34,18 @@ extends TestCase
    */
   public function testListAll()
   {
-    $categoryMock = Mockery::mock('Tricks\Category')
+      $categoryMock = Mockery::mock('Tricks\Category')
       ->makePartial();
 
-    $categoryMock
+      $categoryMock
       ->shouldReceive('lists')
       ->atLeast()->once()
       ->with('name', 'id')
       ->andReturn('mocked lists');
 
-    $categoryRepository = new CategoryRepository($categoryMock);
+      $categoryRepository = new CategoryRepository($categoryMock);
 
-    $this->assertEquals(
+      $this->assertEquals(
       'mocked lists',
       $categoryRepository->listAll()
     );
@@ -57,23 +56,23 @@ extends TestCase
    */
   public function testFindAll()
   {
-    $categoryMock = Mockery::mock('Tricks\Category')
+      $categoryMock = Mockery::mock('Tricks\Category')
       ->makePartial();
 
-    $categoryMock
+      $categoryMock
       ->shouldReceive('orderBy')
       ->atLeast()->once()
       ->with('foo', 'bar')
       ->andReturn($categoryMock);
 
-    $categoryMock
+      $categoryMock
       ->shouldReceive('get')
       ->atLeast()->once()
       ->andReturn('mocked get');
 
-    $categoryRepository = new CategoryRepository($categoryMock);
+      $categoryRepository = new CategoryRepository($categoryMock);
 
-    $this->assertEquals(
+      $this->assertEquals(
       'mocked get',
       $categoryRepository->findAll('foo', 'bar')
     );
@@ -84,56 +83,56 @@ extends TestCase
    */
   public function testFindAllWithTrickCount()
   {
-    $dbMock = Mockery::mock('stdClass');
+      $dbMock = Mockery::mock('stdClass');
 
-    $dbMock
+      $dbMock
       ->shouldReceive('raw')
       ->atLeast()->once()
       ->with('COUNT(tricks.id) as trick_count')
       ->andReturn('COUNT(tricks.id) as trick_count');
 
-    DB::swap($dbMock);
+      DB::swap($dbMock);
 
-    $categoryMock = Mockery::mock('Tricks\Category')
+      $categoryMock = Mockery::mock('Tricks\Category')
       ->makePartial();
 
-    $categoryMock
+      $categoryMock
       ->shouldReceive('leftJoin')
       ->atLeast()->once()
       ->with('category_trick', 'categories.id', '=', 'category_trick.category_id')
       ->andReturn($categoryMock);
 
-    $categoryMock
+      $categoryMock
       ->shouldReceive('leftJoin')
       ->atLeast()->once()
       ->with('tricks', 'tricks.id', '=', 'category_trick.trick_id')
       ->andReturn($categoryMock);
 
-    $categoryMock
+      $categoryMock
       ->shouldReceive('groupBy')
       ->atLeast()->once()
       ->with('categories.slug')
       ->andReturn($categoryMock);
 
-    $categoryMock
+      $categoryMock
       ->shouldReceive('orderBy')
       ->atLeast()->once()
       ->with('trick_count', 'desc')
       ->andReturn($categoryMock);
 
-    $categoryMock
+      $categoryMock
       ->shouldReceive('get')
       ->atLeast()->once()
       ->with([
         'categories.name',
         'categories.slug',
-        'COUNT(tricks.id) as trick_count'
+        'COUNT(tricks.id) as trick_count',
       ])
       ->andReturn('mocked get');
 
-    $categoryRepository = new CategoryRepository($categoryMock);
+      $categoryRepository = new CategoryRepository($categoryMock);
 
-    $this->assertEquals(
+      $this->assertEquals(
       'mocked get',
       $categoryRepository->findAllWithTrickCount()
     );
@@ -144,18 +143,18 @@ extends TestCase
    */
   public function testFindById()
   {
-    $categoryMock = Mockery::mock('Tricks\Category')
+      $categoryMock = Mockery::mock('Tricks\Category')
       ->makePartial();
 
-    $categoryMock
+      $categoryMock
       ->shouldReceive('find')
       ->atLeast()->once()
       ->with(1)
       ->andReturn('mocked find');
 
-    $categoryRepository = new CategoryRepository($categoryMock);
+      $categoryRepository = new CategoryRepository($categoryMock);
 
-    $this->assertEquals(
+      $this->assertEquals(
       'mocked find',
       $categoryRepository->findById(1)
     );
@@ -166,50 +165,50 @@ extends TestCase
    */
   public function testCreate()
   {
-    $data = [
+      $data = [
       'name'        => 'a new foo',
-      'description' => 'bar'
+      'description' => 'bar',
     ];
 
-    $categoryMock = Mockery::mock('Tricks\Category')
+      $categoryMock = Mockery::mock('Tricks\Category')
       ->makePartial();
 
-    $categoryMock
+      $categoryMock
       ->shouldReceive('save')
       ->atLeast()->once();
 
-    $categoryRepositoryMock = Mockery::mock('Tricks\Repositories\Eloquent\CategoryRepository', [
-      $categoryMock
+      $categoryRepositoryMock = Mockery::mock('Tricks\Repositories\Eloquent\CategoryRepository', [
+      $categoryMock,
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $categoryRepositoryMock
+      $categoryRepositoryMock
       ->shouldReceive('getNew')
       ->atLeast()->once()
       ->andReturn($categoryMock);
 
-    $categoryRepositoryMock
+      $categoryRepositoryMock
       ->shouldReceive('getMaxOrder')
       ->atLeast()->once()
       ->andReturn(1);
 
-    $this->assertSame(
+      $this->assertSame(
       $categoryMock,
       $categoryRepositoryMock->create($data)
     );
 
-    $this->assertEquals(
+      $this->assertEquals(
       'bar',
       $categoryMock->description
     );
 
-    $this->assertEquals(
+      $this->assertEquals(
       2,
       $categoryMock->order
     );
 
-    $this->incomplete('Need to mock e() and Str::slug()');
+      $this->incomplete('Need to mock e() and Str::slug()');
   }
 
   /**
@@ -217,41 +216,41 @@ extends TestCase
    */
   public function testUpdate()
   {
-    $data = [
+      $data = [
       'name'        => 'a new foo',
-      'description' => 'bar'
+      'description' => 'bar',
     ];
 
-    $categoryMock = Mockery::mock('Tricks\Category')
+      $categoryMock = Mockery::mock('Tricks\Category')
       ->makePartial();
 
-    $categoryMock
+      $categoryMock
       ->shouldReceive('save')
       ->atLeast()->once();
 
-    $categoryRepositoryMock = Mockery::mock('Tricks\Repositories\Eloquent\CategoryRepository', [
-      $categoryMock
+      $categoryRepositoryMock = Mockery::mock('Tricks\Repositories\Eloquent\CategoryRepository', [
+      $categoryMock,
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $categoryRepositoryMock
+      $categoryRepositoryMock
       ->shouldReceive('findById')
       ->atLeast()->once()
       ->with(1)
       ->andReturn($categoryMock);
 
-    $this->assertSame(
+      $this->assertSame(
       $categoryMock,
       $categoryRepositoryMock->update(1, $data)
     );
 
-    $this->assertEquals(
+      $this->assertEquals(
       'bar',
       $categoryMock->description
     );
 
-    $this->incomplete('Need to mock e() and Str::slug()');
+      $this->incomplete('Need to mock e() and Str::slug()');
   }
 
   /**
@@ -259,18 +258,18 @@ extends TestCase
    */
   public function testGetMaxOrder()
   {
-    $categoryMock = Mockery::mock('Tricks\Category')
+      $categoryMock = Mockery::mock('Tricks\Category')
       ->makePartial();
 
-    $categoryMock
+      $categoryMock
       ->shouldReceive('max')
       ->atLeast()->once()
       ->with('order')
       ->andReturn('mocked max');
 
-    $categoryRepository = new CategoryRepository($categoryMock);
+      $categoryRepository = new CategoryRepository($categoryMock);
 
-    $this->assertEquals(
+      $this->assertEquals(
       'mocked max',
       $categoryRepository->getMaxOrder()
     );
@@ -281,35 +280,35 @@ extends TestCase
    */
   public function testDelete()
   {
-    $categoryMock = Mockery::mock('Tricks\Category')
+      $categoryMock = Mockery::mock('Tricks\Category')
       ->makePartial();
 
-    $categoryMock
+      $categoryMock
       ->shouldReceive('tricks')
       ->atLeast()->once()
       ->andReturn($categoryMock);
 
-    $categoryMock
+      $categoryMock
       ->shouldReceive('detach')
       ->atLeast()->once();
 
-    $categoryMock
+      $categoryMock
       ->shouldReceive('delete')
       ->atLeast()->once();
 
-    $categoryRepositoryMock = Mockery::mock('Tricks\Repositories\Eloquent\CategoryRepository', [
-      $categoryMock
+      $categoryRepositoryMock = Mockery::mock('Tricks\Repositories\Eloquent\CategoryRepository', [
+      $categoryMock,
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $categoryRepositoryMock
+      $categoryRepositoryMock
       ->shouldReceive('findById')
       ->atLeast()->once()
       ->with(1)
       ->andReturn($categoryMock);
 
-    $categoryRepositoryMock->delete(1);
+      $categoryRepositoryMock->delete(1);
   }
 
   /**
@@ -317,43 +316,42 @@ extends TestCase
    */
   public function testArrange()
   {
-    $data = [
-      11 => 1
+      $data = [
+      11 => 1,
     ];
 
+      $collectionMock = Mockery::mock('stdClass');
 
-    $collectionMock = Mockery::mock('stdClass');
-
-    $categoryMock = Mockery::mock('Tricks\Category')
+      $categoryMock = Mockery::mock('Tricks\Category')
       ->makePartial();
 
-    $categoryMock
+      $categoryMock
       ->shouldReceive('whereIn')
       ->atLeast()->once()
       ->with('id', array_values($data))
       ->andReturn($categoryMock);
 
-    $categoryMock
+      $categoryMock
       ->shouldReceive('get')
       ->atLeast()->once()
       ->with(['id'])
       ->andReturn($collectionMock);
 
-    $categoryMock
+      $categoryMock
       ->shouldReceive('save')
       ->atLeast()->once();
 
-    $collectionMock
+      $collectionMock
       ->shouldReceive('find')
       ->atLeast()->once()
       ->with(1)
       ->andReturn($categoryMock);
 
-    $categoryRepository = new CategoryRepository($categoryMock);
+      $categoryRepository = new CategoryRepository($categoryMock);
 
-    $categoryRepository->arrange($data);
+      $categoryRepository->arrange($data);
 
-    $this->assertSame(
+      $this->assertSame(
       11,
       $categoryMock->order
     );
@@ -364,11 +362,11 @@ extends TestCase
    */
   public function testGetForm()
   {
-    $categoryRepository = new CategoryRepository(
+      $categoryRepository = new CategoryRepository(
       Mockery::mock('Tricks\Category')
     );
 
-    $this->assertInstanceOf(
+      $this->assertInstanceOf(
       'Tricks\Services\Forms\CategoryForm',
       $categoryRepository->getForm()
     );

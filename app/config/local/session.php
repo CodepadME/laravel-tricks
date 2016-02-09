@@ -1,7 +1,7 @@
 <?php
 
-return array(
+return [
 
-	'driver' => 'native',
+    'driver' => 'native',
 
-);
+];

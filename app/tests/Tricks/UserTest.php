@@ -6,29 +6,28 @@ use Gravatar;
 use Mockery;
 use TestCase;
 
-class UserTest
-extends TestCase
+class UserTest extends TestCase
 {
-  public function tearDown()
-  {
-      Mockery::close();
-  }
+    public function tearDown()
+    {
+        Mockery::close();
+    }
 
   /**
    * @group tricks
    */
   public function testProfile()
   {
-    $mock = Mockery::mock('Tricks\User')
+      $mock = Mockery::mock('Tricks\User')
       ->makePartial();
 
-    $mock
+      $mock
       ->shouldReceive('hasOne')
       ->atLeast()->once()
       ->with('Tricks\Profile')
       ->andReturn('mocked');
 
-    $this->assertEquals('mocked', $mock->profile());
+      $this->assertEquals('mocked', $mock->profile());
   }
 
   /**
@@ -36,16 +35,16 @@ extends TestCase
    */
   public function testTricks()
   {
-    $mock = Mockery::mock('Tricks\User')
+      $mock = Mockery::mock('Tricks\User')
       ->makePartial();
 
-    $mock
+      $mock
       ->shouldReceive('hasMany')
       ->atLeast()->once()
       ->with('Tricks\Trick')
       ->andReturn('mocked');
 
-    $this->assertEquals('mocked', $mock->tricks());
+      $this->assertEquals('mocked', $mock->tricks());
   }
 
   /**
@@ -53,16 +52,16 @@ extends TestCase
    */
   public function testVotes()
   {
-    $mock = Mockery::mock('Tricks\User')
+      $mock = Mockery::mock('Tricks\User')
       ->makePartial();
 
-    $mock
+      $mock
       ->shouldReceive('belongsToMany')
       ->atLeast()->once()
       ->with('Tricks\Trick', 'votes')
       ->andReturn('mocked');
 
-    $this->assertEquals('mocked', $mock->votes());
+      $this->assertEquals('mocked', $mock->votes());
   }
 
   /**
@@ -70,15 +69,15 @@ extends TestCase
    */
   public function testGetAuthIdentifier()
   {
-    $mock = Mockery::mock('Tricks\User')
+      $mock = Mockery::mock('Tricks\User')
       ->makePartial();
 
-    $mock
+      $mock
       ->shouldReceive('getKey')
       ->atLeast()->once()
       ->andReturn('mocked');
 
-    $this->assertEquals('mocked', $mock->getAuthIdentifier());
+      $this->assertEquals('mocked', $mock->getAuthIdentifier());
   }
 
   /**
@@ -86,12 +85,12 @@ extends TestCase
    */
   public function testGetAuthPassword()
   {
-    $password = 'foo';
+      $password = 'foo';
 
-    $user = new User();
-    $user->password = $password;
+      $user = new User();
+      $user->password = $password;
 
-    $this->assertEquals($password, $user->getAuthPassword());
+      $this->assertEquals($password, $user->getAuthPassword());
   }
 
   /**
@@ -99,12 +98,12 @@ extends TestCase
    */
   public function testGetPhotoCssAttribute()
   {
-    $photo = 'foo';
+      $photo = 'foo';
 
-    $user = new User();
-    $user->photo = $photo;
+      $user = new User();
+      $user->photo = $photo;
 
-    $this->assertEquals(url('img/avatar/' . $user->photo), $user->getPhotocssAttribute());
+      $this->assertEquals(url('img/avatar/'.$user->photo), $user->getPhotocssAttribute());
   }
 
   /**
@@ -112,22 +111,22 @@ extends TestCase
    */
   public function testGetGravatarPhotoCssAttribute()
   {
-    $email  = 'foo';
+      $email = 'foo';
 
-    $mock = Mockery::mock('stdClass');
+      $mock = Mockery::mock('stdClass');
 
-    $mock
+      $mock
       ->shouldReceive('src')
       ->atLeast()->once()
       ->with($email, 100)
       ->andReturn('mocked');
 
-    Gravatar::swap($mock);
+      Gravatar::swap($mock);
 
-    $user = new User();
-    $user->email = $email;
+      $user = new User();
+      $user->email = $email;
 
-    $this->assertEquals('mocked', $user->getPhotocssAttribute());
+      $this->assertEquals('mocked', $user->getPhotocssAttribute());
   }
 
   /**
@@ -135,12 +134,12 @@ extends TestCase
    */
   public function testGetReminderEmail()
   {
-    $email = 'foo';
+      $email = 'foo';
 
-    $user = new User();
-    $user->email = $email;
+      $user = new User();
+      $user->email = $email;
 
-    $this->assertEquals($email, $user->getReminderEmail());
+      $this->assertEquals($email, $user->getReminderEmail());
   }
 
   /**
@@ -148,16 +147,16 @@ extends TestCase
    */
   public function testIsAdmin()
   {
-    $user = new User();
+      $user = new User();
 
-    $this->assertFalse($user->isAdmin());
+      $this->assertFalse($user->isAdmin());
 
-    $user->is_admin = false;
+      $user->is_admin = false;
 
-    $this->assertFalse($user->isAdmin());
+      $this->assertFalse($user->isAdmin());
 
-    $user->is_admin = true;
+      $user->is_admin = true;
 
-    $this->assertTrue($user->isAdmin());
+      $this->assertTrue($user->isAdmin());
   }
 }

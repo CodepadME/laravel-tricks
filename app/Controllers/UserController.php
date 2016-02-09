@@ -2,11 +2,11 @@
 
 namespace Controllers;
 
-use ImageUpload;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
+use ImageUpload;
 use Tricks\Repositories\TrickRepositoryInterface;
 use Tricks\Repositories\UserRepositoryInterface;
 
@@ -36,18 +36,18 @@ class UserController extends BaseController
     /**
      * Create a new UserController instance.
      *
-     * @param \Tricks\Repositories\TrickRepositoryInterface  $tricks
+     * @param \Tricks\Repositories\TrickRepositoryInterface $tricks
      * @param \Tricks\Repositories\UserRepositoryInterface  $users
      */
     public function __construct(TrickRepositoryInterface $tricks, UserRepositoryInterface $users)
     {
         parent::__construct();
 
-        $this->beforeFilter('auth', [ 'except' => 'getPublic' ]);
+        $this->beforeFilter('auth', ['except' => 'getPublic']);
 
-        $this->user   = Auth::user();
+        $this->user = Auth::user();
         $this->tricks = $tricks;
-        $this->users  = $users;
+        $this->users = $users;
     }
 
     /**
@@ -93,13 +93,13 @@ class UserController extends BaseController
     {
         $form = $this->users->getSettingsForm();
 
-        if (! $form->isValid()) {
-            return $this->redirectBack([ 'errors' => $form->getErrors() ]);
+        if (!$form->isValid()) {
+            return $this->redirectBack(['errors' => $form->getErrors()]);
         }
 
         $this->users->updateSettings($this->user, Input::all());
 
-        return $this->redirectRoute('user.settings', [], [ 'settings_updated' => true ]);
+        return $this->redirectRoute('user.settings', [], ['settings_updated' => true]);
     }
 
     /**
@@ -129,12 +129,13 @@ class UserController extends BaseController
     /**
      * Show the user's public profile page.
      *
-     * @param  string  $username
+     * @param string $username
+     *
      * @return \Response
      */
     public function getPublic($username)
     {
-        $user   = $this->users->requireByUsername($username);
+        $user = $this->users->requireByUsername($username);
         $tricks = $this->tricks->findAllForUser($user);
 
         $this->view('user.public', compact('user', 'tricks'));

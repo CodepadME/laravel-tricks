@@ -6,26 +6,25 @@ use App;
 use Mockery;
 use TestCase;
 
-class UploadServiceProviderTest
-extends TestCase
+class UploadServiceProviderTest extends TestCase
 {
-  public function tearDown()
-  {
-      Mockery::close();
-  }
+    public function tearDown()
+    {
+        Mockery::close();
+    }
 
   /**
    * @group tricks/providers
    */
   public function testRegister()
   {
-    $mock = Mockery::mock('Illuminate\Foundation\Application')
+      $mock = Mockery::mock('Illuminate\Foundation\Application')
       ->makePartial();
 
-    $mock
+      $mock
       ->shouldReceive('share')
       ->atLeast()->once()
-      ->with(Mockery::on(function($callback) {
+      ->with(Mockery::on(function ($callback) {
         $mock = Mockery::mock('Illuminate\Foundation\Application');
 
         $mock
@@ -42,15 +41,15 @@ extends TestCase
       }))
       ->andReturn('mocked');
 
-    $mock
+      $mock
       ->shouldReceive('offsetSet')
       ->atLeast()->once()
       ->with('upload.image', 'mocked');
 
-    $provider = new UploadServiceProvider(
+      $provider = new UploadServiceProvider(
       $mock
     );
 
-    App::register($provider, [], true);
+      App::register($provider, [], true);
   }
 }

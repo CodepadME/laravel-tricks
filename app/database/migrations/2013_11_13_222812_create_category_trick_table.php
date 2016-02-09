@@ -2,12 +2,11 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoryTrickTable extends Migration {
-
+class CreateCategoryTrickTable extends Migration
+{
     public function up()
     {
-        Schema::create('category_trick', function($table)
-        {
+        Schema::create('category_trick', function ($table) {
             $table->engine = 'InnoDB';
 
             $table->increments('id')->unsigned();
@@ -29,12 +28,10 @@ class CreateCategoryTrickTable extends Migration {
 
     public function down()
     {
-        Schema::table('category_trick', function($table)
-        {
+        Schema::table('category_trick', function ($table) {
             $table->dropForeign('category_trick_category_id_foreign');
             $table->dropForeign('category_trick_trick_id_foreign');
         });
         Schema::drop('category_trick');
     }
-
 }

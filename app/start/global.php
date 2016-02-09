@@ -26,11 +26,11 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 |
 */
 
-App::error(function(Exception $exception, $code) {
-	Log::error($exception);
+App::error(function (Exception $exception, $code) {
+    Log::error($exception);
 });
 
-App::error(function(Tricks\Exceptions\AbstractNotFoundException $exception, $code) {
+App::error(function (Tricks\Exceptions\AbstractNotFoundException $exception, $code) {
     $error = $exception->getMessage();
 
     return Response::view('home.error', compact('error'), 404);
@@ -47,8 +47,8 @@ App::error(function(Tricks\Exceptions\AbstractNotFoundException $exception, $cod
 |
 */
 
-App::down(function() {
-	return Response::make("Be right back!", 503);
+App::down(function () {
+    return Response::make('Be right back!', 503);
 });
 
 /*

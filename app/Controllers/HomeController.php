@@ -16,7 +16,8 @@ class HomeController extends BaseController
     /**
      * Create a new HomeController instance.
      *
-     * @param  \Tricks\Repositories\TrickRepositoryInterface  $tricks
+     * @param \Tricks\Repositories\TrickRepositoryInterface $tricks
+     *
      * @return void
      */
     public function __construct(TrickRepositoryInterface $tricks)

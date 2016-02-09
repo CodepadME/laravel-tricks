@@ -1,7 +1,7 @@
 <?php
 
-class TagsTableSeeder extends Seeder {
-
+class TagsTableSeeder extends Seeder
+{
     public function run()
     {
         $tags = [
@@ -25,10 +25,10 @@ class TagsTableSeeder extends Seeder {
         DB::table('tags')->insert($tags);
 
         DB::table('tag_trick')->insert([
-            [ 'tag_id' => '1', 'trick_id' => '1' ],
-            [ 'tag_id' => '2', 'trick_id' => '2' ],
-            [ 'tag_id' => '1', 'trick_id' => '3' ],
-            [ 'tag_id' => '3', 'trick_id' => '3' ],
+            ['tag_id' => '1', 'trick_id' => '1'],
+            ['tag_id' => '2', 'trick_id' => '2'],
+            ['tag_id' => '1', 'trick_id' => '3'],
+            ['tag_id' => '3', 'trick_id' => '3'],
         ]);
     }
 }

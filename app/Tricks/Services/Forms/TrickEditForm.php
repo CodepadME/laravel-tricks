@@ -21,7 +21,7 @@ class TrickEditForm extends AbstractForm
         'description'   => 'required|min:10',
         'tags'          => 'required',
         'categories'    => 'required',
-        'code'          => 'required'
+        'code'          => 'required',
     ];
 
     public function __construct($id)
@@ -38,7 +38,7 @@ class TrickEditForm extends AbstractForm
      */
     protected function getPreparedRules()
     {
-        $this->rules['title'] .= ',' . $this->id;
+        $this->rules['title'] .= ','.$this->id;
 
         return $this->rules;
     }
@@ -51,7 +51,7 @@ class TrickEditForm extends AbstractForm
     public function getInputData()
     {
         return array_only($this->inputData, [
-            'title', 'description', 'tags', 'categories', 'code'
+            'title', 'description', 'tags', 'categories', 'code',
         ]);
     }
 }

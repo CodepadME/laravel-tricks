@@ -18,7 +18,8 @@ class CategoriesController extends BaseController
     /**
      * Create a new CategoriesController instance.
      *
-     * @param  \Tricks\Repositories\CategoryRepositoryInterface  $categories
+     * @param \Tricks\Repositories\CategoryRepositoryInterface $categories
+     *
      * @return void
      */
     public function __construct(CategoryRepositoryInterface $categories)
@@ -49,7 +50,7 @@ class CategoriesController extends BaseController
     {
         $form = $this->categories->getForm();
 
-        if (! $form->isValid()) {
+        if (!$form->isValid()) {
             return $this->redirectRoute('admin.categories.index')
                         ->withErrors($form->getErrors())
                         ->withInput();
@@ -79,7 +80,8 @@ class CategoriesController extends BaseController
     /**
      * Show the category edit form.
      *
-     * @param  mixed $id
+     * @param mixed $id
+     *
      * @return \Response
      */
     public function getView($id)
@@ -92,14 +94,15 @@ class CategoriesController extends BaseController
     /**
      * Handle the editing of a category.
      *
-     * @param  mixed $id
+     * @param mixed $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postView($id)
     {
         $form = $this->categories->getForm();
 
-        if (! $form->isValid()) {
+        if (!$form->isValid()) {
             return $this->redirectRoute('admin.categories.view', $id)
                         ->withErrors($form->getErrors())
                         ->withInput();
@@ -113,7 +116,8 @@ class CategoriesController extends BaseController
     /**
      * Delete a category from the database.
      *
-     * @param  mixed $id
+     * @param mixed $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getDelete($id)

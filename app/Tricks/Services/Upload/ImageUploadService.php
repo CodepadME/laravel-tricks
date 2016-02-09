@@ -2,8 +2,8 @@
 
 namespace Tricks\Services\Upload;
 
-use Intervention\Image\Image;
 use Illuminate\Filesystem\Filesystem;
+use Intervention\Image\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ImageUploadService
@@ -46,7 +46,8 @@ class ImageUploadService
     /**
      * Create a new ImageUploadService instance.
      *
-     * @param  \Illuminate\Filesystem\Filesystem  $filesystem
+     * @param \Illuminate\Filesystem\Filesystem $filesystem
+     *
      * @return void
      */
     public function __construct(Filesystem $filesystem)
@@ -57,7 +58,8 @@ class ImageUploadService
     /**
      * Enable CORS from the given origin.
      *
-     * @param  string  $origin
+     * @param string $origin
+     *
      * @return void
      */
     public function enableCORS($origin)
@@ -67,39 +69,41 @@ class ImageUploadService
             'X-Requested-With',
             'Content-Range',
             'Content-Disposition',
-            'Content-Type'
+            'Content-Type',
         ];
 
-        header('Access-Control-Allow-Origin: ' . $origin);
+        header('Access-Control-Allow-Origin: '.$origin);
         header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
-        header('Access-Control-Allow-Headers: ' . implode(', ', $allowHeaders));
+        header('Access-Control-Allow-Headers: '.implode(', ', $allowHeaders));
     }
 
     /**
      * Get the full path from the given partial path.
      *
-     * @param  string  $path
+     * @param string $path
+     *
      * @return string
      */
     protected function getFullPath($path)
     {
-        return public_path() . '/' . $path;
+        return public_path().'/'.$path;
     }
 
     /**
-     * Make a new unique filename
+     * Make a new unique filename.
      *
      * @return string
      */
     protected function makeFilename()
     {
-        return sha1(time() . time()) . ".{$this->extension}";
+        return sha1(time().time()).".{$this->extension}";
     }
 
     /**
      * Get the contents of the file located at the given path.
      *
-     * @param  string  $path
+     * @param string $path
+     *
      * @return mixed
      */
     protected function getFile($path)
@@ -110,7 +114,8 @@ class ImageUploadService
     /**
      * Get the size of the file located at the given path.
      *
-     * @param  string  $path
+     * @param string $path
+     *
      * @return mixed
      */
     protected function getFileSize($path)
@@ -119,25 +124,27 @@ class ImageUploadService
     }
 
     /**
-     * Construct the data URL for the JSON body
+     * Construct the data URL for the JSON body.
      *
-     * @param  string  $mime
-     * @param  string  $path
+     * @param string $mime
+     * @param string $path
+     *
      * @return string
      */
     protected function getDataUrl($mime, $path)
     {
         $base = base64_encode($this->getFile($path));
 
-        return 'data:' . $mime . ';base64,' . $base;
+        return 'data:'.$mime.';base64,'.$base;
     }
 
     /**
      * Construct the body of the JSON response.
      *
-     * @param  string  $filename
-     * @param  string  $mime
-     * @param  string  $path
+     * @param string $filename
+     * @param string $mime
+     * @param string $path
+     *
      * @return array
      */
     protected function getJsonBody($filename, $mime, $path)
@@ -147,8 +154,8 @@ class ImageUploadService
                 'filename' => $filename,
                 'mime'     => $mime,
                 'size'     => $this->getFileSize($path),
-                'dataURL'  => $this->getDataUrl($mime, $path)
-            ]
+                'dataURL'  => $this->getDataUrl($mime, $path),
+            ],
         ];
     }
 
@@ -156,20 +163,21 @@ class ImageUploadService
      * Handle the file upload. Returns the response body on success, or false
      * on failure.
      *
-     * @param  \Symfony\Component\HttpFoundation\File\UploadedFile  $file
+     * @param \Symfony\Component\HttpFoundation\File\UploadedFile $file
+     *
      * @return array|bool
      */
     public function handle(UploadedFile $file)
     {
-        $mime     = $file->getMimeType();
+        $mime = $file->getMimeType();
         $filename = $this->makeFilename();
-        $path     = $this->getFullPath($this->directory . '/' . $filename);
+        $path = $this->getFullPath($this->directory.'/'.$filename);
 
         $success = Image::make($file->getRealPath())
                         ->resize($this->size, $this->size, true, false)
                         ->save($path, $this->quality);
 
-        if (! $success) {
+        if (!$success) {
             return false;
         }
 

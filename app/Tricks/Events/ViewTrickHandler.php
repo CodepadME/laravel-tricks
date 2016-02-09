@@ -24,25 +24,27 @@ class ViewTrickHandler
     /**
      * Create a new view trick handler instance.
      *
-     * @param  \Tricks\Repositories\TrickRepositoryInterface  $tricks
-     * @param  \Illuminate\Session\Store                      $session
+     * @param \Tricks\Repositories\TrickRepositoryInterface $tricks
+     * @param \Illuminate\Session\Store                     $session
+     *
      * @return void
      */
     public function __construct(TrickRepositoryInterface $tricks, Store $session)
     {
-        $this->tricks  = $tricks;
+        $this->tricks = $tricks;
         $this->session = $session;
     }
 
     /**
      * Handle the view trick event.
      *
-     * @param  \Tricks\Trick  $trick
+     * @param \Tricks\Trick $trick
+     *
      * @return void
      */
     public function handle($trick)
     {
-        if (! $this->hasViewedTrick($trick)) {
+        if (!$this->hasViewedTrick($trick)) {
             $trick = $this->tricks->incrementViews($trick);
 
             $this->storeViewedTrick($trick);
@@ -52,7 +54,8 @@ class ViewTrickHandler
     /**
      * Determine whether the user has viewed the trick.
      *
-     * @param  \Tricks\Trick  $trick
+     * @param \Tricks\Trick $trick
+     *
      * @return bool
      */
     protected function hasViewedTrick($trick)
@@ -73,12 +76,13 @@ class ViewTrickHandler
     /**
      * Append the newly viewed trick to the session.
      *
-     * @param  \Tricks\Trick  $trick
+     * @param \Tricks\Trick $trick
+     *
      * @return void
      */
     protected function storeViewedTrick($trick)
     {
-        $key = 'viewed_tricks.' . $trick->id;
+        $key = 'viewed_tricks.'.$trick->id;
 
         $this->session->put($key, time());
     }

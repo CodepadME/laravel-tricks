@@ -21,7 +21,7 @@ class RegistrationForm extends AbstractForm
     protected $rules = [
         'username'  => 'required|min:4|alpha_num|unique:users,username',
         'email'     => 'required|email|min:5|unique:users',
-        'password'  => 'required|min:6|confirmed'
+        'password'  => 'required|min:6|confirmed',
     ];
 
     /**
@@ -30,13 +30,14 @@ class RegistrationForm extends AbstractForm
      * @var array
      */
     protected $messages = [
-        'not_in' => 'The selected username is reserved, please try a different username.'
+        'not_in' => 'The selected username is reserved, please try a different username.',
     ];
 
     /**
      * Create a new RegistrationForm instance.
      *
-     * @param  \Illuminate\Config\Repository  $config
+     * @param \Illuminate\Config\Repository $config
+     *
      * @return void
      */
     public function __construct(Repository $config)
@@ -56,7 +57,7 @@ class RegistrationForm extends AbstractForm
         $forbidden = $this->config->get('config.forbidden_usernames');
         $forbidden = implode(',', $forbidden);
 
-        $this->rules['username'] .= '|not_in:' . $forbidden;
+        $this->rules['username'] .= '|not_in:'.$forbidden;
 
         return $this->rules;
     }

@@ -17,7 +17,8 @@ class UsersController extends BaseController
     /**
      * Create a new UsersController instance.
      *
-     * @param  \Tricks\Repositories\UserRepositoryInterface $users
+     * @param \Tricks\Repositories\UserRepositoryInterface $users
+     *
      * @return void
      */
     public function __construct(UserRepositoryInterface $users)

@@ -2,19 +2,19 @@
 
 namespace Tricks\Repositories\Eloquent;
 
-use Tricks\Tag;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
-use Tricks\Services\Forms\TagForm;
-use Tricks\Exceptions\TagNotFoundException;
+use Illuminate\Support\Str;
 use Tricks\Repositories\TagRepositoryInterface;
+use Tricks\Services\Forms\TagForm;
+use Tricks\Tag;
 
 class TagRepository extends AbstractRepository implements TagRepositoryInterface
 {
     /**
      * Create a new DbTagRepository instance.
      *
-     * @param  \Tricks\Tag $tags
+     * @param \Tricks\Tag $tags
+     *
      * @return void
      */
     public function __construct(Tag $tag)
@@ -37,8 +37,9 @@ class TagRepository extends AbstractRepository implements TagRepositoryInterface
     /**
      * Find all tags.
      *
-     * @param  string  $orderColumn
-     * @param  string  $orderDir
+     * @param string $orderColumn
+     * @param string $orderDir
+     *
      * @return \Illuminate\Database\Eloquent\Collection|\Tricks\Tag[]
      */
     public function findAll($orderColumn = 'created_at', $orderDir = 'desc')
@@ -53,7 +54,8 @@ class TagRepository extends AbstractRepository implements TagRepositoryInterface
     /**
      * Find a tag by id.
      *
-     * @param  mixed  $id
+     * @param mixed $id
+     *
      * @return \Tricks\Tag
      */
     public function findById($id)
@@ -76,14 +78,15 @@ class TagRepository extends AbstractRepository implements TagRepositoryInterface
                     ->get([
                         'tags.name',
                         'tags.slug',
-                        DB::raw('COUNT(tricks.id) as trick_count')
+                        DB::raw('COUNT(tricks.id) as trick_count'),
                     ]);
     }
 
     /**
      * Create a new tag in the database.
      *
-     * @param  array  $data
+     * @param array $data
+     *
      * @return \Tricks\Tag
      */
     public function create(array $data)
@@ -101,8 +104,9 @@ class TagRepository extends AbstractRepository implements TagRepositoryInterface
     /**
      * Update the specified tag in the database.
      *
-     * @param  mixed  $id
-     * @param  array  $data
+     * @param mixed $id
+     * @param array $data
+     *
      * @return \Tricks\Category
      */
     public function update($id, array $data)
@@ -120,7 +124,8 @@ class TagRepository extends AbstractRepository implements TagRepositoryInterface
     /**
      * Delete the specified tag from the database.
      *
-     * @param  mixed  $id
+     * @param mixed $id
+     *
      * @return void
      */
     public function delete($id)
@@ -139,6 +144,6 @@ class TagRepository extends AbstractRepository implements TagRepositoryInterface
      */
     public function getForm()
     {
-        return new TagForm;
+        return new TagForm();
     }
 }
