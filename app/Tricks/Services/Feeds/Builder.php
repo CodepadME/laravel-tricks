@@ -3,7 +3,7 @@
 namespace Tricks\Services\Feeds;
 
 use Illuminate\Http\Response;
-use Illuminate\View\Environment;
+use Illuminate\View\Factory;
 use Tricks\Repositories\TrickRepositoryInterface;
 
 class Builder
