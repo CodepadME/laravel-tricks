@@ -368,6 +368,11 @@ h2.title-between {
 .nav.nav-pills > li {
     float: none;
 }
+@media (min-width: 992px) {
+    .navbar-default .navbar-nav li a {
+        padding: 40px 10px;
+    }
+}
 @media (min-width: 768px) {
     .nav.nav-pills > li {
         float: left;
@@ -383,7 +388,7 @@ h2.title-between {
         background-color: transparent;
     }
     .navbar-default .navbar-nav li a {
-        padding: 40px 10px;
+        padding: 40px 6px;
     }
 
     .navbar-default .navbar-nav li.active a,
