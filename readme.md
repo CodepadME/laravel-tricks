@@ -1,5 +1,12 @@
 # [Laravel-Tricks](http://www.laravel-tricks.com)
 
+Laravel-Tricks is now under the ownership of [Tighten](https://tighten.co), and all development is taking place under a private repo until we can extract some of its code and make it public.
+
+This is an archive of an old public version of the codebase the previous owners created and kept in sync with their private version.
+
+
+-------
+
 Laravel Tricks is a website created by [Stidges](https://twitter.com/stidges) and [Maksim Surguy](http://twitter.com/msurguy) as an unofficial repository of tips and tricks for web developers using the [Laravel](http://laravel.com) PHP framework.
 
 To see what this is about check out <http://www.laravel-tricks.com>!
