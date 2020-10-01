@@ -44,7 +44,11 @@ The features of [Laravel-Tricks](http://www.laravel-tricks.com) are:
 
 The Laravel-Tricks website requires a server with PHP 5.4+ that has the MCrypt extension installed.
 
-The database engine that is used to store data for this application could be any of the engines supported by Laravel: MySQL, Postgres, SQLite and SQL Server.
+The database engine that is used to store data for this application could be any of the engines supported by Laravel such as: 
+  - MySQL 
+  - Postgres 
+  - SQLite and 
+  - SQL Serve.
 
 ## Quick Start and Installation
 
