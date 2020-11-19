@@ -36,6 +36,14 @@ App::error(function(Tricks\Exceptions\AbstractNotFoundException $exception, $cod
     return Response::view('home.error', compact('error'), 404);
 });
 
+App::missing(function()
+{
+    $error = trans('home.default_404');
+	
+    return Response::view('home.error', compact('error') , 404);
+});
+
+
 /*
 |--------------------------------------------------------------------------
 | Maintenance Mode Handler

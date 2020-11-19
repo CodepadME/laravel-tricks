@@ -44,6 +44,7 @@ return array(
 		<p>Laravel Tricks website was created by <a target="_blank" href="http://twitter.com/stidges">Stidges</a> and <a target="_blank" href="http://twitter.com/msurguy">Maks Surguy</a>  in November 2013</p>
 
 		<h3>Want the source?</h3>
-		The source of this website is available on <a target="_blank" href="https://github.com/CodepadME/laravel-tricks" title="Get the source of this site">Github</a>.'
+		The source of this website is available on <a target="_blank" href="https://github.com/CodepadME/laravel-tricks" title="Get the source of this site">Github</a>.',
+	'default_404' => 'This is embarrasing! We can\'t find the page you are looking for. Please try the search box above'
 );
 
