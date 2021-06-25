@@ -40,13 +40,13 @@ class TricksController extends BaseController
     public function getShow($slug = null)
     {
         if (is_null($slug)) {
-            return $this->redirectRoute('home');
+            return $this->redirectRoute('browse.recent');
         }
 
         $trick = $this->tricks->findBySlug($slug);
 
         if (is_null($trick)) {
-            return $this->redirectRoute('home');
+            return $this->redirectRoute('browse.recent');
         }
 
         Event::fire('trick.view', $trick);
