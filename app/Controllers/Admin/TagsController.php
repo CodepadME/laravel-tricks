@@ -17,7 +17,8 @@ class TagsController extends BaseController
     /**
      * Create a new TagsController instance.
      *
-     * @param  \Tricks\Repositories\TagRepositoryInterface  $tags
+     * @param \Tricks\Repositories\TagRepositoryInterface $tags
+     *
      * @return void
      */
     public function __construct(TagRepositoryInterface $tags)
@@ -42,7 +43,8 @@ class TagsController extends BaseController
     /**
      * Delete a tag from the database.
      *
-     * @param  mixed $id
+     * @param mixed $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getDelete($id)
@@ -55,7 +57,8 @@ class TagsController extends BaseController
     /**
      * Show the tag edit form.
      *
-     * @param  mixed $id
+     * @param mixed $id
+     *
      * @return \Response
      */
     public function getView($id)
@@ -74,7 +77,7 @@ class TagsController extends BaseController
     {
         $form = $this->tags->getForm();
 
-        if (! $form->isValid()) {
+        if (!$form->isValid()) {
             return $this->redirectRoute('admin.tags.index')
                         ->withErrors($form->getErrors())
                         ->withInput();
@@ -88,14 +91,15 @@ class TagsController extends BaseController
     /**
      * Handle the editing of a tag.
      *
-     * @param  mixed $id
+     * @param mixed $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postView($id)
     {
         $form = $this->tags->getForm();
 
-        if (! $form->isValid()) {
+        if (!$form->isValid()) {
             return $this->redirectRoute('admin.tags.view', $id)
                         ->withErrors($form->getErrors())
                         ->withInput();

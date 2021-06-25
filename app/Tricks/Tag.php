@@ -18,8 +18,8 @@ class Tag extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-	public function tricks()
-	{
-		return $this->belongsToMany('Tricks\Trick');
-	}
+    public function tricks()
+    {
+        return $this->belongsToMany('Tricks\Trick');
+    }
 }

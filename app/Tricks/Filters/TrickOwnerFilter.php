@@ -32,9 +32,10 @@ class TrickOwnerFilter
     /**
      * Create a new trick owner filter instance.
      *
-     * @param  \Illuminate\Auth\AuthManager                   $auth
-     * @param  \Illuminate\Routing\Redirector                 $redirect
-     * @param  \Tricks\Repositories\TrickRepositoryInterface  $tricks
+     * @param \Illuminate\Auth\AuthManager                  $auth
+     * @param \Illuminate\Routing\Redirector                $redirect
+     * @param \Tricks\Repositories\TrickRepositoryInterface $tricks
+     *
      * @return void
      */
     public function __construct(
@@ -50,7 +51,8 @@ class TrickOwnerFilter
     /**
      * Execute the route filter.
      *
-     * @param  \Illuminate\Routing\Route  $route
+     * @param \Illuminate\Routing\Route $route
+     *
      * @return void|\Illuminate\Http\RedirectResponse
      */
     public function filter($route)
@@ -58,7 +60,7 @@ class TrickOwnerFilter
         $slug = $this->getSlug($route);
         $userId = $this->getUserId();
 
-        if ( ! $this->isTrickOwnedByUser($slug, $userId)) {
+        if (!$this->isTrickOwnedByUser($slug, $userId)) {
             return $this->redirect->route('browse.recent');
         }
     }
@@ -75,7 +77,9 @@ class TrickOwnerFilter
 
     /**
      * Get the slug of the trick being edited / deleted.
-     * @param  \Illuminate\Routing\Route  $route
+     *
+     * @param \Illuminate\Routing\Route $route
+     *
      * @return string
      */
     protected function getSlug($route)
@@ -86,8 +90,9 @@ class TrickOwnerFilter
     /**
      * Determine whether the user owns the trick.
      *
-     * @param  string  $slug
-     * @param  int     $userId
+     * @param string $slug
+     * @param int    $userId
+     *
      * @return bool
      */
     protected function isTrickOwnedByUser($slug, $userId)

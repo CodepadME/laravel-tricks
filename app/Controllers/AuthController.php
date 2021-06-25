@@ -21,7 +21,8 @@ class AuthController extends BaseController
     /**
      * Create a new AuthController instance.
      *
-     * @param  \Tricks\Repositories\UserRepositoryInterface $users
+     * @param \Tricks\Repositories\UserRepositoryInterface $users
+     *
      * @return void
      */
     public function __construct(UserRepositoryInterface $users)
@@ -48,8 +49,8 @@ class AuthController extends BaseController
      */
     public function postLogin()
     {
-        $credentials = Input::only([ 'username', 'password' ]);
-        $remember    = Input::get('remember', false);
+        $credentials = Input::only(['username', 'password']);
+        $remember = Input::get('remember', false);
 
         if (str_contains($credentials['username'], '@')) {
             $credentials['email'] = $credentials['username'];
@@ -60,7 +61,7 @@ class AuthController extends BaseController
             return $this->redirectIntended(route('user.index'));
         }
 
-        return $this->redirectBack([ 'login_errors' => true ]);
+        return $this->redirectBack(['login_errors' => true]);
     }
 
     /**
@@ -82,14 +83,14 @@ class AuthController extends BaseController
     {
         $form = $this->users->getRegistrationForm();
 
-        if (! $form->isValid()) {
-            return $this->redirectBack([ 'errors' => $form->getErrors() ]);
+        if (!$form->isValid()) {
+            return $this->redirectBack(['errors' => $form->getErrors()]);
         }
 
         if ($user = $this->users->create($form->getInputData())) {
             Auth::login($user);
 
-            return $this->redirectRoute('user.index', [], [ 'first_use' => true ]);
+            return $this->redirectRoute('user.index', [], ['first_use' => true]);
         }
 
         return $this->redirectRoute('home');
@@ -102,8 +103,8 @@ class AuthController extends BaseController
      */
     public function getLoginWithGithub()
     {
-        if (! Input::has('code')) {
-            Session::keep([ 'url' ]);
+        if (!Input::has('code')) {
+            Session::keep(['url']);
             GithubProvider::authorize();
         } else {
             try {
@@ -112,14 +113,14 @@ class AuthController extends BaseController
 
                 if (Session::get('password_required')) {
                     return $this->redirectRoute('user.settings', [], [
-                        'update_password' => true
+                        'update_password' => true,
                     ]);
                 }
 
                 return $this->redirectIntended(route('user.index'));
             } catch (GithubEmailNotVerifiedException $e) {
                 return $this->redirectRoute('auth.register', [
-                    'github_email_not_verified' => true
+                    'github_email_not_verified' => true,
                 ]);
             }
         }
@@ -134,6 +135,6 @@ class AuthController extends BaseController
     {
         Auth::logout();
 
-        return $this->redirectRoute('auth.login', [], [ 'logout_message' => true ]);
+        return $this->redirectRoute('auth.login', [], ['logout_message' => true]);
     }
 }

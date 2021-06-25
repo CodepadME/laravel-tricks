@@ -2,18 +2,17 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoriesTable extends Migration {
-
+class CreateCategoriesTable extends Migration
+{
     public function up()
     {
-        Schema::create('categories', function($table)
-        {
+        Schema::create('categories', function ($table) {
             $table->engine = 'InnoDB';
 
             $table->increments('id')->unsigned();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->string('description')->nullable()->default(NULL);
+            $table->string('description')->nullable()->default(null);
             $table->timestamps();
         });
     }
@@ -22,5 +21,4 @@ class CreateCategoriesTable extends Migration {
     {
         Schema::drop('categories');
     }
-
 }

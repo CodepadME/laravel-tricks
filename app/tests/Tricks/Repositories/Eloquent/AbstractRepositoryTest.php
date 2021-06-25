@@ -5,31 +5,28 @@ namespace Tricks\Repositories\Eloquent;
 use Mockery;
 use TestCase;
 
-class ConcreteRepository
-extends AbstractRepository
+class ConcreteRepository extends AbstractRepository
 {
-
 }
 
-class AbstractRepositoryTest
-extends TestCase
+class AbstractRepositoryTest extends TestCase
 {
-  public function tearDown()
-  {
-      Mockery::close();
-  }
+    public function tearDown()
+    {
+        Mockery::close();
+    }
 
   /**
    * @group tricks/repositories
    */
   public function testConstructor()
   {
-    $modelMock = Mockery::mock('Illuminate\Database\Eloquent\Model')
+      $modelMock = Mockery::mock('Illuminate\Database\Eloquent\Model')
       ->makePartial();
 
-    $concreteRepository = new ConcreteRepository($modelMock);
+      $concreteRepository = new ConcreteRepository($modelMock);
 
-    $this->assertSame(
+      $this->assertSame(
       $modelMock,
       $this->getProtectedProperty($concreteRepository, 'model')
     );
@@ -40,24 +37,24 @@ extends TestCase
    */
   public function testGetNew()
   {
-    $data = [
+      $data = [
       'foo' => 1,
       'bar' => 2,
-      'baz' => 3
+      'baz' => 3,
     ];
 
-    $modelMock = Mockery::mock('Illuminate\Database\Eloquent\Model')
+      $modelMock = Mockery::mock('Illuminate\Database\Eloquent\Model')
       ->makePartial();
 
-    $modelMock
+      $modelMock
       ->shouldReceive('newInstance')
       ->atLeast()->once()
       ->with($data)
       ->andReturn('mocked newInstance');
 
-    $concreteRepository = new ConcreteRepository($modelMock);
+      $concreteRepository = new ConcreteRepository($modelMock);
 
-    $this->assertSame(
+      $this->assertSame(
       'mocked newInstance',
       $concreteRepository->getNew($data)
     );

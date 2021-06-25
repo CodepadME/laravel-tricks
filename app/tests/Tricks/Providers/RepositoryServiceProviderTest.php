@@ -6,23 +6,22 @@ use App;
 use Mockery;
 use TestCase;
 
-class RepositoryServiceProviderTest
-extends TestCase
+class RepositoryServiceProviderTest extends TestCase
 {
-  public function tearDown()
-  {
-      Mockery::close();
-  }
+    public function tearDown()
+    {
+        Mockery::close();
+    }
 
   /**
    * @group tricks/providers
    */
   public function testRegister()
   {
-    $mock = Mockery::mock('Illuminate\Foundation\Application')
+      $mock = Mockery::mock('Illuminate\Foundation\Application')
       ->makePartial();
 
-    $mock
+      $mock
       ->shouldReceive('bind')
       ->atLeast()->once()
       ->with(
@@ -30,7 +29,7 @@ extends TestCase
         'Tricks\Repositories\Eloquent\UserRepository'
       );
 
-    $mock
+      $mock
       ->shouldReceive('bind')
       ->atLeast()->once()
       ->with(
@@ -38,7 +37,7 @@ extends TestCase
         'Tricks\Repositories\Eloquent\ProfileRepository'
       );
 
-    $mock
+      $mock
       ->shouldReceive('bind')
       ->atLeast()->once()
       ->with(
@@ -46,7 +45,7 @@ extends TestCase
         'Tricks\Repositories\Eloquent\TrickRepository'
       );
 
-    $mock
+      $mock
       ->shouldReceive('bind')
       ->atLeast()->once()
       ->with(
@@ -54,7 +53,7 @@ extends TestCase
         'Tricks\Repositories\Eloquent\TagRepository'
       );
 
-    $mock
+      $mock
       ->shouldReceive('bind')
       ->atLeast()->once()
       ->with(
@@ -62,10 +61,10 @@ extends TestCase
         'Tricks\Repositories\Eloquent\CategoryRepository'
       );
 
-    $provider = new RepositoryServiceProvider(
+      $provider = new RepositoryServiceProvider(
       $mock
     );
 
-    App::register($provider, [], true);
+      App::register($provider, [], true);
   }
 }

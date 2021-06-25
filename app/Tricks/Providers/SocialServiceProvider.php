@@ -2,11 +2,11 @@
 
 namespace Tricks\Providers;
 
+use Guzzle\Service\Client as GuzzleClient;
+use Illuminate\Support\ServiceProvider;
+use League\OAuth2\Client\Provider\Github as GithubProvider;
 use Tricks\Services\Social\Disqus;
 use Tricks\Services\Social\Github;
-use Illuminate\Support\ServiceProvider;
-use Guzzle\Service\Client as GuzzleClient;
-use League\OAuth2\Client\Provider\Github as GithubProvider;
 
 class SocialServiceProvider extends ServiceProvider
 {
@@ -34,8 +34,8 @@ class SocialServiceProvider extends ServiceProvider
 
         $this->app['github'] = $this->app->share(function ($app) {
             $provider = $app['github.provider'];
-            $config   = $app['config'];
-            $users    = $app['Tricks\Repositories\UserRepositoryInterface'];
+            $config = $app['config'];
+            $users = $app['Tricks\Repositories\UserRepositoryInterface'];
             $profiles = $app['Tricks\Repositories\ProfileRepositoryInterface'];
 
             return new Github($provider, $config, $users, $profiles);

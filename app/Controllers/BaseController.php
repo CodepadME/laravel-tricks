@@ -3,8 +3,8 @@
 namespace Controllers;
 
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\View;
 
 class BaseController extends Controller
 {
@@ -22,7 +22,7 @@ class BaseController extends Controller
      */
     public function __construct()
     {
-        $this->beforeFilter('csrf', [ 'on' => 'post' ]);
+        $this->beforeFilter('csrf', ['on' => 'post']);
     }
 
     /**
@@ -32,7 +32,7 @@ class BaseController extends Controller
      */
     protected function setupLayout()
     {
-        if (! is_null($this->layout)) {
+        if (!is_null($this->layout)) {
             $this->layout = View::make($this->layout);
         }
     }
@@ -40,8 +40,9 @@ class BaseController extends Controller
     /**
      * Set the specified view as content on the layout.
      *
-     * @param  string  $path
-     * @param  array  $data
+     * @param string $path
+     * @param array  $data
+     *
      * @return void
      */
     protected function view($path, $data = [])
@@ -52,9 +53,10 @@ class BaseController extends Controller
     /**
      * Redirect to the specified named route.
      *
-     * @param  string  $route
-     * @param  array  $params
-     * @param  array  $data
+     * @param string $route
+     * @param array  $params
+     * @param array  $data
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     protected function redirectRoute($route, $params = [], $data = [])
@@ -65,7 +67,8 @@ class BaseController extends Controller
     /**
      * Redirect back with old input and the specified data.
      *
-     * @param  array $data
+     * @param array $data
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     protected function redirectBack($data = [])
@@ -76,7 +79,8 @@ class BaseController extends Controller
     /**
      * Redirect a logged in user to the previously intended url.
      *
-     * @param  mixed $default
+     * @param mixed $default
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     protected function redirectIntended($default = null)

@@ -14,8 +14,9 @@ interface TagRepositoryInterface
     /**
      * Find all tags.
      *
-     * @param  string $orderColumn
-     * @param  string $orderDir
+     * @param string $orderColumn
+     * @param string $orderDir
+     *
      * @return \Illuminate\Database\Eloquent\Collection|\Tricks\Tag[]
      */
     public function findAll($orderColumn = 'created_at', $orderDir = 'desc');
@@ -23,7 +24,8 @@ interface TagRepositoryInterface
     /**
      * Find a tag by id.
      *
-     * @param  mixed $id
+     * @param mixed $id
+     *
      * @return \Tricks\Tag
      */
     public function findById($id);
@@ -38,7 +40,8 @@ interface TagRepositoryInterface
     /**
      * Create a new tag in the database.
      *
-     * @param  array $data
+     * @param array $data
+     *
      * @return \Tricks\Tag
      */
     public function create(array $data);
@@ -46,8 +49,9 @@ interface TagRepositoryInterface
     /**
      * Update the specified tag in the database.
      *
-     * @param  mixed $id
-     * @param  array $data
+     * @param mixed $id
+     * @param array $data
+     *
      * @return \Tricks\Category
      */
     public function update($id, array $data);
@@ -55,7 +59,8 @@ interface TagRepositoryInterface
     /**
      * Delete the specified tag from the database.
      *
-     * @param  mixed $id
+     * @param mixed $id
+     *
      * @return void
      */
     public function delete($id);

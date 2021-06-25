@@ -16,7 +16,8 @@ class FeedsController extends BaseController
     /**
      * Create a new FeedsController instance.
      *
-     * @param  \Tricks\Services\Feeds\Builder  $builder
+     * @param \Tricks\Services\Feeds\Builder $builder
+     *
      * @return void
      */
     public function __construct(Builder $builder)

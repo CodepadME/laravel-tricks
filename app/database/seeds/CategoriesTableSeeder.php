@@ -1,7 +1,7 @@
 <?php
 
-class CategoriesTableSeeder extends Seeder {
-
+class CategoriesTableSeeder extends Seeder
+{
     public function run()
     {
         $categories = [
@@ -23,11 +23,9 @@ class CategoriesTableSeeder extends Seeder {
 
         DB::table('categories')->insert($categories);
         DB::table('category_trick')->insert([
-            [ 'category_id' => '2', 'trick_id' => '1' ],
-            [ 'category_id' => '1', 'trick_id' => '2' ],
-            [ 'category_id' => '2', 'trick_id' => '3' ],
+            ['category_id' => '2', 'trick_id' => '1'],
+            ['category_id' => '1', 'trick_id' => '2'],
+            ['category_id' => '2', 'trick_id' => '3'],
         ]);
     }
 }
-
-

@@ -26,10 +26,11 @@ abstract class AbstractRepository
     /**
      * Get a new instance of the model.
      *
-     * @param  array  $attributes
+     * @param array $attributes
+     *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function getNew(array $attributes = array())
+    public function getNew(array $attributes = [])
     {
         return $this->model->newInstance($attributes);
     }

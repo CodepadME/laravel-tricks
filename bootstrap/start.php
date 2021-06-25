@@ -11,7 +11,7 @@
 |
 */
 
-$app = new Illuminate\Foundation\Application;
+$app = new Illuminate\Foundation\Application();
 
 /*
 |--------------------------------------------------------------------------
@@ -24,11 +24,11 @@ $app = new Illuminate\Foundation\Application;
 |
 */
 
-$env = $app->detectEnvironment(array(
+$env = $app->detectEnvironment([
 
-	'local' => array('stijn-PC', 'Maxoffsky-PC','Maksim-Surguys-MacBook-Pro.local'),
+    'local' => ['stijn-PC', 'Maxoffsky-PC', 'Maksim-Surguys-MacBook-Pro.local'],
 
-));
+]);
 
 /*
 |--------------------------------------------------------------------------

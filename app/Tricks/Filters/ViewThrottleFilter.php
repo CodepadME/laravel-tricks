@@ -2,8 +2,8 @@
 
 namespace Tricks\Filters;
 
-use Illuminate\Session\Store;
 use Illuminate\Config\Repository;
+use Illuminate\Session\Store;
 
 class ViewThrottleFilter
 {
@@ -24,13 +24,14 @@ class ViewThrottleFilter
     /**
      * Create a new view throttle filter instance.
      *
-     * @param  \Illuminate\Config\Repository  $config
-     * @param  \Illuminate\Session\Store      $session
+     * @param \Illuminate\Config\Repository $config
+     * @param \Illuminate\Session\Store     $session
+     *
      * @return void
      */
     public function __construct(Repository $config, Store $session)
     {
-        $this->config  = $config;
+        $this->config = $config;
         $this->session = $session;
     }
 
@@ -73,12 +74,13 @@ class ViewThrottleFilter
     /**
      * Filter the tricks array, removing expired tricks.
      *
-     * @param  array  $tricks
+     * @param array $tricks
+     *
      * @return array
      */
     protected function purgeExpiredTricks(array $tricks)
     {
-        $time         = time();
+        $time = time();
         $throttleTime = $this->getThrottleTime();
 
         return array_filter($tricks, function ($timestamp) use ($time, $throttleTime) {
@@ -89,7 +91,8 @@ class ViewThrottleFilter
     /**
      * Store the recently viewed tricks in the session.
      *
-     * @param  array  $tricks
+     * @param array $tricks
+     *
      * @return void
      */
     protected function storeViewedTricks(array $tricks)

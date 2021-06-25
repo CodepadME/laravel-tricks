@@ -2,12 +2,11 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVotesTable extends Migration {
-
+class CreateVotesTable extends Migration
+{
     public function up()
     {
-        Schema::create('votes', function($table)
-        {
+        Schema::create('votes', function ($table) {
             $table->engine = 'InnoDB';
 
             $table->increments('id')->unsigned();
@@ -29,13 +28,11 @@ class CreateVotesTable extends Migration {
 
     public function down()
     {
-        Schema::table('votes', function($table)
-        {
+        Schema::table('votes', function ($table) {
             $table->dropForeign('votes_user_id_foreign');
             $table->dropForeign('votes_trick_id_foreign');
         });
 
         Schema::drop('votes');
     }
-
 }

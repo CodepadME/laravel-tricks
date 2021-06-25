@@ -14,8 +14,9 @@ interface CategoryRepositoryInterface
     /**
      * Find all categories.
      *
-     * @param  string $orderColumn
-     * @param  string $orderDir
+     * @param string $orderColumn
+     * @param string $orderDir
+     *
      * @return \Illuminate\Database\Eloquent\Collection|\Tricks\Category[]
      */
     public function findAll($orderColumn = 'created_at', $orderDir = 'desc');
@@ -30,7 +31,8 @@ interface CategoryRepositoryInterface
     /**
      * Find a category by id.
      *
-     * @param  mixed $id
+     * @param mixed $id
+     *
      * @return \Tricks\Category
      */
     public function findById($id);
@@ -38,7 +40,8 @@ interface CategoryRepositoryInterface
     /**
      * Create a new category in the database.
      *
-     * @param  array $data
+     * @param array $data
+     *
      * @return \Tricks\Category
      */
     public function create(array $data);
@@ -46,8 +49,9 @@ interface CategoryRepositoryInterface
     /**
      * Update the specified category in the database.
      *
-     * @param  mixed $id
-     * @param  array $data
+     * @param mixed $id
+     * @param array $data
+     *
      * @return \Tricks\Category
      */
     public function update($id, array $data);
@@ -62,7 +66,8 @@ interface CategoryRepositoryInterface
     /**
      * Delete the specified category from the database.
      *
-     * @param  mixed $id
+     * @param mixed $id
+     *
      * @return void
      */
     public function delete($id);
@@ -70,7 +75,8 @@ interface CategoryRepositoryInterface
     /**
      * Re-arrange the categories in the database.
      *
-     * @param  array $data
+     * @param array $data
+     *
      * @return void
      */
     public function arrange(array $data);

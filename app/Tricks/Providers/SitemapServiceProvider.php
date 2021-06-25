@@ -3,8 +3,6 @@
 namespace Tricks\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Tricks\Services\Sitemap\Builder;
-use Tricks\Services\Sitemap\DataProvider;
 
 class SitemapServiceProvider extends ServiceProvider
 {

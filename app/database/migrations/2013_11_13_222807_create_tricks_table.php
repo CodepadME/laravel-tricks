@@ -2,18 +2,17 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTricksTable extends Migration {
-
+class CreateTricksTable extends Migration
+{
     public function up()
     {
-        Schema::create('tricks', function($table)
-        {
+        Schema::create('tricks', function ($table) {
             $table->engine = 'InnoDB';
 
             $table->increments('id')->unsigned();
             $table->string('title', 140);
             $table->string('slug')->unique();
-            $table->text('description')->nullable()->default(NULL);
+            $table->text('description')->nullable()->default(null);
             $table->text('code');
             $table->integer('vote_cache')->unsigned()->default(0);
             $table->integer('view_cache')->unsigned()->default(0);
@@ -29,12 +28,10 @@ class CreateTricksTable extends Migration {
 
     public function down()
     {
-        Schema::table('tricks', function($table)
-        {
+        Schema::table('tricks', function ($table) {
             $table->dropForeign('tricks_user_id_foreign');
         });
 
         Schema::drop('tricks');
     }
-
 }

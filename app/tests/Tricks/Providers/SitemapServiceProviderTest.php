@@ -6,31 +6,30 @@ use App;
 use Mockery;
 use TestCase;
 
-class SitemapServiceProviderTest
-extends TestCase
+class SitemapServiceProviderTest extends TestCase
 {
-  public function tearDown()
-  {
-      Mockery::close();
-  }
+    public function tearDown()
+    {
+        Mockery::close();
+    }
 
   /**
    * @group tricks/providers
    */
   public function testRegister()
   {
-    $mock = Mockery::mock('Illuminate\Foundation\Application')
+      $mock = Mockery::mock('Illuminate\Foundation\Application')
       ->makePartial();
 
-    $mock
+      $mock
       ->shouldReceive('alias')
       ->atLeast()->once()
       ->with('sitemap', 'Roumen\Sitemap\Sitemap');
 
-    $provider = new SitemapServiceProvider(
+      $provider = new SitemapServiceProvider(
       $mock
     );
 
-    App::register($provider, [], true);
+      App::register($provider, [], true);
   }
 }

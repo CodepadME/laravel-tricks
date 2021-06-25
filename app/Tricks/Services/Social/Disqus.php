@@ -2,19 +2,19 @@
 
 namespace Tricks\Services\Social;
 
-use Tricks\Trick;
-use RuntimeException;
-use Illuminate\Config\Repository;
-use Guzzle\Service\Client as GuzzleClient;
-use Illuminate\Database\Eloquent\Collection;
 use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Message\Request as GuzzleRequest;
 use Guzzle\Http\QueryAggregator\DuplicateAggregator;
+use Guzzle\Service\Client as GuzzleClient;
+use Illuminate\Config\Repository;
+use Illuminate\Database\Eloquent\Collection;
+use RuntimeException;
+use Tricks\Trick;
 
 class Disqus
 {
     /**
-     * The curl client used for Disqus API interaction
+     * The curl client used for Disqus API interaction.
      *
      * @var \Guzzle\Service\Client
      */
@@ -30,8 +30,9 @@ class Disqus
     /**
      * Create a new Disqus instance.
      *
-     * @param  \Guzzle\Service\Client         $client
-     * @param  \Illuminate\Config\Repository  $config
+     * @param \Guzzle\Service\Client        $client
+     * @param \Illuminate\Config\Repository $config
+     *
      * @return void
      */
     public function __construct(GuzzleClient $client, Repository $config)
@@ -43,20 +44,22 @@ class Disqus
     /**
      * Get a config item.
      *
-     * @param  mixed $key
+     * @param mixed $key
+     *
      * @return mixed
      */
     protected function getConfig($key = null)
     {
-        $key = is_null($key) ? '' : '.' . $key;
+        $key = is_null($key) ? '' : '.'.$key;
 
-        return $this->config->get('social.disqus' . $key);
+        return $this->config->get('social.disqus'.$key);
     }
 
     /**
      * Normalize the given trick(s) to an array of tricks.
      *
-     * @param  mixed $tricks
+     * @param mixed $tricks
+     *
      * @return array
      */
     protected function getValidTricks($tricks)
@@ -66,7 +69,7 @@ class Disqus
         }
 
         if ($tricks instanceof Trick) {
-            $tricks = [ $tricks ];
+            $tricks = [$tricks];
         }
 
         return $tricks;
@@ -75,28 +78,30 @@ class Disqus
     /**
      * Determine whether the given tricks are invalid.
      *
-     * @param  mixed  $tricks
+     * @param mixed $tricks
+     *
      * @return bool
      */
     protected function areInvalidTricks($tricks)
     {
-        return ! $tricks instanceof Trick &&
-               ! ($tricks instanceof Collection && $tricks->count() > 0);
+        return !$tricks instanceof Trick &&
+               !($tricks instanceof Collection && $tricks->count() > 0);
     }
 
     /**
      * Get a formatted list of the trick ids.
      *
-     * @param  array $tricks
+     * @param array $tricks
+     *
      * @return array
      */
     protected function getThreadsArray($tricks)
     {
         $threads = [];
-        $format  = $this->getConfig('threadFormat');
+        $format = $this->getConfig('threadFormat');
 
         foreach ($tricks as $trick) {
-            $threads[] = $format . $trick->id;
+            $threads[] = $format.$trick->id;
         }
 
         return $threads;
@@ -105,8 +110,9 @@ class Disqus
     /**
      * Prepare the query string before the API request.
      *
-     * @param  \Guzzle\Http\Message\Request $request
-     * @param  array $tricks
+     * @param \Guzzle\Http\Message\Request $request
+     * @param array                        $tricks
+     *
      * @return \Guzzle\Http\Message\Request
      */
     protected function prepareQuery(GuzzleRequest $request, $tricks)
@@ -130,13 +136,14 @@ class Disqus
      */
     protected function getQueryAggregator()
     {
-        return new DuplicateAggregator;
+        return new DuplicateAggregator();
     }
 
     /**
      * Get the response from the prepared request.
      *
-     * @param  \Guzzle\Http\Message\Request $request
+     * @param \Guzzle\Http\Message\Request $request
+     *
      * @return array
      */
     protected function getResponse($request)
@@ -146,13 +153,15 @@ class Disqus
 
             return $response['response'];
         } catch (BadResponseException $bre) {
-            return null;
+            return;
         }
     }
 
     /**
      * Append the comment counts to the given tricks.
-     * @param  mixed $tricks
+     *
+     * @param mixed $tricks
+     *
      * @return mixed
      */
     public function appendCommentCounts($tricks)

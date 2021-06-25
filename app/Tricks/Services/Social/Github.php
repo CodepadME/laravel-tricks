@@ -3,10 +3,10 @@
 namespace Tricks\Services\Social;
 
 use Illuminate\Config\Repository;
-use Tricks\Repositories\UserRepositoryInterface;
-use Tricks\Repositories\ProfileRepositoryInterface;
-use Tricks\Exceptions\GithubEmailNotVerifiedException;
 use League\OAuth2\Client\Provider\Github as GithubProvider;
+use Tricks\Exceptions\GithubEmailNotVerifiedException;
+use Tricks\Repositories\ProfileRepositoryInterface;
+use Tricks\Repositories\UserRepositoryInterface;
 
 class Github
 {
@@ -41,9 +41,10 @@ class Github
     /**
      * Create a new Github registration instance.
      *
-     * @param  \League\OAuth2\Client\Provider\Github  $provider
-     * @param  \Tricks\Repositories\UserRepositoryInterface  $users
-     * @param  \Tricks\Repositories\ProfileRepositoryInterface  $profiles
+     * @param \League\OAuth2\Client\Provider\Github           $provider
+     * @param \Tricks\Repositories\UserRepositoryInterface    $users
+     * @param \Tricks\Repositories\ProfileRepositoryInterface $profiles
+     *
      * @return void
      */
     public function __construct(
@@ -53,35 +54,37 @@ class Github
         ProfileRepositoryInterface $profiles
     ) {
         $this->provider = $provider;
-        $this->config   = $config;
-        $this->users    = $users;
+        $this->config = $config;
+        $this->users = $users;
         $this->profiles = $profiles;
     }
 
     /**
      * Get a config item.
      *
-     * @param  mixed $key
+     * @param mixed $key
+     *
      * @return mixed
      */
     protected function getConfig($key = null)
     {
-        $key = is_null($key) ? '' : '.' . $key;
+        $key = is_null($key) ? '' : '.'.$key;
 
-        return $this->config->get('social.github' . $key);
+        return $this->config->get('social.github'.$key);
     }
 
     /**
      * Register a new user using their Github account.
      *
-     * @param  string $code
+     * @param string $code
+     *
      * @return \Tricks\User
      */
     public function register($code)
     {
-        $token = $this->provider->getAccessToken('authorization_code', [ 'code' => $code ]);
+        $token = $this->provider->getAccessToken('authorization_code', ['code' => $code]);
 
-        $userDetails    = $this->provider->getUserDetails($token);
+        $userDetails = $this->provider->getUserDetails($token);
         $verifiedEmails = $this->getVerifiedEmails($token->accessToken);
 
         $userDetails->email = $this->getPrimaryEmail($verifiedEmails);
@@ -98,7 +101,7 @@ class Github
             $profile = $this->profiles->createFromGithubData($userDetails, $user, $token->accessToken);
         } else {
             $profile = $this->profiles->updateToken($profile, $token->accessToken);
-            $user    = $profile->user;
+            $user = $profile->user;
         }
 
         return $user;
@@ -107,13 +110,14 @@ class Github
     /**
      * Get the primary, verified email address from the Github data.
      *
-     * @param  mixed $emails
+     * @param mixed $emails
+     *
      * @return mixed
      */
     protected function getPrimaryEmail($emails)
     {
         foreach ($emails as $email) {
-            if (! $email->primary) {
+            if (!$email->primary) {
                 continue;
             }
 
@@ -121,30 +125,31 @@ class Github
                 return $email->email;
             }
 
-            throw new GithubEmailNotVerifiedException;
+            throw new GithubEmailNotVerifiedException();
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Get all the users email addresses
+     * Get all the users email addresses.
      *
-     * @param  string $token
+     * @param string $token
+     *
      * @return mixed
      */
     protected function getVerifiedEmails($token)
     {
         $ch = curl_init('https://api.github.com/user/emails?access_token='.$token);
-        $userAgent  = $this->getConfig('user_agent');
+        $userAgent = $this->getConfig('user_agent');
 
         $options = [
             CURLOPT_RETURNTRANSFER  => true,
             CURLOPT_HTTPHEADER      => [
                 'Content-type: application/json',
                 'Accept: application/vnd.github.v3',
-                'User-Agent: '.$userAgent
-            ]
+                'User-Agent: '.$userAgent,
+            ],
         ];
 
         curl_setopt_array($ch, $options);
@@ -154,7 +159,7 @@ class Github
             $error = curl_error($ch);
             throw new GithubEmailAccessException($error);
         }
-        
+
         return json_decode($result);
     }
 }

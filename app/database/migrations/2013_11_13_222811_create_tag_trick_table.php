@@ -2,12 +2,11 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTagTrickTable extends Migration {
-
+class CreateTagTrickTable extends Migration
+{
     public function up()
     {
-        Schema::create('tag_trick', function($table)
-        {
+        Schema::create('tag_trick', function ($table) {
             $table->engine = 'InnoDB';
 
             $table->increments('id')->unsigned();
@@ -29,13 +28,11 @@ class CreateTagTrickTable extends Migration {
 
     public function down()
     {
-        Schema::table('tag_trick', function($table)
-        {
+        Schema::table('tag_trick', function ($table) {
             $table->dropForeign('tag_trick_tag_id_foreign');
             $table->dropForeign('tag_trick_trick_id_foreign');
         });
 
         Schema::drop('tag_trick');
     }
-
 }

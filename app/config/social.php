@@ -2,7 +2,7 @@
 
 // This config file stores social login Auth keys
 
-return array(
+return [
 
     /* 
     |--------------------------------------------------------------------------
@@ -15,12 +15,12 @@ return array(
     | track security issues and without this the Github login will not work. 
     |
     */
-	'github'	=> array(
-        'clientId'     =>  '',
-        'clientSecret' =>  '',
-        'scopes'       => array('user:email'),
-        'user_agent'   => ''
-    ),
+    'github'    => [
+        'clientId'     => '',
+        'clientSecret' => '',
+        'scopes'       => ['user:email'],
+        'user_agent'   => '',
+    ],
 
     /* 
     |--------------------------------------------------------------------------
@@ -30,10 +30,10 @@ return array(
     | Then copy and paste the PublicKey and the forum name found in the integrations.
     |
     */
-    'disqus'   => array(
+    'disqus'   => [
         'publicKey'    => '',
         'forum'        => '',
         'requestUrl'   => 'http://disqus.com/api/3.0/threads/set.json',
         'threadFormat' => 'ident:',
-    ),
-);
+    ],
+];

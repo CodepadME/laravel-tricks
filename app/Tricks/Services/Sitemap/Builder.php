@@ -2,8 +2,8 @@
 
 namespace Tricks\Services\Sitemap;
 
-use Roumen\Sitemap\Sitemap;
 use Illuminate\Config\Repository;
+use Roumen\Sitemap\Sitemap;
 
 class Builder
 {
@@ -38,9 +38,10 @@ class Builder
     /**
      * Create a new sitemap builder instance.
      *
-     * @param  \Roumen\Sitemap\Sitemap                $sitemap
-     * @param  \Tricks\Services\Sitemap\DataProvider  $provider
-     * @param  \Illuminate\Config\Repository          $config
+     * @param \Roumen\Sitemap\Sitemap               $sitemap
+     * @param \Tricks\Services\Sitemap\DataProvider $provider
+     * @param \Illuminate\Config\Repository         $config
+     *
      * @return void
      */
     public function __construct(Sitemap $sitemap, DataProvider $provider, Repository $config)
@@ -53,7 +54,8 @@ class Builder
     /**
      * Set the type of sitemap to build.
      *
-     * @param  string  $type
+     * @param string $type
+     *
      * @return void
      */
     public function setType($type)
@@ -78,7 +80,7 @@ class Builder
     }
 
     /**
-     * Add the static pages to the sitemap
+     * Add the static pages to the sitemap.
      *
      * @return void
      */
@@ -104,14 +106,15 @@ class Builder
     /**
      * Add the dynamic data of the given type to the sitemap.
      *
-     * @param  string  $type
-     * @param  array   $config
+     * @param string $type
+     * @param array  $config
+     *
      * @return void
      */
     protected function addDynamicData($type, $config)
     {
         foreach ($this->getItems($type) as $item) {
-            $url     = $this->getItemUrl($item, $type);
+            $url = $this->getItemUrl($item, $type);
             $lastMod = $item->{$config['lastMod']};
 
             $this->sitemap->add($url, $lastMod, $config['priority'], $config['freq']);
@@ -121,7 +124,8 @@ class Builder
     /**
      * Get the dynamic items from the data provider.
      *
-     * @param  string  $type
+     * @param string $type
+     *
      * @return \Illuminate\Support\Collection
      */
     protected function getItems($type)
@@ -134,19 +138,21 @@ class Builder
     /**
      * Get the name of the data method.
      *
-     * @param  string  $type
+     * @param string $type
+     *
      * @return string
      */
     protected function getDataMethodName($type)
     {
-        return 'get' . studly_case($type);
+        return 'get'.studly_case($type);
     }
 
     /**
      * Get the url of the given item.
      *
-     * @param  mixed   $item
-     * @param  string  $type
+     * @param mixed  $item
+     * @param string $type
+     *
      * @return string
      */
     protected function getItemUrl($item, $type)
@@ -159,11 +165,12 @@ class Builder
     /**
      * Get the name of the url method.
      *
-     * @param  string  $type
+     * @param string $type
+     *
      * @return string
      */
     protected function getUrlMethodName($type)
     {
-        return 'get' . studly_case(str_singular($type)) . 'Url';
+        return 'get'.studly_case(str_singular($type)).'Url';
     }
 }

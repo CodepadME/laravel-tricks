@@ -5,34 +5,33 @@ namespace Tricks\Services\Forms;
 use Mockery;
 use TestCase;
 
-class SettingsFormTest
-extends TestCase
+class SettingsFormTest extends TestCase
 {
-  public function tearDown()
-  {
-      Mockery::close();
-  }
+    public function tearDown()
+    {
+        Mockery::close();
+    }
 
   /**
    * @group tricks/services
    */
   public function testConstructor()
   {
-    $repositoryMock = Mockery::mock('Illuminate\Config\Repository');
+      $repositoryMock = Mockery::mock('Illuminate\Config\Repository');
 
-    $authManagerMock = Mockery::mock('Illuminate\Auth\AuthManager');
+      $authManagerMock = Mockery::mock('Illuminate\Auth\AuthManager');
 
-    $settingsForm = new SettingsForm(
+      $settingsForm = new SettingsForm(
       $repositoryMock,
       $authManagerMock
     );
 
-    $this->assertEquals(
+      $this->assertEquals(
       $repositoryMock,
       $this->getProtectedProperty($settingsForm, 'config')
     );
 
-    $this->assertEquals(
+      $this->assertEquals(
       $authManagerMock,
       $this->getProtectedProperty($settingsForm, 'auth')
     );
@@ -43,39 +42,39 @@ extends TestCase
    */
   public function testGetPreparedRules()
   {
-    $repositoryMock = Mockery::mock('Illuminate\Config\Repository');
+      $repositoryMock = Mockery::mock('Illuminate\Config\Repository');
 
-    $repositoryMock
+      $repositoryMock
       ->shouldReceive('get')
       ->atLeast()->once()
       ->with('config.forbidden_usernames')
       ->andReturn([
         'first',
-        'second'
+        'second',
       ]);
 
-    $authManagerMock = Mockery::mock('Illuminate\Auth\AuthManager');
+      $authManagerMock = Mockery::mock('Illuminate\Auth\AuthManager');
 
-    $authManagerMock
+      $authManagerMock
       ->shouldReceive('user')
       ->atLeast()->once()
       ->andReturn($authManagerMock);
 
-    $authManagerMock->id = 1;
+      $authManagerMock->id = 1;
 
-    $settingsFormMock = Mockery::mock('Tricks\Services\Forms\SettingsForm', [
+      $settingsFormMock = Mockery::mock('Tricks\Services\Forms\SettingsForm', [
       $repositoryMock,
-      $authManagerMock
+      $authManagerMock,
     ])
       ->shouldAllowMockingProtectedMethods()
       ->makePartial();
 
-    $before = $this->getProtectedProperty($settingsFormMock, 'rules');
+      $before = $this->getProtectedProperty($settingsFormMock, 'rules');
 
-    $after = $before;
-    $after["username"] .= '|not_in:first,second|unique:users,username,1';
+      $after = $before;
+      $after['username'] .= '|not_in:first,second|unique:users,username,1';
 
-    $this->assertEquals(
+      $this->assertEquals(
       $after,
       $settingsFormMock->getPreparedRules()
     );
@@ -86,27 +85,27 @@ extends TestCase
    */
   public function testGetInputData()
   {
-    $before = [
+      $before = [
       'username'              => 'foo',
       'password'              => 'bar',
       'password_confirmation' => '1,2,3',
-      'invalid'               => 'YOU SHALL NOT PASS'
+      'invalid'               => 'YOU SHALL NOT PASS',
     ];
 
-    $after = [
+      $after = [
       'username'              => 'foo',
       'password'              => 'bar',
-      'password_confirmation' => '1,2,3'
+      'password_confirmation' => '1,2,3',
     ];
 
-    $settingsForm = new SettingsForm(
+      $settingsForm = new SettingsForm(
       Mockery::mock('Illuminate\Config\Repository'),
       Mockery::mock('Illuminate\Auth\AuthManager')
     );
 
-    $this->setProtectedProperty($settingsForm, 'inputData', $before);
+      $this->setProtectedProperty($settingsForm, 'inputData', $before);
 
-    $this->assertEquals(
+      $this->assertEquals(
       array_keys($after),
       array_keys($settingsForm->getInputData())
     );

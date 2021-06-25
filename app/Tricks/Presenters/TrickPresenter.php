@@ -2,12 +2,12 @@
 
 namespace Tricks\Presenters;
 
-use Tricks\User;
-use Tricks\Trick;
-use Tricks\Category;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\HTML;
+use Illuminate\Support\Facades\URL;
 use McCool\LaravelAutoPresenter\BasePresenter;
+use Tricks\Category;
+use Tricks\Trick;
+use Tricks\User;
 
 class TrickPresenter extends BasePresenter
 {
@@ -21,7 +21,8 @@ class TrickPresenter extends BasePresenter
     /**
      * Create a new TrickPresenter instance.
      *
-     * @param  \Tricks\Trick  $trick
+     * @param \Tricks\Trick $trick
+     *
      * @return void
      */
     public function __construct(Trick $trick)
@@ -36,7 +37,7 @@ class TrickPresenter extends BasePresenter
      */
     public function editLink()
     {
-        return URL::route('tricks.edit', [ $this->resource->slug ]);
+        return URL::route('tricks.edit', [$this->resource->slug]);
     }
 
     /**
@@ -46,7 +47,7 @@ class TrickPresenter extends BasePresenter
      */
     public function deleteLink()
     {
-        return URL::route('tricks.delete', [ $this->resource->slug ]);
+        return URL::route('tricks.delete', [$this->resource->slug]);
     }
 
     /**
@@ -62,7 +63,8 @@ class TrickPresenter extends BasePresenter
     /**
      * Returns whether the given user has liked this trick.
      *
-     * @param  \Tricks\User $user
+     * @param \Tricks\User $user
+     *
      * @return bool
      */
     public function likedByUser($user)
@@ -107,7 +109,7 @@ class TrickPresenter extends BasePresenter
                 $categories[] = $this->getCategoryLink($category);
             }
 
-            $result = 'in ' . implode(', ', $categories);
+            $result = 'in '.implode(', ', $categories);
         }
 
         return $result;
@@ -126,12 +128,13 @@ class TrickPresenter extends BasePresenter
     /**
      * Get a HTML link to the given category.
      *
-     * @param  \Tricks\Category  $category
+     * @param \Tricks\Category $category
+     *
      * @return string
      */
     protected function getCategoryLink(Category $category)
     {
-        return HTML::linkRoute('tricks.browse.category', $category->name, [ $category->slug ]);
+        return HTML::linkRoute('tricks.browse.category', $category->name, [$category->slug]);
     }
 
     /**
@@ -142,7 +145,7 @@ class TrickPresenter extends BasePresenter
     public function pageDescription()
     {
         $description = $this->resource->description;
-        $maxLength   = 160;
+        $maxLength = 160;
         $description = str_replace('"', '', $description);
 
         if (strlen($description) > $maxLength) {
@@ -163,7 +166,7 @@ class TrickPresenter extends BasePresenter
      */
     public function pageTitle()
     {
-        $title     = $this->resource->title;
+        $title = $this->resource->title;
         $baseTitle = ' | Laravel-Tricks.com';
         $maxLength = 70;
 
@@ -179,7 +182,8 @@ class TrickPresenter extends BasePresenter
     /**
      * Remove the last word from a given string.
      *
-     * @param  string  $string
+     * @param string $string
+     *
      * @return string
      */
     protected function removeLastWord($string)
@@ -200,9 +204,9 @@ class TrickPresenter extends BasePresenter
     {
         $url = parse_url(route('tricks.show', $this->resource->slug));
 
-        $output  = 'tag:';
-        $output .= $url['host'] . ',';
-        $output .= $this->resource->created_at->format('Y-m-d') . ':';
+        $output = 'tag:';
+        $output .= $url['host'].',';
+        $output .= $this->resource->created_at->format('Y-m-d').':';
         $output .= $url['path'];
 
         return $output;

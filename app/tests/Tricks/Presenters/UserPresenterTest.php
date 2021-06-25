@@ -2,44 +2,38 @@
 
 namespace Tricks\Presenters;
 
-use Carbon\Carbon;
-use HTML;
 use Mockery;
 use TestCase;
-use Tricks\Category;
-use Tricks\Trick;
-use URL;
 
-class UserPresenterTest
-extends TestCase
+class UserPresenterTest extends TestCase
 {
-  public function tearDown()
-  {
-      Mockery::close();
-  }
+    public function tearDown()
+    {
+        Mockery::close();
+    }
 
-  protected function getTrickMockWithSlug()
-  {
-    $mock = Mockery::mock('Tricks\Trick')
+    protected function getTrickMockWithSlug()
+    {
+        $mock = Mockery::mock('Tricks\Trick')
       ->makePartial();
 
-    $mock->slug = 'mocked';
+        $mock->slug = 'mocked';
 
-    return $mock;
-  }
+        return $mock;
+    }
 
   /**
    * @group tricks/presenters
    */
   public function testConstructor()
   {
-    $mock = Mockery::mock('Tricks\User');
+      $mock = Mockery::mock('Tricks\User');
 
-    $userPresenter = new UserPresenter(
+      $userPresenter = new UserPresenter(
       $mock
     );
 
-    $this->assertSame(
+      $this->assertSame(
       $mock,
       $this->getProtectedProperty($userPresenter, 'resource')
     );
@@ -50,25 +44,25 @@ extends TestCase
    */
   public function testLastActivity()
   {
-    $trickMock = Mockery::mock('stdClass');
+      $trickMock = Mockery::mock('stdClass');
 
-    $trickMock
+      $trickMock
       ->shouldReceive('diffForHumans')
       ->atLeast()->once()
       ->andReturn('mocked');
 
-    $trickMock->created_at = $trickMock;
+      $trickMock->created_at = $trickMock;
 
-    $trickMock
+      $trickMock
       ->shouldReceive('getCollection')
       ->atLeast()->once()
       ->andReturn($trickMock);
 
-    $trickMock
+      $trickMock
       ->shouldReceive('sortBy')
       ->atLeast()->once()
       ->with(
-        Mockery::on(function($callback) {
+        Mockery::on(function ($callback) {
           $mock = Mockery::mock('stdClass');
           $mock->created_at = 'mocked';
 
@@ -82,28 +76,28 @@ extends TestCase
       )
       ->andReturn($trickMock);
 
-    $trickMock
+      $trickMock
       ->shouldReceive('reverse')
       ->atLeast()->once()
       ->andReturn($trickMock);
 
-    $trickMock
+      $trickMock
       ->shouldReceive('first')
       ->atLeast()->once()
       ->andReturn($trickMock);
 
-    $userMock = Mockery::mock('Tricks\User');
+      $userMock = Mockery::mock('Tricks\User');
 
-    $userPresenter = new UserPresenter(
+      $userPresenter = new UserPresenter(
       $userMock
     );
 
-    $this->assertEquals(
+      $this->assertEquals(
       'No activity',
       $userPresenter->lastActivity([])
     );
 
-    $this->assertEquals(
+      $this->assertEquals(
       'mocked',
       $userPresenter->lastActivity($trickMock)
     );
@@ -114,17 +108,17 @@ extends TestCase
    */
   public function testfullNameWithoutProfile()
   {
-    $userMock = Mockery::mock('Tricks\User')
+      $userMock = Mockery::mock('Tricks\User')
       ->makePartial();
 
-    $userMock->username = 'foo';
-    $userMock->profile  = null;
+      $userMock->username = 'foo';
+      $userMock->profile = null;
 
-    $userPresenter = new UserPresenter(
+      $userPresenter = new UserPresenter(
       $userMock
     );
 
-    $this->assertEquals(
+      $this->assertEquals(
       'foo',
       $userPresenter->fullName()
     );
@@ -135,21 +129,21 @@ extends TestCase
    */
   public function testfullNameWithProfile()
   {
-    $profileMock = Mockery::mock('Tricks\Profile')
+      $profileMock = Mockery::mock('Tricks\Profile')
       ->makePartial();
 
-    $profileMock->name = 'foo';
+      $profileMock->name = 'foo';
 
-    $userMock = Mockery::mock('Tricks\User')
+      $userMock = Mockery::mock('Tricks\User')
       ->makePartial();
-      
-    $userMock->profile = $profileMock;
 
-    $userPresenter = new UserPresenter(
+      $userMock->profile = $profileMock;
+
+      $userPresenter = new UserPresenter(
       $userMock
     );
 
-    $this->assertEquals(
+      $this->assertEquals(
       'foo',
       $userPresenter->fullName()
     );
